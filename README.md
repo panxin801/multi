@@ -1,5 +1,5 @@
 # OpenASR
-Fork from by2101/OpenASR. Ijust study this code.
+
 A pytorch based end2end speech recognition system. The main architecture is [Speech-Transformer](https://ieeexplore.ieee.org/abstract/document/8462506/).
 
 [中文说明](https://github.com/by2101/OpenASR/blob/master/README_zh.md)
@@ -7,7 +7,7 @@ A pytorch based end2end speech recognition system. The main architecture is [Spe
 ## Features
 
 1. **Minimal Dependency**. The system does not depend on external softwares for feature extraction or decoding. Users just install PyTorch deep learning framework.
-2. **Good Performance**. The system includes advanced algorithms, such as Label Smoothing, SpecAug, LST, and achieves good performance on ASHELL1. The baseline CER on AISHELL1 test is 7.1.
+2. **Good Performance**. The system includes advanced algorithms, such as Label Smoothing, SpecAug, LST, and achieves good performance on ASHELL1. The baseline CER on AISHELL1 test is 6.6, which is better than ESPNet.
 3. **Modular Design**. We divided the system into several modules, such as trainer, metric, schedule, models. It is easy for extension and adding features.
 4. **End2End**. The feature extraction and tokenization are online. The system directly processes wave file. So, the procedure is much simpified.
 

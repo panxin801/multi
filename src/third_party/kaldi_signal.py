@@ -13,6 +13,7 @@ __all__ = [
     'spectrogram',
     'fbank',
     'mfcc',
+    'complex',
     'vtln_warp_freq',
     'vtln_warp_mel_freq',
     'resample_waveform',
@@ -893,3 +894,100 @@ def resample_waveform(waveform, orig_freq, new_freq, lowpass_filter_width=6):
         output += dilated_conv_wave
 
     return output
+
+
+def complex(
+        waveform, blackman_coeff=0.42, channel=-1, dither=1.0, energy_floor=0.0,
+        frame_length=25.0, frame_shift=10.0, high_freq=0.0, htk_compat=False, low_freq=20.0,
+        min_duration=0.0, num_mel_bins=23, preemphasis_coefficient=0.97, raw_energy=True,
+        remove_dc_offset=True, round_to_power_of_two=True, sample_frequency=16000.0,
+        snip_edges=True, subtract_mean=False, use_energy=False, use_log_fbank=True, use_power=True,
+        vtln_high=-500.0, vtln_low=100.0, vtln_warp=1.0, window_type=POVEY):
+    r"""Create a fbank from a raw audio signal. This matches the input/output of Kaldi's
+    compute-fbank-feats.
+
+    Args:
+        waveform (torch.Tensor): Tensor of audio of size (c, n) where c is in the range [0,2)
+        blackman_coeff (float): Constant coefficient for generalized Blackman window. (Default: ``0.42``)
+        channel (int): Channel to extract (-1 -> expect mono, 0 -> left, 1 -> right) (Default: ``-1``)
+        dither (float): Dithering constant (0.0 means no dither). If you turn this off, you should set
+            the energy_floor option, e.g. to 1.0 or 0.1 (Default: ``1.0``)
+        energy_floor (float): Floor on energy (absolute, not relative) in Spectrogram computation.  Caution:
+            this floor is applied to the zeroth component, representing the total signal energy.  The floor on the
+            individual spectrogram elements is fixed at std::numeric_limits<float>::epsilon(). (Default: ``0.0``)
+        frame_length (float): Frame length in milliseconds (Default: ``25.0``)
+        frame_shift (float): Frame shift in milliseconds (Default: ``10.0``)
+        high_freq (float): High cutoff frequency for mel bins (if <= 0, offset from Nyquist) (Default: ``0.0``)
+        htk_compat (bool): If true, put energy last.  Warning: not sufficient to get HTK compatible features (need
+            to change other parameters). (Default: ``False``)
+        low_freq (float): Low cutoff frequency for mel bins (Default: ``20.0``)
+        min_duration (float): Minimum duration of segments to process (in seconds). (Default: ``0.0``)
+        num_mel_bins (int): Number of triangular mel-frequency bins (Default: ``23``)
+        preemphasis_coefficient (float): Coefficient for use in signal preemphasis (Default: ``0.97``)
+        raw_energy (bool): If True, compute energy before preemphasis and windowing (Default: ``True``)
+        remove_dc_offset: Subtract mean from waveform on each frame (Default: ``True``)
+        round_to_power_of_two (bool): If True, round window size to power of two by zero-padding input
+            to FFT. (Default: ``True``)
+        sample_frequency (float): Waveform data sample frequency (must match the waveform file, if
+            specified there) (Default: ``16000.0``)
+        snip_edges (bool): If True, end effects will be handled by outputting only frames that completely fit
+            in the file, and the number of frames depends on the frame_length.  If False, the number of frames
+            depends only on the frame_shift, and we reflect the data at the ends. (Default: ``True``)
+        subtract_mean (bool): Subtract mean of each feature file [CMS]; not recommended to do
+            it this way.  (Default: ``False``)
+        use_energy (bool): Add an extra dimension with energy to the FBANK output. (Default: ``False``)
+        use_log_fbank (bool):If true, produce log-filterbank, else produce linear. (Default: ``True``)
+        use_power (bool): If true, use power, else use magnitude. (Default: ``True``)
+        vtln_high (float): High inflection point in piecewise linear VTLN warping function (if
+            negative, offset from high-mel-freq (Default: ``-500.0``)
+        vtln_low (float): Low inflection point in piecewise linear VTLN warping function (Default: ``100.0``)
+        vtln_warp (float): Vtln warp factor (only applicable if vtln_map not specified) (Default: ``1.0``)
+        window_type (str): Type of window ('hamming'|'hanning'|'povey'|'rectangular'|'blackman') (Default: ``'povey'``)
+
+    Returns:
+        torch.Tensor: A fbank identical to what Kaldi would output. The shape is (m, ``num_mel_bins + use_energy``)
+        where m is calculated in _get_strided
+    """
+    waveform, window_shift, window_size, padded_window_size = _get_waveform_and_window_properties(
+        waveform, channel, sample_frequency, frame_shift, frame_length, round_to_power_of_two, preemphasis_coefficient)
+
+    if len(waveform) < min_duration * sample_frequency:
+        # signal is too short
+        return torch.empty(0)
+
+    # strided_input, size (m, padded_window_size) and signal_log_energy, size (m)
+    strided_input, signal_log_energy = _get_window(
+        waveform, padded_window_size, window_size, window_shift, window_type, blackman_coeff,
+        snip_edges, raw_energy, energy_floor, dither, remove_dc_offset, preemphasis_coefficient)
+
+    # size (m, padded_window_size // 2 + 1, 2)
+    fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
+
+    power_spectrum = fft.pow(2).sum(2).unsqueeze(1)  # size (m, 1, padded_window_size // 2 + 1)
+    if not use_power:
+        power_spectrum = power_spectrum.pow(0.5)
+
+    # size (num_mel_bins, padded_window_size // 2)
+    mel_energies, _ = get_mel_banks(num_mel_bins, padded_window_size, sample_frequency,
+                                    low_freq, high_freq, vtln_low, vtln_high, vtln_warp)
+
+    # pad right column with zeros and add dimension, size (1, num_mel_bins, padded_window_size // 2 + 1)
+    mel_energies = torch.nn.functional.pad(mel_energies, (0, 1), mode='constant', value=0).unsqueeze(0)
+
+    # sum with mel fiterbanks over the power spectrum, size (m, num_mel_bins)
+    mel_energies = (power_spectrum * mel_energies.to(power_spectrum.device)).sum(dim=2)
+    if use_log_fbank:
+        # avoid log of zero (which should be prevented anyway by dithering)
+        mel_energies = torch.max(mel_energies, EPSILON.to(mel_energies.device)).log()
+
+    # if use_energy then add it as the last column for htk_compat == true else first column
+    if use_energy:
+        signal_log_energy = signal_log_energy.unsqueeze(1)  # size (m, 1)
+        # returns size (m, num_mel_bins + 1)
+        if htk_compat:
+            mel_energies = torch.cat((mel_energies, signal_log_energy), dim=1)
+        else:
+            mel_energies = torch.cat((signal_log_energy, mel_energies), dim=1)
+
+    mel_energies = _subtract_column_mean(mel_energies, subtract_mean)
+    return mel_energies
