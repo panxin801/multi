@@ -116,19 +116,21 @@ class SPLayer(nn.Module):
             features = []
             feature_lengths = []
             for i in range(batch_size):
+                featureLi = []
                 for chn in range(self.channels):
                     feature = self.func(wav_batch[i, chn])
-                    features.append(feature)
-                    feature_lengths.append(feature.shape[1])
+                    feature = feature.permute(2, 0, 1).unsqueeze(0)
+                    featureLi.append(feature)
+                    feature_lengths.append(feature.shape[2])
+                features.append(torch.cat([ch for ch in featureLi], 0))
 
             # pad to max_length
             max_length = max(feature_lengths)
-            padded_features = torch.zeros(batch_size, max_length,
-                                          feature.shape[-1]).to(
+            padded_features = torch.zeros(batch_size, self.channels, 2,
+                                          max_length, feature.shape[-1]).to(
                                               feature.device)
             for i in range(batch_size):
-                l = feature_lengths[i]
-                padded_features[i, :l, :] += features[i]
+                padded_features[i, :] += features[i]
         else:
             padded_features = torch.tensor(wav_batch)
             feature_lengths = lengths
@@ -136,8 +138,11 @@ class SPLayer(nn.Module):
         feature_lengths = torch.tensor(feature_lengths).long().to(
             padded_features.device)
 
-        if self.training and self.spec_aug_conf is not None:
-            padded_features, feature_lengths = self.spec_aug(
-                padded_features, feature_lengths)
+        # TODO
+        # Add complexCNN layers
+
+        # if self.training and self.spec_aug_conf is not None:
+        #     padded_features, feature_lengths = self.spec_aug(
+        #         padded_features, feature_lengths)
 
         return padded_features, feature_lengths
