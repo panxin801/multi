@@ -19,15 +19,15 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 from third_party import kaldi_signal as ksp
 import utils
 
 
 class SPLayer(nn.Module):
-    def __init__(self, config):
+    def __init__(self, config, channels):
         super(SPLayer, self).__init__()
         self.config = config
+        self.channels = channels
         self.feature_type = config["feature_type"]
         self.sample_rate = float(config["sample_rate"])
         self.num_mel_bins = int(config["num_mel_bins"])
@@ -111,14 +111,15 @@ class SPLayer(nn.Module):
         return padded_features, feature_lengths
 
     def forward(self, wav_batch, lengths):
-        batch_size, batch_length = wav_batch.shape[0], wav_batch.shape[1]
+        batch_size, batch_length = wav_batch.shape[0], wav_batch.shape[2]
         if self.func is not None:
             features = []
             feature_lengths = []
             for i in range(batch_size):
-                feature = self.func(wav_batch[i, :lengths[i]].view(1, -1))
-                features.append(feature)
-                feature_lengths.append(feature.shape[0])
+                for chn in range(self.channels):
+                    feature = self.func(wav_batch[i, chn])
+                    features.append(feature)
+                    feature_lengths.append(feature.shape[1])
 
             # pad to max_length
             max_length = max(feature_lengths)

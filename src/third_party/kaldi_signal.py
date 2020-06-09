@@ -19,6 +19,7 @@ __all__ = [
     'resample_waveform',
 ]
 
+
 @torch.jit.script
 def create_dct(n_mfcc, n_mels, norm):
     # type: (int, int, Optional[str]) -> Tensor
@@ -37,7 +38,8 @@ def create_dct(n_mfcc, n_mels, norm):
     # http://en.wikipedia.org/wiki/Discrete_cosine_transform#DCT-II
     n = torch.arange(float(n_mels))
     k = torch.arange(float(n_mfcc)).unsqueeze(1)
-    dct = torch.cos(math.pi / float(n_mels) * (n + 0.5) * k)  # size (n_mfcc, n_mels)
+    dct = torch.cos(math.pi / float(n_mels) *
+                    (n + 0.5) * k)  # size (n_mfcc, n_mels)
     if norm is None:
         dct *= 2.0
     else:
@@ -46,8 +48,10 @@ def create_dct(n_mfcc, n_mels, norm):
         dct *= math.sqrt(2.0 / float(n_mels))
     return dct.t()
 
+
 # numeric_limits<float>::epsilon() 1.1920928955078125e-07
-EPSILON = torch.tensor(torch.finfo(torch.float).eps, dtype=torch.get_default_dtype())
+EPSILON = torch.tensor(
+    torch.finfo(torch.float).eps, dtype=torch.get_default_dtype())
 # 1 milliseconds = 0.001 seconds
 MILLISECONDS_TO_SECONDS = 0.001
 
@@ -114,7 +118,8 @@ def _feature_window_function(window_type, window_size, blackman_coeff):
     if window_type == HANNING:
         return torch.hann_window(window_size, periodic=False)
     elif window_type == HAMMING:
-        return torch.hamming_window(window_size, periodic=False, alpha=0.54, beta=0.46)
+        return torch.hamming_window(
+            window_size, periodic=False, alpha=0.54, beta=0.46)
     elif window_type == POVEY:
         # like hanning but goes to zero at edges
         return torch.hann_window(window_size, periodic=False).pow(0.85)
@@ -122,7 +127,8 @@ def _feature_window_function(window_type, window_size, blackman_coeff):
         return torch.ones(window_size, dtype=torch.get_default_dtype())
     elif window_type == BLACKMAN:
         a = 2 * math.pi / (window_size - 1)
-        window_function = torch.arange(window_size, dtype=torch.get_default_dtype())
+        window_function = torch.arange(
+            window_size, dtype=torch.get_default_dtype())
         # can't use torch.blackman_window as they use different coefficients
         return blackman_coeff - 0.5 * torch.cos(a * window_function) + \
             (0.5 - blackman_coeff) * torch.cos(2 * a * window_function)
@@ -133,27 +139,38 @@ def _feature_window_function(window_type, window_size, blackman_coeff):
 def _get_log_energy(strided_input, epsilon, energy_floor):
     r"""Returns the log energy of size (m) for a strided_input (m,*)
     """
-    log_energy = torch.max(strided_input.pow(2).sum(1), epsilon.to(strided_input.device)).log()  # size (m)
+    log_energy = torch.max(
+        strided_input.pow(2).sum(1),
+        epsilon.to(strided_input.device)).log()  # size (m)
     if energy_floor == 0.0:
         return log_energy
     else:
         return torch.max(log_energy,
-                         torch.tensor(math.log(energy_floor),
-                         dtype=torch.get_default_dtype(), device=strided_input.device))
+                         torch.tensor(
+                             math.log(energy_floor),
+                             dtype=torch.get_default_dtype(),
+                             device=strided_input.device))
 
 
-def _get_waveform_and_window_properties(waveform, channel, sample_frequency, frame_shift,
-                                        frame_length, round_to_power_of_two, preemphasis_coefficient):
+def _get_waveform_and_window_properties(
+        waveform, channel, sample_frequency, frame_shift, frame_length,
+        round_to_power_of_two, preemphasis_coefficient):
     r"""Gets the waveform and window properties
     """
     channel = max(channel, 0)
-    assert channel < waveform.size(0), ('Invalid channel %d for size %d' % (channel, waveform.size(0)))
-    waveform = waveform[channel, :]  # size (n)
-    window_shift = int(sample_frequency * frame_shift * MILLISECONDS_TO_SECONDS)
-    window_size = int(sample_frequency * frame_length * MILLISECONDS_TO_SECONDS)
-    padded_window_size = _next_power_of_2(window_size) if round_to_power_of_two else window_size
+    assert channel < waveform.size(0), ('Invalid channel %d for size %d' %
+                                        (channel, waveform.size(0)))
+    # waveform = waveform[channel, :]  # size (n)
+    window_shift = int(
+        sample_frequency * frame_shift * MILLISECONDS_TO_SECONDS)
+    window_size = int(
+        sample_frequency * frame_length * MILLISECONDS_TO_SECONDS)
+    padded_window_size = _next_power_of_2(
+        window_size) if round_to_power_of_two else window_size
 
-    assert 2 <= window_size <= len(waveform), ('choose a window size %d that is [2, %d]' % (window_size, len(waveform)))
+    assert 2 <= window_size <= waveform.size(0), (
+        'choose a window size %d that is [2, %d]' % (window_size,
+                                                     waveform.size(0)))
     assert 0 < window_shift, '`window_shift` must be greater than 0'
     assert padded_window_size % 2 == 0, 'the padded ' \
         '`window_size` must be divisible by two. use `round_to_power_of_two` or change `frame_length`'
@@ -162,8 +179,10 @@ def _get_waveform_and_window_properties(waveform, channel, sample_frequency, fra
     return waveform, window_shift, window_size, padded_window_size
 
 
-def _get_window(waveform, padded_window_size, window_size, window_shift, window_type, blackman_coeff,
-                snip_edges, raw_energy, energy_floor, dither, remove_dc_offset, preemphasis_coefficient):
+def _get_window(waveform, padded_window_size, window_size, window_shift,
+                window_type, blackman_coeff, snip_edges, raw_energy,
+                energy_floor, dither, remove_dc_offset,
+                preemphasis_coefficient):
     r"""Gets a window and its log energy
 
     Returns:
@@ -171,44 +190,55 @@ def _get_window(waveform, padded_window_size, window_size, window_shift, window_
         signal_log_energy (torch.Tensor): size (m)
     """
     # size (m, window_size)
-    strided_input = _get_strided(waveform, window_size, window_shift, snip_edges)
+    strided_input = _get_strided(waveform, window_size, window_shift,
+                                 snip_edges)
 
     if dither != 0.0:
         # Returns a random number strictly between 0 and 1
-        x = torch.max(EPSILON, torch.rand(strided_input.shape)).to(strided_input.device)
+        x = torch.max(EPSILON, torch.rand(strided_input.shape)).to(
+            strided_input.device)
         rand_gauss = torch.sqrt(-2 * x.log()) * torch.cos(2 * math.pi * x)
         strided_input = strided_input + rand_gauss * dither
 
     if remove_dc_offset:
         # Subtract each row/frame by its mean
-        row_means = torch.mean(strided_input, dim=1).unsqueeze(1)  # size (m, 1)
+        row_means = torch.mean(
+            strided_input, dim=1).unsqueeze(1)  # size (m, 1)
         strided_input = strided_input - row_means
 
     if raw_energy:
         # Compute the log energy of each row/frame before applying preemphasis and
         # window function
-        signal_log_energy = _get_log_energy(strided_input, EPSILON, energy_floor)  # size (m)
+        signal_log_energy = _get_log_energy(strided_input, EPSILON,
+                                            energy_floor)  # size (m)
 
     if preemphasis_coefficient != 0.0:
         # strided_input[i,j] -= preemphasis_coefficient * strided_input[i, max(0, j-1)] for all i,j
         offset_strided_input = torch.nn.functional.pad(
-            strided_input.unsqueeze(0), (1, 0), mode='replicate').squeeze(0)  # size (m, window_size + 1)
-        strided_input = strided_input - preemphasis_coefficient * offset_strided_input[:, :-1]
+            strided_input.unsqueeze(0), (1, 0),
+            mode='replicate').squeeze(0)  # size (m, window_size + 1)
+        strided_input = strided_input - preemphasis_coefficient * offset_strided_input[:, :
+                                                                                       -1]
 
     # Apply window_function to each row/frame
-    window_function = _feature_window_function(
-        window_type, window_size, blackman_coeff).unsqueeze(0)  # size (1, window_size)
-    strided_input = strided_input * window_function.to(strided_input.device)  # size (m, window_size)
+    window_function = _feature_window_function(window_type, window_size,
+                                               blackman_coeff).unsqueeze(
+                                                   0)  # size (1, window_size)
+    strided_input = strided_input * window_function.to(
+        strided_input.device)  # size (m, window_size)
 
     # Pad columns with zero until we reach size (m, padded_window_size)
     if padded_window_size != window_size:
         padding_right = padded_window_size - window_size
         strided_input = torch.nn.functional.pad(
-            strided_input.unsqueeze(0), (0, padding_right), mode='constant', value=0).squeeze(0)
+            strided_input.unsqueeze(0), (0, padding_right),
+            mode='constant',
+            value=0).squeeze(0)
 
     # Compute energy after window function (not the raw one)
     if not raw_energy:
-        signal_log_energy = _get_log_energy(strided_input, EPSILON, energy_floor)  # size (m)
+        signal_log_energy = _get_log_energy(strided_input, EPSILON,
+                                            energy_floor)  # size (m)
 
     return strided_input, signal_log_energy
 
@@ -222,12 +252,22 @@ def _subtract_column_mean(tensor, subtract_mean):
     return tensor
 
 
-def spectrogram(
-        waveform, blackman_coeff=0.42, channel=-1, dither=1.0, energy_floor=0.0,
-        frame_length=25.0, frame_shift=10.0, min_duration=0.0,
-        preemphasis_coefficient=0.97, raw_energy=True, remove_dc_offset=True,
-        round_to_power_of_two=True, sample_frequency=16000.0, snip_edges=True,
-        subtract_mean=False, window_type=POVEY):
+def spectrogram(waveform,
+                blackman_coeff=0.42,
+                channel=-1,
+                dither=1.0,
+                energy_floor=0.0,
+                frame_length=25.0,
+                frame_shift=10.0,
+                min_duration=0.0,
+                preemphasis_coefficient=0.97,
+                raw_energy=True,
+                remove_dc_offset=True,
+                round_to_power_of_two=True,
+                sample_frequency=16000.0,
+                snip_edges=True,
+                subtract_mean=False,
+                window_type=POVEY):
     r"""Create a spectrogram from a raw audio signal. This matches the input/output of Kaldi's
     compute-spectrogram-feats.
 
@@ -262,21 +302,25 @@ def spectrogram(
         (m, ``padded_window_size // 2 + 1``) where m is calculated in _get_strided
     """
     waveform, window_shift, window_size, padded_window_size = _get_waveform_and_window_properties(
-        waveform, channel, sample_frequency, frame_shift, frame_length, round_to_power_of_two, preemphasis_coefficient)
+        waveform, channel, sample_frequency, frame_shift, frame_length,
+        round_to_power_of_two, preemphasis_coefficient)
 
     if len(waveform) < min_duration * sample_frequency:
         # signal is too short
         return torch.empty(0)
 
     strided_input, signal_log_energy = _get_window(
-        waveform, padded_window_size, window_size, window_shift, window_type, blackman_coeff,
-        snip_edges, raw_energy, energy_floor, dither, remove_dc_offset, preemphasis_coefficient)
+        waveform, padded_window_size, window_size, window_shift, window_type,
+        blackman_coeff, snip_edges, raw_energy, energy_floor, dither,
+        remove_dc_offset, preemphasis_coefficient)
 
     # size (m, padded_window_size // 2 + 1, 2)
     fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
 
     # Convert the FFT into a power spectrum
-    power_spectrum = torch.max(fft.pow(2).sum(2), EPSILON).log()  # size (m, padded_window_size // 2 + 1)
+    power_spectrum = torch.max(
+        fft.pow(2).sum(2),
+        EPSILON).log()  # size (m, padded_window_size // 2 + 1)
     power_spectrum[:, 0] = signal_log_energy
 
     power_spectrum = _subtract_column_mean(power_spectrum, subtract_mean)
@@ -356,7 +400,8 @@ def vtln_warp_freq(vtln_low_cutoff, vtln_high_cutoff, low_freq, high_freq,
 
     res = torch.empty_like(freq)
 
-    outside_low_high_freq = torch.lt(freq, low_freq) | torch.gt(freq, high_freq)  # freq < low_freq || freq > high_freq
+    outside_low_high_freq = torch.lt(freq, low_freq) | torch.gt(
+        freq, high_freq)  # freq < low_freq || freq > high_freq
     before_l = torch.lt(freq, l)  # freq < l
     before_h = torch.lt(freq, h)  # freq < h
     after_h = torch.ge(freq, h)  # freq >= h
@@ -384,12 +429,13 @@ def vtln_warp_mel_freq(vtln_low_cutoff, vtln_high_cutoff, low_freq, high_freq,
     Returns:
         torch.Tensor: ``mel_freq`` after vtln warp
     """
-    return mel_scale(vtln_warp_freq(vtln_low_cutoff, vtln_high_cutoff, low_freq, high_freq,
-                                    vtln_warp_factor, inverse_mel_scale(mel_freq)))
+    return mel_scale(
+        vtln_warp_freq(vtln_low_cutoff, vtln_high_cutoff, low_freq, high_freq,
+                       vtln_warp_factor, inverse_mel_scale(mel_freq)))
 
 
-def get_mel_banks(num_bins, window_length_padded, sample_freq,
-                  low_freq, high_freq, vtln_low, vtln_high, vtln_warp_factor):
+def get_mel_banks(num_bins, window_length_padded, sample_freq, low_freq,
+                  high_freq, vtln_low, vtln_high, vtln_warp_factor):
     # type: (int, int, float, float, float, float, float)
     """
     Returns:
@@ -427,17 +473,24 @@ def get_mel_banks(num_bins, window_length_padded, sample_freq,
 
     bin = torch.arange(num_bins, dtype=torch.get_default_dtype()).unsqueeze(1)
     left_mel = mel_low_freq + bin * mel_freq_delta  # size(num_bins, 1)
-    center_mel = mel_low_freq + (bin + 1.0) * mel_freq_delta  # size(num_bins, 1)
-    right_mel = mel_low_freq + (bin + 2.0) * mel_freq_delta  # size(num_bins, 1)
+    center_mel = mel_low_freq + (
+        bin + 1.0) * mel_freq_delta  # size(num_bins, 1)
+    right_mel = mel_low_freq + (
+        bin + 2.0) * mel_freq_delta  # size(num_bins, 1)
 
     if vtln_warp_factor != 1.0:
-        left_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq, high_freq, vtln_warp_factor, left_mel)
-        center_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq, high_freq, vtln_warp_factor, center_mel)
-        right_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq, high_freq, vtln_warp_factor, right_mel)
+        left_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq, high_freq,
+                                      vtln_warp_factor, left_mel)
+        center_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq,
+                                        high_freq, vtln_warp_factor,
+                                        center_mel)
+        right_mel = vtln_warp_mel_freq(vtln_low, vtln_high, low_freq,
+                                       high_freq, vtln_warp_factor, right_mel)
 
     center_freqs = inverse_mel_scale(center_mel)  # size (num_bins)
     # size(1, num_fft_bins)
-    mel = mel_scale(fft_bin_width * torch.arange(num_fft_bins, dtype=torch.get_default_dtype())).unsqueeze(0)
+    mel = mel_scale(fft_bin_width * torch.arange(
+        num_fft_bins, dtype=torch.get_default_dtype())).unsqueeze(0)
 
     # size (num_bins, num_fft_bins)
     up_slope = (mel - left_mel) / (center_mel - left_mel)
@@ -449,21 +502,42 @@ def get_mel_banks(num_bins, window_length_padded, sample_freq,
     else:
         # warping can move the order of left_mel, center_mel, right_mel anywhere
         bins = torch.zeros_like(up_slope)
-        up_idx = torch.gt(mel, left_mel) & torch.le(mel, center_mel)  # left_mel < mel <= center_mel
-        down_idx = torch.gt(mel, center_mel) & torch.lt(mel, right_mel)  # center_mel < mel < right_mel
+        up_idx = torch.gt(mel, left_mel) & torch.le(
+            mel, center_mel)  # left_mel < mel <= center_mel
+        down_idx = torch.gt(mel, center_mel) & torch.lt(
+            mel, right_mel)  # center_mel < mel < right_mel
         bins[up_idx] = up_slope[up_idx]
         bins[down_idx] = down_slope[down_idx]
 
     return bins, center_freqs
 
 
-def fbank(
-        waveform, blackman_coeff=0.42, channel=-1, dither=1.0, energy_floor=0.0,
-        frame_length=25.0, frame_shift=10.0, high_freq=0.0, htk_compat=False, low_freq=20.0,
-        min_duration=0.0, num_mel_bins=23, preemphasis_coefficient=0.97, raw_energy=True,
-        remove_dc_offset=True, round_to_power_of_two=True, sample_frequency=16000.0,
-        snip_edges=True, subtract_mean=False, use_energy=False, use_log_fbank=True, use_power=True,
-        vtln_high=-500.0, vtln_low=100.0, vtln_warp=1.0, window_type=POVEY):
+def fbank(waveform,
+          blackman_coeff=0.42,
+          channel=-1,
+          dither=1.0,
+          energy_floor=0.0,
+          frame_length=25.0,
+          frame_shift=10.0,
+          high_freq=0.0,
+          htk_compat=False,
+          low_freq=20.0,
+          min_duration=0.0,
+          num_mel_bins=23,
+          preemphasis_coefficient=0.97,
+          raw_energy=True,
+          remove_dc_offset=True,
+          round_to_power_of_two=True,
+          sample_frequency=16000.0,
+          snip_edges=True,
+          subtract_mean=False,
+          use_energy=False,
+          use_log_fbank=True,
+          use_power=True,
+          vtln_high=-500.0,
+          vtln_low=100.0,
+          vtln_warp=1.0,
+          window_type=POVEY):
     r"""Create a fbank from a raw audio signal. This matches the input/output of Kaldi's
     compute-fbank-feats.
 
@@ -510,7 +584,8 @@ def fbank(
         where m is calculated in _get_strided
     """
     waveform, window_shift, window_size, padded_window_size = _get_waveform_and_window_properties(
-        waveform, channel, sample_frequency, frame_shift, frame_length, round_to_power_of_two, preemphasis_coefficient)
+        waveform, channel, sample_frequency, frame_shift, frame_length,
+        round_to_power_of_two, preemphasis_coefficient)
 
     if len(waveform) < min_duration * sample_frequency:
         # signal is too short
@@ -518,28 +593,34 @@ def fbank(
 
     # strided_input, size (m, padded_window_size) and signal_log_energy, size (m)
     strided_input, signal_log_energy = _get_window(
-        waveform, padded_window_size, window_size, window_shift, window_type, blackman_coeff,
-        snip_edges, raw_energy, energy_floor, dither, remove_dc_offset, preemphasis_coefficient)
+        waveform, padded_window_size, window_size, window_shift, window_type,
+        blackman_coeff, snip_edges, raw_energy, energy_floor, dither,
+        remove_dc_offset, preemphasis_coefficient)
 
     # size (m, padded_window_size // 2 + 1, 2)
     fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
 
-    power_spectrum = fft.pow(2).sum(2).unsqueeze(1)  # size (m, 1, padded_window_size // 2 + 1)
+    power_spectrum = fft.pow(2).sum(2).unsqueeze(
+        1)  # size (m, 1, padded_window_size // 2 + 1)
     if not use_power:
         power_spectrum = power_spectrum.pow(0.5)
 
     # size (num_mel_bins, padded_window_size // 2)
-    mel_energies, _ = get_mel_banks(num_mel_bins, padded_window_size, sample_frequency,
-                                    low_freq, high_freq, vtln_low, vtln_high, vtln_warp)
+    mel_energies, _ = get_mel_banks(num_mel_bins, padded_window_size,
+                                    sample_frequency, low_freq, high_freq,
+                                    vtln_low, vtln_high, vtln_warp)
 
     # pad right column with zeros and add dimension, size (1, num_mel_bins, padded_window_size // 2 + 1)
-    mel_energies = torch.nn.functional.pad(mel_energies, (0, 1), mode='constant', value=0).unsqueeze(0)
+    mel_energies = torch.nn.functional.pad(
+        mel_energies, (0, 1), mode='constant', value=0).unsqueeze(0)
 
     # sum with mel fiterbanks over the power spectrum, size (m, num_mel_bins)
-    mel_energies = (power_spectrum * mel_energies.to(power_spectrum.device)).sum(dim=2)
+    mel_energies = (
+        power_spectrum * mel_energies.to(power_spectrum.device)).sum(dim=2)
     if use_log_fbank:
         # avoid log of zero (which should be prevented anyway by dithering)
-        mel_energies = torch.max(mel_energies, EPSILON.to(mel_energies.device)).log()
+        mel_energies = torch.max(mel_energies,
+                                 EPSILON.to(mel_energies.device)).log()
 
     # if use_energy then add it as the last column for htk_compat == true else first column
     if use_energy:
@@ -572,16 +653,36 @@ def _get_lifter_coeffs(num_ceps, cepstral_lifter):
     # Compute liftering coefficients (scaling on cepstral coeffs)
     # coeffs are numbered slightly differently from HTK: the zeroth index is C0, which is not affected.
     i = torch.arange(num_ceps, dtype=torch.get_default_dtype())
-    return 1.0 + 0.5 * cepstral_lifter * torch.sin(math.pi * i / cepstral_lifter)
+    return 1.0 + 0.5 * cepstral_lifter * torch.sin(
+        math.pi * i / cepstral_lifter)
 
 
-def mfcc(
-        waveform, blackman_coeff=0.42, cepstral_lifter=22.0, channel=-1, dither=1.0,
-        energy_floor=0.0, frame_length=25.0, frame_shift=10.0, high_freq=0.0, htk_compat=False,
-        low_freq=20.0, num_ceps=13, min_duration=0.0, num_mel_bins=23, preemphasis_coefficient=0.97,
-        raw_energy=True, remove_dc_offset=True, round_to_power_of_two=True,
-        sample_frequency=16000.0, snip_edges=True, subtract_mean=False, use_energy=False,
-        vtln_high=-500.0, vtln_low=100.0, vtln_warp=1.0, window_type=POVEY):
+def mfcc(waveform,
+         blackman_coeff=0.42,
+         cepstral_lifter=22.0,
+         channel=-1,
+         dither=1.0,
+         energy_floor=0.0,
+         frame_length=25.0,
+         frame_shift=10.0,
+         high_freq=0.0,
+         htk_compat=False,
+         low_freq=20.0,
+         num_ceps=13,
+         min_duration=0.0,
+         num_mel_bins=23,
+         preemphasis_coefficient=0.97,
+         raw_energy=True,
+         remove_dc_offset=True,
+         round_to_power_of_two=True,
+         sample_frequency=16000.0,
+         snip_edges=True,
+         subtract_mean=False,
+         use_energy=False,
+         vtln_high=-500.0,
+         vtln_low=100.0,
+         vtln_warp=1.0,
+         window_type=POVEY):
     r"""Create a mfcc from a raw audio signal. This matches the input/output of Kaldi's
     compute-mfcc-feats.
 
@@ -627,20 +728,39 @@ def mfcc(
         torch.Tensor: A mfcc identical to what Kaldi would output. The shape is (m, ``num_ceps``)
         where m is calculated in _get_strided
     """
-    assert num_ceps <= num_mel_bins, 'num_ceps cannot be larger than num_mel_bins: %d vs %d' % (num_ceps, num_mel_bins)
+    assert num_ceps <= num_mel_bins, 'num_ceps cannot be larger than num_mel_bins: %d vs %d' % (
+        num_ceps, num_mel_bins)
 
     # The mel_energies should not be squared (use_power=True), not have mean subtracted
     # (subtract_mean=False), and use log (use_log_fbank=True).
     # size (m, num_mel_bins + use_energy)
-    feature = fbank(waveform=waveform, blackman_coeff=blackman_coeff, channel=channel,
-                    dither=dither, energy_floor=energy_floor, frame_length=frame_length,
-                    frame_shift=frame_shift, high_freq=high_freq, htk_compat=htk_compat,
-                    low_freq=low_freq, min_duration=min_duration, num_mel_bins=num_mel_bins,
-                    preemphasis_coefficient=preemphasis_coefficient, raw_energy=raw_energy,
-                    remove_dc_offset=remove_dc_offset, round_to_power_of_two=round_to_power_of_two,
-                    sample_frequency=sample_frequency, snip_edges=snip_edges, subtract_mean=False,
-                    use_energy=use_energy, use_log_fbank=True, use_power=True,
-                    vtln_high=vtln_high, vtln_low=vtln_low, vtln_warp=vtln_warp, window_type=window_type)
+    feature = fbank(
+        waveform=waveform,
+        blackman_coeff=blackman_coeff,
+        channel=channel,
+        dither=dither,
+        energy_floor=energy_floor,
+        frame_length=frame_length,
+        frame_shift=frame_shift,
+        high_freq=high_freq,
+        htk_compat=htk_compat,
+        low_freq=low_freq,
+        min_duration=min_duration,
+        num_mel_bins=num_mel_bins,
+        preemphasis_coefficient=preemphasis_coefficient,
+        raw_energy=raw_energy,
+        remove_dc_offset=remove_dc_offset,
+        round_to_power_of_two=round_to_power_of_two,
+        sample_frequency=sample_frequency,
+        snip_edges=snip_edges,
+        subtract_mean=False,
+        use_energy=use_energy,
+        use_log_fbank=True,
+        use_power=True,
+        vtln_high=vtln_high,
+        vtln_low=vtln_low,
+        vtln_warp=vtln_warp,
+        window_type=window_type)
 
     if use_energy:
         # size (m)
@@ -657,7 +777,8 @@ def mfcc(
 
     if cepstral_lifter != 0.0:
         # size (1, num_ceps)
-        lifter_coeffs = _get_lifter_coeffs(num_ceps, cepstral_lifter).unsqueeze(0)
+        lifter_coeffs = _get_lifter_coeffs(num_ceps,
+                                           cepstral_lifter).unsqueeze(0)
         feature *= lifter_coeffs
 
     # if use_energy then replace the last column for htk_compat == true else first column
@@ -678,8 +799,9 @@ def mfcc(
     return feature
 
 
-def _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit, window_width,
-                                lowpass_cutoff, lowpass_filter_width):
+def _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit,
+                                window_width, lowpass_cutoff,
+                                lowpass_filter_width):
     r"""Based on LinearResample::SetIndexesAndWeights where it retrieves the weights for
     resampling as well as the indices in which they are valid. LinearResample (LR) means
     that the output signal is at linearly spaced intervals (i.e the output signal has a
@@ -727,12 +849,15 @@ def _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit, win
         which correspond with min_input_index, size (``output_samples_in_unit``, ``max_weight_width``)).
     """
     assert lowpass_cutoff < min(orig_freq, new_freq) / 2
-    output_t = torch.arange(0, output_samples_in_unit, dtype=torch.get_default_dtype()) / new_freq
+    output_t = torch.arange(
+        0, output_samples_in_unit, dtype=torch.get_default_dtype()) / new_freq
     min_t = output_t - window_width
     max_t = output_t + window_width
 
-    min_input_index = torch.ceil(min_t * orig_freq)  # size (output_samples_in_unit)
-    max_input_index = torch.floor(max_t * orig_freq)  # size (output_samples_in_unit)
+    min_input_index = torch.ceil(
+        min_t * orig_freq)  # size (output_samples_in_unit)
+    max_input_index = torch.floor(
+        max_t * orig_freq)  # size (output_samples_in_unit)
     num_indices = max_input_index - min_input_index + 1  # size (output_samples_in_unit)
 
     max_weight_width = num_indices.max()
@@ -744,14 +869,16 @@ def _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit, win
     weights = torch.zeros_like(delta_t)
     inside_window_indices = delta_t.abs().lt(window_width)
     # raised-cosine (Hanning) window with width `window_width`
-    weights[inside_window_indices] = 0.5 * (1 + torch.cos(2 * math.pi * lowpass_cutoff /
-                                            lowpass_filter_width * delta_t[inside_window_indices]))
+    weights[inside_window_indices] = 0.5 * (
+        1 + torch.cos(2 * math.pi * lowpass_cutoff / lowpass_filter_width *
+                      delta_t[inside_window_indices]))
 
     t_eq_zero_indices = delta_t.eq(0.0)
     t_not_eq_zero_indices = ~t_eq_zero_indices
     # sinc filter function
     weights[t_not_eq_zero_indices] *= torch.sin(
-        2 * math.pi * lowpass_cutoff * delta_t[t_not_eq_zero_indices]) / (math.pi * delta_t[t_not_eq_zero_indices])
+        2 * math.pi * lowpass_cutoff * delta_t[t_not_eq_zero_indices]) / (
+            math.pi * delta_t[t_not_eq_zero_indices])
     # limit of the function at t = 0
     weights[t_eq_zero_indices] *= 2 * lowpass_cutoff
 
@@ -840,9 +967,11 @@ def resample_waveform(waveform, orig_freq, new_freq, lowpass_filter_width=6):
     output_samples_in_unit = int(new_freq) // base_freq
 
     window_width = lowpass_filter_width / (2.0 * lowpass_cutoff)
-    first_indices, weights = _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit,
-                                                         window_width, lowpass_cutoff, lowpass_filter_width)
-    weights = weights.to(waveform.device)  # TODO Create weights on device directly
+    first_indices, weights = _get_LR_indices_and_weights(
+        orig_freq, new_freq, output_samples_in_unit, window_width,
+        lowpass_cutoff, lowpass_filter_width)
+    weights = weights.to(
+        waveform.device)  # TODO Create weights on device directly
 
     assert first_indices.dim() == 1
     # TODO figure a better way to do this. conv1d reaches every element i*stride + padding
@@ -854,8 +983,8 @@ def resample_waveform(waveform, orig_freq, new_freq, lowpass_filter_width=6):
     num_channels, wave_len = waveform.size()
     window_size = weights.size(1)
     tot_output_samp = _get_num_LR_output_samples(wave_len, orig_freq, new_freq)
-    output = torch.zeros((num_channels, tot_output_samp),
-                         device=waveform.device)
+    output = torch.zeros(
+        (num_channels, tot_output_samp), device=waveform.device)
     # eye size: (num_channels, num_channels, 1)
     eye = torch.eye(num_channels, device=waveform.device).unsqueeze(2)
     for i in range(first_indices.size(0)):
@@ -874,11 +1003,14 @@ def resample_waveform(waveform, orig_freq, new_freq, lowpass_filter_width=6):
 
         left_padding = max(0, -first_index)
         if left_padding != 0 or right_padding != 0:
-            wave_to_conv = torch.nn.functional.pad(wave_to_conv, (left_padding, right_padding))
+            wave_to_conv = torch.nn.functional.pad(
+                wave_to_conv, (left_padding, right_padding))
 
         conv_wave = torch.nn.functional.conv1d(
-            wave_to_conv.unsqueeze(0), weights[i].repeat(num_channels, 1, 1),
-            stride=conv_stride, groups=num_channels)
+            wave_to_conv.unsqueeze(0),
+            weights[i].repeat(num_channels, 1, 1),
+            stride=conv_stride,
+            groups=num_channels)
 
         # we want conv_wave[:, i] to be at output[:, i + n*conv_transpose_stride]
         dilated_conv_wave = torch.nn.functional.conv_transpose1d(
@@ -887,22 +1019,43 @@ def resample_waveform(waveform, orig_freq, new_freq, lowpass_filter_width=6):
         # pad dilated_conv_wave so it reaches the output length if needed.
         dialated_conv_wave_len = dilated_conv_wave.size(-1)
         left_padding = i
-        right_padding = max(0, tot_output_samp - (left_padding + dialated_conv_wave_len))
+        right_padding = max(0, tot_output_samp -
+                            (left_padding + dialated_conv_wave_len))
         dilated_conv_wave = torch.nn.functional.pad(
-            dilated_conv_wave, (left_padding, right_padding))[..., :tot_output_samp]
+            dilated_conv_wave,
+            (left_padding, right_padding))[..., :tot_output_samp]
 
         output += dilated_conv_wave
 
     return output
 
 
-def complex(
-        waveform, blackman_coeff=0.42, channel=-1, dither=1.0, energy_floor=0.0,
-        frame_length=25.0, frame_shift=10.0, high_freq=0.0, htk_compat=False, low_freq=20.0,
-        min_duration=0.0, num_mel_bins=23, preemphasis_coefficient=0.97, raw_energy=True,
-        remove_dc_offset=True, round_to_power_of_two=True, sample_frequency=16000.0,
-        snip_edges=True, subtract_mean=False, use_energy=False, use_log_fbank=True, use_power=True,
-        vtln_high=-500.0, vtln_low=100.0, vtln_warp=1.0, window_type=POVEY):
+def complex(waveform,
+            blackman_coeff=0.42,
+            channel=-1,
+            dither=1.0,
+            energy_floor=0.0,
+            frame_length=25.0,
+            frame_shift=10.0,
+            high_freq=0.0,
+            htk_compat=False,
+            low_freq=20.0,
+            min_duration=0.0,
+            num_mel_bins=23,
+            preemphasis_coefficient=0.97,
+            raw_energy=True,
+            remove_dc_offset=True,
+            round_to_power_of_two=True,
+            sample_frequency=16000.0,
+            snip_edges=True,
+            subtract_mean=False,
+            use_energy=False,
+            use_log_fbank=True,
+            use_power=True,
+            vtln_high=-500.0,
+            vtln_low=100.0,
+            vtln_warp=1.0,
+            window_type=POVEY):
     r"""Create a fbank from a raw audio signal. This matches the input/output of Kaldi's
     compute-fbank-feats.
 
@@ -949,7 +1102,8 @@ def complex(
         where m is calculated in _get_strided
     """
     waveform, window_shift, window_size, padded_window_size = _get_waveform_and_window_properties(
-        waveform, channel, sample_frequency, frame_shift, frame_length, round_to_power_of_two, preemphasis_coefficient)
+        waveform, channel, sample_frequency, frame_shift, frame_length,
+        round_to_power_of_two, preemphasis_coefficient)
 
     if len(waveform) < min_duration * sample_frequency:
         # signal is too short
@@ -957,37 +1111,12 @@ def complex(
 
     # strided_input, size (m, padded_window_size) and signal_log_energy, size (m)
     strided_input, signal_log_energy = _get_window(
-        waveform, padded_window_size, window_size, window_shift, window_type, blackman_coeff,
-        snip_edges, raw_energy, energy_floor, dither, remove_dc_offset, preemphasis_coefficient)
+        waveform, padded_window_size, window_size, window_shift, window_type,
+        blackman_coeff, snip_edges, raw_energy, energy_floor, dither,
+        remove_dc_offset, preemphasis_coefficient)
 
     # size (m, padded_window_size // 2 + 1, 2)
     fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
+    # fft = fft.permute(2, 0, 1)
 
-    power_spectrum = fft.pow(2).sum(2).unsqueeze(1)  # size (m, 1, padded_window_size // 2 + 1)
-    if not use_power:
-        power_spectrum = power_spectrum.pow(0.5)
-
-    # size (num_mel_bins, padded_window_size // 2)
-    mel_energies, _ = get_mel_banks(num_mel_bins, padded_window_size, sample_frequency,
-                                    low_freq, high_freq, vtln_low, vtln_high, vtln_warp)
-
-    # pad right column with zeros and add dimension, size (1, num_mel_bins, padded_window_size // 2 + 1)
-    mel_energies = torch.nn.functional.pad(mel_energies, (0, 1), mode='constant', value=0).unsqueeze(0)
-
-    # sum with mel fiterbanks over the power spectrum, size (m, num_mel_bins)
-    mel_energies = (power_spectrum * mel_energies.to(power_spectrum.device)).sum(dim=2)
-    if use_log_fbank:
-        # avoid log of zero (which should be prevented anyway by dithering)
-        mel_energies = torch.max(mel_energies, EPSILON.to(mel_energies.device)).log()
-
-    # if use_energy then add it as the last column for htk_compat == true else first column
-    if use_energy:
-        signal_log_energy = signal_log_energy.unsqueeze(1)  # size (m, 1)
-        # returns size (m, num_mel_bins + 1)
-        if htk_compat:
-            mel_energies = torch.cat((mel_energies, signal_log_energy), dim=1)
-        else:
-            mel_energies = torch.cat((signal_log_energy, mel_energies), dim=1)
-
-    mel_energies = _subtract_column_mean(mel_energies, subtract_mean)
-    return mel_energies
+    return fft

@@ -97,7 +97,7 @@ if __name__ == "__main__":
         shuffle=False,
         num_workers=dataconfig["fetchworker_num"])
 
-    splayer = sp_layers.SPLayer(modelconfig["signal"])
+    splayer = sp_layers.SPLayer(modelconfig["signal"], dataconfig["channels"])
     encoder = encoder_layers.Transformer(modelconfig["encoder"])
     modelconfig["decoder"]["vocab_size"] = tokenizer.unit_num()
     decoder = decoder_layers.TransformerDecoder(modelconfig["decoder"])
