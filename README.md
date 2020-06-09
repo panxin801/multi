@@ -1,5 +1,5 @@
 # OpenASR
-
+Fork from by2101/OpenASR. Ijust study this code.
 A pytorch based end2end speech recognition system. The main architecture is [Speech-Transformer](https://ieeexplore.ieee.org/abstract/document/8462506/).
 
 [中文说明](https://github.com/by2101/OpenASR/blob/master/README_zh.md)
