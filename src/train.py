@@ -33,6 +33,7 @@ import models
 from trainer import Trainer
 
 
+# /home/panxin/repo/multiASR/egs/micArray/s5/config_base.yaml
 def get_args():
     parser = argparse.ArgumentParser(description="""
      Usage: train.py <config>""")

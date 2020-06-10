@@ -21,6 +21,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from third_party import kaldi_signal as ksp
 import utils
+from complexCNN import ComplexConv as CConv
 
 
 class SPLayer(nn.Module):
@@ -77,6 +78,10 @@ class SPLayer(nn.Module):
         else:
             raise ValueError("Unknown feature type.")
         self.func = feature_func
+        self.CConv = CConv(
+            self.channels, self.channels, (3, 5), padding=(1, 2))
+        self.LastCConv = CConv(self.channels, 1, (3, 5), padding=(1, 2))
+        self.LastConv = nn.Conv2d(2, 1, (1, 1))
 
     def spec_aug(self, padded_features, feature_lengths):
         freq_means = torch.mean(padded_features, dim=-1)
@@ -119,14 +124,14 @@ class SPLayer(nn.Module):
                 featureLi = []
                 for chn in range(self.channels):
                     feature = self.func(wav_batch[i, chn])
-                    feature = feature.permute(2, 0, 1).unsqueeze(0)
+                    feature = feature.unsqueeze(0).permute(3, 0, 1, 2)
                     featureLi.append(feature)
-                    feature_lengths.append(feature.shape[2])
-                features.append(torch.cat([ch for ch in featureLi], 0))
+                feature_lengths.append(feature.shape[2])
+                features.append(torch.cat([ch for ch in featureLi], 1))
 
             # pad to max_length
             max_length = max(feature_lengths)
-            padded_features = torch.zeros(batch_size, self.channels, 2,
+            padded_features = torch.zeros(batch_size, 2, self.channels,
                                           max_length, feature.shape[-1]).to(
                                               feature.device)
             for i in range(batch_size):
@@ -138,8 +143,12 @@ class SPLayer(nn.Module):
         feature_lengths = torch.tensor(feature_lengths).long().to(
             padded_features.device)
 
-        # TODO
-        # Add complexCNN layers
+        retCC = self.CConv(padded_features)
+        retCC = self.CConv(retCC)
+        padded_features = self.LastCConv(retCC)
+        padded_features = padded_features.squeeze()
+        padded_features = self.LastConv(padded_features).squeeze()
+        # seems like [25,736,257]
 
         # if self.training and self.spec_aug_conf is not None:
         #     padded_features, feature_lengths = self.spec_aug(
