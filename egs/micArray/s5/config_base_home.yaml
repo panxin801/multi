@@ -1,7 +1,7 @@
 data:
-  trainset: /home/panxin/repo/multiASR/egs/micArray/s5/exp/train.json
-  devset: /home/panxin/repo/multiASR/egs/micArray/s5/exp/dev.json
-  vocab_path: /home/panxin/repo/multiASR/egs/micArray/s5/exp/G0200_train_chars.txt
+  trainset: E:\multiASR\egs\micArray\s5\exp\train_home.json
+  devset: E:\multiASR\egs\micArray\s5\exp\dev.json
+  vocab_path: E:\multiASR\egs\micArray\s5\exp\G0200_train_chars.txt
   maxlen: 60
   fetchworker_num: 12 
   channels: 16
@@ -21,7 +21,7 @@ model:
     sub:
       type: ConvV2
       layer_num: 2
-    input_dim: 257
+    input_dim: 80
     d_model: 512
     nhead: 8
     dim_feedforward: 2048

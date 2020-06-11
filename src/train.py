@@ -34,18 +34,18 @@ from trainer import Trainer
 
 
 # /home/panxin/repo/multiASR/egs/micArray/s5/config_base.yaml
+# E:\multiASR\egs\micArray\s5\config_base.yaml
 def get_args():
     parser = argparse.ArgumentParser(description="""
      Usage: train.py <config>""")
     parser.add_argument(
         "--config",
-        default=r"E:\multiASR\egs\micArray\s5\config_base.yaml",
+        default=r"/home/panxin/repo/multiASR/egs/micArray/s5/config_base.yaml",
         help="path to config file")
-    parser.add_argument(
-        '--continue-training',
-        type=utils.str2bool,
-        default=False,
-        help='Continue training from last_model.pt.')
+    parser.add_argument('--continue-training',
+                        type=utils.str2bool,
+                        default=False,
+                        help='Continue training from last_model.pt.')
     args = parser.parse_args()
     return args
 
@@ -79,8 +79,11 @@ if __name__ == "__main__":
     ngpu = 1
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
         ngpu = torch.cuda.device_count()
-    trainingsampler = data.TimeBasedSampler(
-        training_set, trainingconfig["batch_time"] * ngpu, ngpu, shuffle=True)
+    trainingsampler = data.TimeBasedSampler(training_set,
+                                            trainingconfig["batch_time"] *
+                                            ngpu,
+                                            ngpu,
+                                            shuffle=True)
     validsampler = data.TimeBasedSampler(
         valid_set, trainingconfig["batch_time"] * ngpu, ngpu,
         shuffle=False)  # for plot longer utterance
@@ -108,9 +111,8 @@ if __name__ == "__main__":
         logging.info(
             "Load language model package from {} for LST training.".format(
                 trainingconfig["lst"]["lm_path"]))
-        lmpkg = torch.load(
-            trainingconfig["lst"]["lm_path"],
-            map_location=lambda storage, loc: storage)
+        lmpkg = torch.load(trainingconfig["lst"]["lm_path"],
+                           map_location=lambda storage, loc: storage)
         lmconfig = lmpkg["model"]["lm_config"]
         if lmconfig["type"] == "lstm":
             lmlayer = lm_layers.LSTM(lmconfig)

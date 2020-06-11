@@ -54,39 +54,37 @@ class SPLayer(nn.Module):
         elif self.feature_type == "fbank":
 
             def feature_func(waveform):
-                return ksp.fbank(
-                    waveform,
-                    sample_frequency=self.sample_rate,
-                    use_energy=self.use_energy,
-                    num_mel_bins=self.num_mel_bins)
+                return ksp.fbank(waveform,
+                                 sample_frequency=self.sample_rate,
+                                 use_energy=self.use_energy,
+                                 num_mel_bins=self.num_mel_bins)
         elif self.feature_type == "mfcc":
 
             def feature_func(waveform):
-                return ksp.mfcc(
-                    waveform,
-                    sample_frequency=self.sample_rate,
-                    use_energy=self.use_energy,
-                    num_mel_bins=self.num_mel_bins)
+                return ksp.mfcc(waveform,
+                                sample_frequency=self.sample_rate,
+                                use_energy=self.use_energy,
+                                num_mel_bins=self.num_mel_bins)
         elif self.feature_type == "complex":
 
             def feature_func(waveform):
-                return ksp.complex(
-                    waveform,
-                    sample_frequency=self.sample_rate,
-                    use_energy=self.use_energy,
-                    num_mel_bins=self.num_mel_bins)
+                return ksp.complex(waveform,
+                                   sample_frequency=self.sample_rate,
+                                   use_energy=self.use_energy,
+                                   num_mel_bins=self.num_mel_bins)
         else:
             raise ValueError("Unknown feature type.")
         self.func = feature_func
-        self.CConv = CConv(
-            self.channels, self.channels, (3, 5), padding=(1, 2))
+        self.CConv = CConv(self.channels,
+                           self.channels, (3, 5),
+                           padding=(1, 2))
         self.LastCConv = CConv(self.channels, 1, (3, 5), padding=(1, 2))
         self.LastConv = nn.Conv2d(2, 1, (1, 1))
 
     def spec_aug(self, padded_features, feature_lengths):
         freq_means = torch.mean(padded_features, dim=-1)
-        time_means = (torch.sum(padded_features,
-                                dim=1) / feature_lengths[:, None].float()
+        time_means = (torch.sum(padded_features, dim=1) /
+                      feature_lengths[:, None].float()
                       )  # Note that features are padded with zeros.
 
         B, T, V = padded_features.shape
@@ -95,12 +93,12 @@ class SPLayer(nn.Module):
             fs = (self.spec_aug_conf["freq_mask_width"] * torch.rand(
                 size=[B], device=padded_features.device,
                 requires_grad=False)).long()
-            f0s = ((V - fs).float() * torch.rand(
-                size=[B], device=padded_features.device,
-                requires_grad=False)).long()
+            f0s = ((V - fs).float() * torch.rand(size=[B],
+                                                 device=padded_features.device,
+                                                 requires_grad=False)).long()
             for b in range(B):
-                padded_features[b, :, f0s[b]:f0s[b] + fs[b]] = freq_means[
-                    b][:, None]
+                padded_features[b, :,
+                                f0s[b]:f0s[b] + fs[b]] = freq_means[b][:, None]
 
         # mask time
         for _ in range(self.spec_aug_conf["time_mask_num"]):
@@ -111,8 +109,8 @@ class SPLayer(nn.Module):
                 size=[B], device=padded_features.device,
                 requires_grad=False)).long()
             for b in range(B):
-                padded_features[b, t0s[b]:t0s[b] + ts[b], :] = time_means[b][
-                    None, :]
+                padded_features[b, t0s[b]:t0s[b] +
+                                ts[b], :] = time_means[b][None, :]
         return padded_features, feature_lengths
 
     def forward(self, wav_batch, lengths):
@@ -132,8 +130,8 @@ class SPLayer(nn.Module):
             # pad to max_length
             max_length = max(feature_lengths)
             padded_features = torch.zeros(batch_size, 2, self.channels,
-                                          max_length, feature.shape[-1]).to(
-                                              feature.device)
+                                          max_length,
+                                          feature.shape[-1]).to(feature.device)
             for i in range(batch_size):
                 padded_features[i, :] += features[i]
         else:
