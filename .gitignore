@@ -1,1 +1,5 @@
-/e/multiASR/egs/micArray/s5/G0200/
+# ignore dir
+G0200/
+exp/
+data/
+

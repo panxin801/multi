@@ -40,7 +40,7 @@ def get_args():
 def get_dur(wav_dic):
     durdic = {}
     for key, path in wav_dic.items():
-        sample_rate, data = utils.load_wave(path)
+        sample_rate, data = utils.load_wave(path,1)
         dur = data.shape[0]/float(sample_rate)
         durdic[key] = dur
     return durdic
