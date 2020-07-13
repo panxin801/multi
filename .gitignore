@@ -1,5 +1,5 @@
 # ignore dir
 G0200/
 exp/
-data/
+data/*
 
