@@ -1,4 +1,6 @@
-# OpenASR
+# MultiASR
+
+Based on [openASR](https://github.com/by2101/OpenASR) from by2101. I'm just work this for experiment.
 
 A pytorch based end2end speech recognition system. The main architecture is [Speech-Transformer](https://ieeexplore.ieee.org/abstract/document/8462506/).
 
@@ -37,12 +39,12 @@ We use yaml files for parameter configuration. We provide 3 examples.
 Run train.sh script for training baseline system.
 
     bash train.sh
-    
+
 ### Model Averaging
 Average checkpoints for improving performance.
 
     bash avg.sh
-    
+
 ### Decoding and Scoring
 Run decode_test.sh script for decoding test set.
 
@@ -53,7 +55,7 @@ Run decode_test.sh script for decoding test set.
 We provide TensorboardX based visualization. The event files are stored in $expdir/log. You can use tensorboard to visualize the training procedure.
 
     tensorboard --logdir=$expdir --bind_all
-    
+
 Then you can see procedures in browser (http://localhost:6006).
 
 Examples:

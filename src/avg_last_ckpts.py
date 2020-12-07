@@ -26,43 +26,42 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
+
 def get_args():
     parser = argparse.ArgumentParser(description="""
      Usage: avg_last_ckpts.py <expdir> <num>""")
-    parser.add_argument("expdir", help="The directory contains the checkpoints.")
-    parser.add_argument("num", type=int, help="The number of models to average")
+    parser.add_argument(
+        "expdir", help="The directory contains the checkpoints.")
+    parser.add_argument(
+        "num", type=int, help="The number of models to average")
     args = parser.parse_args()
     return args
 
+
 if __name__ == "__main__":
     args = get_args()
-    fnckpts = [t for t in os.listdir(args.expdir) if t.startswith("ep-") and t.endswith(".pt")]
+    fnckpts = [t for t in os.listdir(
+        args.expdir) if t.startswith("ep-") and t.endswith(".pt")]
     fnckpts.sort()
     fnckpts.reverse()
     fnckpts = fnckpts[:args.num]
     logging.info("Average checkpoints:\n{}".format("\n".join(fnckpts)))
-    pkg = torch.load(os.path.join(args.expdir, fnckpts[0]), map_location=lambda storage, loc: storage)
+    pkg = torch.load(os.path.join(
+        args.expdir, fnckpts[0]), map_location=lambda storage, loc: storage)
     for k in pkg["model"]:
         if k.endswith("_state"):
             for key in pkg["model"][k].keys():
                 pkg["model"][k][key] = torch.zeros_like(pkg["model"][k][key])
 
     for fn in fnckpts:
-        pkg_tmp = torch.load(os.path.join(args.expdir, fn), map_location=lambda storage, loc: storage)
+        pkg_tmp = torch.load(os.path.join(args.expdir, fn),
+                             map_location=lambda storage, loc: storage)
         logging.info("Loading {}".format(os.path.join(args.expdir, fn)))
         for k in pkg["model"]:
             if k.endswith("_state"):
                 for key in pkg["model"][k].keys():
-                    pkg["model"][k][key] += pkg_tmp["model"][k][key]/len(fnckpts)
+                    pkg["model"][k][key] += pkg_tmp["model"][k][key] / \
+                        len(fnckpts)
     fn_save = os.path.join(args.expdir, "avg-last{}.pt".format(len(fnckpts)))
     logging.info("Save averaged model to {}.".format(fn_save))
     torch.save(pkg, fn_save)
-       
-
-    
-
-
-
-
-
-

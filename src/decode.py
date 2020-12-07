@@ -13,6 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+import models
+import decoder_layers
+import encoder_layers
+import sp_layers
+import data
+import utils
+from third_party import kaldi_io as kio
 import sys
 import os
 import argparse
@@ -21,18 +28,13 @@ import yaml
 import numpy as np
 import torch
 
+# import pdb
+# pdb.set_trace()
+
 logging.basicConfig(
     level=logging.DEBUG,
     format=
     '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
-
-from third_party import kaldi_io as kio
-import utils
-import data
-import sp_layers
-import encoder_layers
-import decoder_layers
-import models
 
 
 def get_args():
@@ -69,7 +71,7 @@ if __name__ == "__main__":
 
     logging.info("Load package from {}.".format(args.model_pkg))
     pkg = torch.load(args.model_pkg, map_location=lambda storage, loc: storage)
-    splayer = sp_layers.SPLayer(pkg["model"]["splayer_config"])
+    splayer = sp_layers.SPLayer(pkg["model"]["splayer_config"], 16)
     encoder = encoder_layers.Transformer(pkg["model"]["encoder_config"])
     decoder = decoder_layers.TransformerDecoder(pkg["model"]["decoder_config"])
 

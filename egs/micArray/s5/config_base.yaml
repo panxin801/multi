@@ -1,7 +1,7 @@
 data:
   trainset: /home/panxin/repo/multiASR/egs/micArray/s5/exp/train.json
   devset: /home/panxin/repo/multiASR/egs/micArray/s5/exp/dev.json
-  vocab_path: /home/panxin/repo/multiASR/egs/micArray/s5/exp/G0200_train_chars.txt
+  vocab_path: /home/panxin/repo/multiASR/egs/micArray/s5/exp/aishell1_train_chars.txt
   maxlen: 60
   fetchworker_num: 12 
   channels: 16
@@ -43,7 +43,7 @@ training:
     multi_gpu: False
     exp_dir: exp/base
     print_inteval: 10
-    num_epoch: 80
+    num_epoch: 1
     accumulate_grad_batch: 8
     init_lr: 1.0
     optimtype: adam

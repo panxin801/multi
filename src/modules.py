@@ -2,6 +2,7 @@ import math
 import torch
 import torch.nn as nn
 
+
 class PositionalEncoding(nn.Module):
     """Implement the positional encoding (PE) function.
 
@@ -29,5 +30,3 @@ class PositionalEncoding(nn.Module):
         """
         length = input.size(1)
         return input*(self.scale)+self.pe[:, :length]
-
-

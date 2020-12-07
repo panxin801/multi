@@ -19,28 +19,29 @@ import torch.nn as nn
 
 import utils
 
+
 class MetricSummarizer(object):
     def __init__(self):
-        self.metrics = {} # name: (loss, weight)
+        self.metrics = {}  # name: (loss, weight)
         self.metric_names = []
         self.summarized = {}
 
     def register_metric(self, name, display=False, visual=False, optim=False):
         self.metric_names.append({
-                "name": name,
-                "display": display,
-                "visual": visual,
-                "optim": optim,
-            }) 
+            "name": name,
+            "display": display,
+            "visual": visual,
+            "optim": optim,
+        })
 
     def reset_metrics(self):
         del self.metrics
         del self.summarized
-        self.metrics = {} 
+        self.metrics = {}
         for item in self.metric_names:
             self.metrics[item["name"]] = None
         self.summarized = {}
-    
+
     def get_metric_by_name(self, name):
         return self.metrics[name]
 
@@ -51,7 +52,7 @@ class MetricSummarizer(object):
             raise ValueError("The metric {} is not registered.".format(name))
 
     def summarize(self):
-        self.summarized = {} # name: torch.Tensor
+        self.summarized = {}  # name: torch.Tensor
         for key in self.metrics.keys():
             if self.metrics[key] is None:
                 logging.warn("{} is not updated. Skip it.".format(key))
@@ -62,7 +63,7 @@ class MetricSummarizer(object):
     def collect_loss(self):
         loss = 0
         for item in self.metric_names:
-            key = item['name'] 
+            key = item['name']
             if item["optim"] == True:
                 v = self.metrics[key]
                 loss += v[0] * v[1]
@@ -73,12 +74,13 @@ class MetricSummarizer(object):
         for item in self.metric_names:
             if item[use] == True:
                 if item["name"] not in self.summarized:
-                    logging.warn("{} is not summarized. Skip it.".format(item["name"]))
+                    logging.warn(
+                        "{} is not summarized. Skip it.".format(item["name"]))
                     continue
                 fetched.append(
                     (item["name"], self.summarized[item["name"]]))
         return fetched
-        
+
     def display_msg(self, fetched, max_item_one_line=3):
         msglist = []
         msglists = []
@@ -100,8 +102,8 @@ class MetricSummarizer(object):
             l.append(" | ".join(msglist))
         msg = "\n".join(l)
         return msg
-    
-    def visualize_scalers(self, fetched, step): 
+
+    def visualize_scalers(self, fetched, step):
         for name, value in fetched:
             if isinstance(value, torch.Tensor):
                 utils.visualizer.add_scalar(name, value.item(), step)

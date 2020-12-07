@@ -1,6 +1,6 @@
 #!/bin/bash
 source path.sh
-expdir=exp/exp1
+expdir=exp/multiASR
 
 python $MAIN_ROOT/src/avg_last_ckpts.py \
     $expdir \

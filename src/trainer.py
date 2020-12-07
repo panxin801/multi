@@ -59,14 +59,22 @@ class Trainer(object):
 
         self.lr_scheduler = schedule.get_scheduler(config["lr_scheduler"])
         self.metric_summarizer = metric.MetricSummarizer()
-        self.metric_summarizer.register_metric(
-            "per_token_loss", display=True, visual=True, optim=True)
-        self.metric_summarizer.register_metric(
-            "avg_token_loss", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "learning_rate", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "sequence_per_sec", display=True, visual=True, optim=False)
+        self.metric_summarizer.register_metric("per_token_loss",
+                                               display=True,
+                                               visual=True,
+                                               optim=True)
+        self.metric_summarizer.register_metric("avg_token_loss",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("learning_rate",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("sequence_per_sec",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
 
         if utils.TENSORBOARD_LOGGING == 1:
             utils.visualizer.set_writer(os.path.join(self.exp_dir, "log"))
@@ -79,15 +87,15 @@ class Trainer(object):
         self.lr = self.init_lr
 
         if config["optimtype"] == "sgd":
-            self.optimizer = torch.optim.SGD(
-                self.model_to_pack.parameters(), lr=self.lr, momentum=0.9)
+            self.optimizer = torch.optim.SGD(self.model_to_pack.parameters(),
+                                             lr=self.lr,
+                                             momentum=0.9)
         elif config["optimtype"] == "adam":
-            self.optimizer = torch.optim.Adam(
-                self.model_to_pack.parameters(),
-                lr=self.lr,
-                betas=(0.9, 0.999),
-                eps=1e-08,
-                weight_decay=0)
+            self.optimizer = torch.optim.Adam(self.model_to_pack.parameters(),
+                                              lr=self.lr,
+                                              betas=(0.9, 0.999),
+                                              eps=1e-08,
+                                              weight_decay=0)
         else:
             raise ValueError("Unknown optimizer.")
         if not os.path.isdir(self.exp_dir):
@@ -178,8 +186,8 @@ class Trainer(object):
             msg += "\n" + "-" * 85 + '\n'
             logging.info(msg)
             if isinstance(self.lr_scheduler, schedule.BobLearningRateSchedule):
-                self.lr_scheduler.update_decay_rate(
-                    cv_tot_loss / cv_utter_itered)
+                self.lr_scheduler.update_decay_rate(cv_tot_loss /
+                                                    cv_utter_itered)
             self.tr_loss.append(tr_loss)
             self.cv_loss.append(cv_loss)
 
@@ -225,15 +233,14 @@ class Trainer(object):
                                            wave_lengths.cuda(), ids.cuda(),
                                            labels.cuda(), paddings.cuda())
             else:
-                this_loss = self.model(
-                    padded_waveforms.cuda(),
-                    wave_lengths.cuda(),
-                    ids.cuda(),
-                    labels.cuda(),
-                    paddings.cuda(),
-                    label_smooth=self.label_smooth,
-                    lst_w=self.lst_w,
-                    lst_t=self.lst_t)
+                this_loss = self.model(padded_waveforms.cuda(),
+                                       wave_lengths.cuda(),
+                                       ids.cuda(),
+                                       labels.cuda(),
+                                       paddings.cuda(),
+                                       label_smooth=self.label_smooth,
+                                       lst_w=self.lst_w,
+                                       lst_t=self.lst_t)
 
             batch_loss = torch.sum(this_loss)
             n_token = torch.sum(1 - paddings).float()
@@ -251,8 +258,9 @@ class Trainer(object):
             self.metric_summarizer.update_metric(
                 "learning_rate",
                 list(self.optimizer.param_groups)[0]["lr"], 1.0)
-            self.metric_summarizer.update_metric(
-                "sequence_per_sec", tot_sequence, 1.0 / timer.toc())
+            self.metric_summarizer.update_metric("sequence_per_sec",
+                                                 tot_sequence,
+                                                 1.0 / timer.toc())
             self.metric_summarizer.summarize()
 
             loss = self.metric_summarizer.collect_loss()
@@ -300,13 +308,12 @@ class Trainer(object):
 
     def visualize_figure(self):
         with torch.no_grad():
-            _, atten_info = self.model_to_pack(
-                self.data_for_vis[0],
-                self.data_for_vis[1],
-                self.data_for_vis[2],
-                self.data_for_vis[3],
-                self.data_for_vis[4],
-                return_atten=True)
+            _, atten_info = self.model_to_pack(self.data_for_vis[0],
+                                               self.data_for_vis[1],
+                                               self.data_for_vis[2],
+                                               self.data_for_vis[3],
+                                               self.data_for_vis[4],
+                                               return_atten=True)
 
         enc_length = atten_info[1][0]
         enc_output = atten_info[0][0].detach().cpu().numpy()[:enc_length, :]
@@ -366,18 +373,30 @@ class LmTrainer(object):
 
         self.lr_scheduler = schedule.get_scheduler(config["lr_scheduler"])
         self.metric_summarizer = metric.MetricSummarizer()
-        self.metric_summarizer.register_metric(
-            "per_token_loss", display=True, visual=True, optim=True)
-        self.metric_summarizer.register_metric(
-            "avg_token_loss", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "per_token_acc", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "avg_token_acc", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "learning_rate", display=True, visual=True, optim=False)
-        self.metric_summarizer.register_metric(
-            "token_per_sec", display=True, visual=True, optim=False)
+        self.metric_summarizer.register_metric("per_token_loss",
+                                               display=True,
+                                               visual=True,
+                                               optim=True)
+        self.metric_summarizer.register_metric("avg_token_loss",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("per_token_acc",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("avg_token_acc",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("learning_rate",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
+        self.metric_summarizer.register_metric("token_per_sec",
+                                               display=True,
+                                               visual=True,
+                                               optim=False)
 
         if utils.TENSORBOARD_LOGGING == 1:
             utils.visualizer.set_writer(os.path.join(self.exp_dir, "log"))
@@ -390,15 +409,15 @@ class LmTrainer(object):
         self.lr = self.init_lr
 
         if config["optimtype"] == "sgd":
-            self.optimizer = torch.optim.SGD(
-                self.model_to_pack.parameters(), lr=self.lr, momentum=0.9)
+            self.optimizer = torch.optim.SGD(self.model_to_pack.parameters(),
+                                             lr=self.lr,
+                                             momentum=0.9)
         elif config["optimtype"] == "adam":
-            self.optimizer = torch.optim.Adam(
-                self.model_to_pack.parameters(),
-                lr=self.lr,
-                betas=(0.9, 0.999),
-                eps=1e-08,
-                weight_decay=0)
+            self.optimizer = torch.optim.Adam(self.model_to_pack.parameters(),
+                                              lr=self.lr,
+                                              betas=(0.9, 0.999),
+                                              eps=1e-08,
+                                              weight_decay=0)
         else:
             raise ValueError("Unknown optimizer.")
 
@@ -536,11 +555,10 @@ class LmTrainer(object):
 
             if cross_valid:
                 with torch.no_grad():
-                    this_loss, ncorrect = self.model(
-                        ids.cuda(),
-                        labels.cuda(),
-                        paddings.cuda(),
-                        label_smooth=0)
+                    this_loss, ncorrect = self.model(ids.cuda(),
+                                                     labels.cuda(),
+                                                     paddings.cuda(),
+                                                     label_smooth=0)
 
             else:
                 this_loss, ncorrect = self.model(
@@ -608,7 +626,8 @@ class LmTrainer(object):
                 msg += todispmsg
                 logging.info("Progress:\n" + msg.strip())
 
-            if utils.TENSORBOARD_LOGGING == 1 and not cross_valid and self.step % 1000 == 0 and self.config["vis_atten"]:
+            if utils.TENSORBOARD_LOGGING == 1 and not cross_valid and self.step % 1000 == 0 and self.config[
+                    "vis_atten"]:
                 self.visualize_figure()
 
         self.metric_summarizer.reset_metrics()

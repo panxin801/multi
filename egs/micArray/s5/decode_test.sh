@@ -1,6 +1,6 @@
 #!/bin/bash
 source path.sh
-expdir=exp/base
+expdir=exp/multiASR
 ep=avg-last10
 decode_dir=$expdir/decode_test_${ep}
 mkdir -p $decode_dir

@@ -452,7 +452,8 @@ def get_mel_banks(num_bins, window_length_padded, sample_freq, low_freq,
         high_freq += nyquist
 
     assert (0.0 <= low_freq < nyquist) and (0.0 < high_freq <= nyquist) and (low_freq < high_freq), \
-        ('Bad values in options: low-freq %f and high-freq %f vs. nyquist %f' % (low_freq, high_freq, nyquist))
+        ('Bad values in options: low-freq %f and high-freq %f vs. nyquist %f' %
+         (low_freq, high_freq, nyquist))
 
     # fft-bin width [think of it as Nyquist-freq / half-window-length]
     fft_bin_width = sample_freq / window_length_padded
@@ -858,7 +859,8 @@ def _get_LR_indices_and_weights(orig_freq, new_freq, output_samples_in_unit,
         min_t * orig_freq)  # size (output_samples_in_unit)
     max_input_index = torch.floor(
         max_t * orig_freq)  # size (output_samples_in_unit)
-    num_indices = max_input_index - min_input_index + 1  # size (output_samples_in_unit)
+    num_indices = max_input_index - min_input_index + \
+        1  # size (output_samples_in_unit)
 
     max_weight_width = num_indices.max()
     # create a group of weights of size (output_samples_in_unit, max_weight_width)

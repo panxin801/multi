@@ -188,7 +188,7 @@ class Model(torch.nn.Module):
         outputs = outputs.view(B, vocab_size)
         log_probs = F.log_softmax(outputs, dim=-1)
         topk_res = torch.topk(log_probs, k=nbest_keep, dim=-1)
-        nbest_ids = topk_res[1].view(-1)  #[batch_size*nbest_keep, 1]
+        nbest_ids = topk_res[1].view(-1)  # [batch_size*nbest_keep, 1]
         nbest_logprobs = topk_res[0].view(-1)
 
         target_ids = torch.ones(B * nbest_keep, 1).to(
@@ -344,7 +344,7 @@ class LM(torch.nn.Module):
     def __init__(self, lmlayer):
         super(LM, self).__init__()
         self.lm_layer = lmlayer
-        #self._reset_parameters()
+        # self._reset_parameters()
 
     def forward(self, ids, labels, paddings, label_smooth=0.):
         lengths = torch.sum(1 - paddings, dim=1).long()
