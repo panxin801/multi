@@ -1,4 +1,4 @@
 # ignore dir
-egs/micArray/s5/exp/
-egs/micArray/s5/data/
+exp/*
+data/*
 
