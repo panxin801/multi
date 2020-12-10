@@ -1,4 +1,4 @@
-2020-11-20 16:24:24,821 - /home/panxin/repo/multiASR/egs/micArray/s5/../../../src/train.py[line:125] - INFO: 
+2020-12-10 10:34:37,072 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:125] - INFO: 
 Model info:
 Model(
   (splayer): SPLayer(
@@ -28,7 +28,7 @@ Model(
       (layers): ModuleList(
         (0): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -40,7 +40,7 @@ Model(
         )
         (1): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -52,7 +52,7 @@ Model(
         )
         (2): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -64,7 +64,7 @@ Model(
         )
         (3): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -76,7 +76,7 @@ Model(
         )
         (4): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -88,7 +88,7 @@ Model(
         )
         (5): TransformerEncoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -103,17 +103,17 @@ Model(
     )
   )
   (decoder): TransformerDecoder(
-    (emb): Embedding(191, 512)
+    (emb): Embedding(5060, 512)
     (pe): PositionalEncoding()
     (dropout): Dropout(p=0.1, inplace=False)
     (transformer_block): TransformerDecoder(
       (layers): ModuleList(
         (0): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -127,10 +127,10 @@ Model(
         )
         (1): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -144,10 +144,10 @@ Model(
         )
         (2): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -161,10 +161,10 @@ Model(
         )
         (3): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -178,10 +178,10 @@ Model(
         )
         (4): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -195,10 +195,10 @@ Model(
         )
         (5): TransformerDecoderLayer(
           (self_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (multihead_attn): MultiheadAttention(
-            (out_proj): _LinearWithBias(in_features=512, out_features=512, bias=True)
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
           )
           (linear1): Linear(in_features=512, out_features=4096, bias=True)
           (dropout): Dropout(p=0.1, inplace=False)
@@ -212,33 +212,50 @@ Model(
         )
       )
     )
-    (output_affine): Linear(in_features=512, out_features=191, bias=True)
+    (output_affine): Linear(in_features=512, out_features=5060, bias=True)
   )
 )
+2020-12-10 10:34:37,072 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:135] - INFO: Let's use 5 GPUs!
 WaveCollate called
-2020-11-20 16:24:25,320 - /home/panxin/repo/multiASR/egs/micArray/s5/../../../src/train.py[line:145] - INFO: Start training...
-/repo/multiASR/src/third_party/kaldi_signal.py:1121: UserWarning: The function torch.rfft is deprecated and will be removed in a future PyTorch release. Use the new torch.fft module functions, instead, by importing torch.fft and calling torch.fft.fft or torch.fft.rfft. (Triggered internally at  /pytorch/aten/src/ATen/native/SpectralOps.cpp:590.)
-  fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
-2020-11-20 16:24:27,963 - /repo/multiASR/src/trainer.py[line:163] - INFO: Training
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+2020-12-10 10:34:55,441 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:145] - INFO: Start training...
 Traceback (most recent call last):
-  File "/home/panxin/repo/multiASR/egs/micArray/s5/../../../src/train.py", line 146, in <module>
+  File "/root/multiASR/egs/micArray/s5/../../../src/train.py", line 146, in <module>
     trainer.train()
-  File "/repo/multiASR/src/trainer.py", line 164, in train
-    tr_loss = self.iter_one_epoch()
-  File "/repo/multiASR/src/trainer.py", line 243, in iter_one_epoch
-    lst_t=self.lst_t)
-  File "/home/panxin/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
-    result = self.forward(*input, **kwargs)
-  File "/repo/multiASR/src/models.py", line 52, in forward
+  File "/root/multiASR/src/trainer.py", line 158, in train
+    self.visualize_figure()
+  File "/root/multiASR/src/trainer.py", line 316, in visualize_figure
     return_atten=True)
-  File "/repo/multiASR/src/models.py", line 113, in get_logits
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/root/multiASR/src/models.py", line 52, in forward
+    return_atten=True)
+  File "/root/multiASR/src/models.py", line 113, in get_logits
     sp_outputs, sp_output_lengths = self.splayer(batch_wave, lengths)
-  File "/home/panxin/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
     result = self.forward(*input, **kwargs)
-  File "/repo/multiASR/src/sp_layers.py", line 145, in forward
-    retCC = self.CConv(retCC)
-  File "/home/panxin/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+  File "/root/multiASR/src/sp_layers.py", line 144, in forward
+    retCC = self.CConv(padded_features)
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
     result = self.forward(*input, **kwargs)
-  File "/repo/multiASR/src/complexCNN.py", line 43, in forward
-    imaginary = self.conv_re(x[:, 1]) + self.conv_im(x[:, 0])
-RuntimeError: CUDA out of memory. Tried to allocate 290.00 MiB (GPU 0; 7.80 GiB total capacity; 6.01 GiB already allocated; 297.69 MiB free; 6.14 GiB reserved in total by PyTorch)
+  File "/root/multiASR/src/complexCNN.py", line 42, in forward
+    real = self.conv_re(x[:, 0]) - self.conv_im(x[:, 1])
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 349, in forward
+    return self._conv_forward(input, self.weight)
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 346, in _conv_forward
+    self.padding, self.dilation, self.groups)
+RuntimeError: CUDA out of memory. Tried to allocate 2.25 GiB (GPU 0; 15.75 GiB total capacity; 13.06 GiB already allocated; 1.57 GiB free; 13.14 GiB reserved in total by PyTorch)

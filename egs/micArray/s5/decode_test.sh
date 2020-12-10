@@ -11,7 +11,7 @@ python -W ignore::UserWarning $MAIN_ROOT/src/decode.py \
     --nbest 5 \
     --use_gpu True \
     $expdir/${ep}.pt \
-    exp/aishel1_train_chars.txt \
+    exp/aishell1_train_chars.txt \
     data/test \
     "file" \
     $decode_dir/hyp.trn

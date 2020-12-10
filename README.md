@@ -49,7 +49,7 @@ Average checkpoints for improving performance.
 Run decode_test.sh script for decoding test set.
 
     bash decode_test.sh
-    bash score.sh data/test/text exp/exp1/decode_test_avg-last10
+    bash score.sh data/test/text exp/multiASR/decode_test_avg-last10
 
 ## Visualization
 We provide TensorboardX based visualization. The event files are stored in $expdir/log. You can use tensorboard to visualize the training procedure.

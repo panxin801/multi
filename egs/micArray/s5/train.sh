@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source path.sh
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4
 
 sys_tag="base"
 if [ $# != 0 ]; then
@@ -12,7 +12,7 @@ fi
 if [ "$sys_tag" == "base" ]; then
 
 echo "Training a baseline transformer ASR system..."
-python $MAIN_ROOT/src/train.py --config config_base.yaml 2>&1 | tee base.log 
+python $MAIN_ROOT/src/train.py --config config/config_base_server.yaml 2>&1 | tee base.log 
 
 elif [ "$sys_tag" == "lm" ]; then
     cat data/train/text | cut -d" " -f2- > exp/train_text
@@ -22,7 +22,6 @@ elif [ "$sys_tag" == "lm" ]; then
 elif [ "$sys_tag" == "lst" ]; then
     echo ""
 else
-
     echo "The sys_tag should be base, lm or lst."
     exit 1
 fi

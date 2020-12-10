@@ -14,7 +14,8 @@ for line in sys.stdin:
   print('{} ({})'.format(txt, utt))
 " > ${dir}/ref.trn
 
-$MAIN_ROOT/tools/sclite -r ${dir}/ref.trn trn -h ${dir}/hyp.trn trn -c NOASCII -i wsj -o all stdout > ${dir}/result.txt
+#$MAIN_ROOT/tools/sclite -r ${dir}/ref.trn trn -h ${dir}/hyp.trn trn -c NOASCII -i wsj -o all stdout > ${dir}/result.txt
+$MAIN_ROOT/tools/sclite -r ${dir}/ref.trn -h ${dir}/hyp.trn -c NOASCII -i wsj -o all stdout > ${dir}/result.txt
 
 echo "write a CER (or TER) result in ${dir}/result.txt"
 grep -e Avg -m 2 ${dir}/result.txt
