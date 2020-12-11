@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source path.sh
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5
 
 sys_tag="base"
 if [ $# != 0 ]; then
@@ -20,7 +20,7 @@ elif [ "$sys_tag" == "lm" ]; then
     python $MAIN_ROOT/src/lm_train.py config_lm_lstm.yaml 2>&1 | tee base.log 
 
 elif [ "$sys_tag" == "lst" ]; then
-    echo ""
+    echo "TODO"
 else
     echo "The sys_tag should be base, lm or lst."
     exit 1

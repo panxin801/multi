@@ -45,6 +45,8 @@ class Model(torch.nn.Module):
                 lst_t=1.0,
                 return_atten=False):
         target_lengths = torch.sum(1 - target_paddings, dim=-1).long()
+        batch_wave = batch_wave.cuda()
+        target_ids = target_ids.cuda()
         logits, atten_info = self.get_logits(batch_wave,
                                              lengths,
                                              target_ids,

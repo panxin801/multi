@@ -25,6 +25,7 @@ import torch.nn.init as init
 import utils
 import schedule
 import metric
+import pdb
 
 
 class Trainer(object):
@@ -32,7 +33,7 @@ class Trainer(object):
         self.config = config
         self.tr_loader = tr_loader
         self.cv_loader = cv_loader
-
+        
         self.model = model
         if config["multi_gpu"] == True:
             self.model_to_pack = self.model.module
@@ -155,7 +156,8 @@ class Trainer(object):
             self.best_cvloss = min(self.cv_loss)
 
         if utils.TENSORBOARD_LOGGING == 1:
-            self.visualize_figure()
+            #self.visualize_figure()
+            pass
 
         while self.epoch < self.num_epoch:
             timer.tic()
@@ -308,6 +310,7 @@ class Trainer(object):
 
     def visualize_figure(self):
         with torch.no_grad():
+            pdb.set_trace()
             _, atten_info = self.model_to_pack(self.data_for_vis[0],
                                                self.data_for_vis[1],
                                                self.data_for_vis[2],

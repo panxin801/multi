@@ -1,4 +1,4 @@
-2020-12-10 10:34:37,072 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:125] - INFO: 
+2020-12-11 14:37:11,303 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:126] - INFO: 
 Model info:
 Model(
   (splayer): SPLayer(
@@ -215,7 +215,7 @@ Model(
     (output_affine): Linear(in_features=512, out_features=5060, bias=True)
   )
 )
-2020-12-10 10:34:37,072 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:135] - INFO: Let's use 5 GPUs!
+2020-12-11 14:37:11,303 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:137] - INFO: Let's use 6 GPUs!
 WaveCollate called
 WaveCollate called
 WaveCollate called
@@ -230,32 +230,42 @@ WaveCollate called
 WaveCollate called
 WaveCollate called
 WaveCollate called
-2020-12-10 10:34:55,441 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:145] - INFO: Start training...
-Traceback (most recent call last):
-  File "/root/multiASR/egs/micArray/s5/../../../src/train.py", line 146, in <module>
-    trainer.train()
-  File "/root/multiASR/src/trainer.py", line 158, in train
-    self.visualize_figure()
-  File "/root/multiASR/src/trainer.py", line 316, in visualize_figure
-    return_atten=True)
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/root/multiASR/src/models.py", line 52, in forward
-    return_atten=True)
-  File "/root/multiASR/src/models.py", line 113, in get_logits
-    sp_outputs, sp_output_lengths = self.splayer(batch_wave, lengths)
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/root/multiASR/src/sp_layers.py", line 144, in forward
-    retCC = self.CConv(padded_features)
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/root/multiASR/src/complexCNN.py", line 42, in forward
-    real = self.conv_re(x[:, 0]) - self.conv_im(x[:, 1])
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 349, in forward
-    return self._conv_forward(input, self.weight)
-  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 346, in _conv_forward
-    self.padding, self.dilation, self.groups)
-RuntimeError: CUDA out of memory. Tried to allocate 2.25 GiB (GPU 0; 15.75 GiB total capacity; 13.06 GiB already allocated; 1.57 GiB free; 13.14 GiB reserved in total by PyTorch)
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+2020-12-11 14:37:23,947 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:148] - INFO: Start training...
+2020-12-11 14:37:23,948 - /root/multiASR/src/trainer.py[line:165] - INFO: Training
+/pytorch/aten/src/ATen/native/BinaryOps.cpp:81: UserWarning: Integer division of tensors using div or / is deprecated, and in a future release div will perform true division as in Python 3. Use true_divide or floor_divide (// in Python) instead.
+/root/.local/lib/python3.7/site-packages/torch/nn/parallel/_functions.py:61: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+2020-12-11 14:42:31,077 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 5 | Iter 40:
+per_token_loss: 8.6138220 | avg_token_loss: 8.6104364 | learning_rate: 0.0000001
+sequence_per_sec: 23.9418533
+2020-12-11 14:46:51,217 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 10 | Iter 80:
+per_token_loss: 8.6110992 | avg_token_loss: 8.6104279 | learning_rate: 0.0000002
+sequence_per_sec: 26.2911030
+2020-12-11 14:51:09,809 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 15 | Iter 120:
+per_token_loss: 8.6178217 | avg_token_loss: 8.6070080 | learning_rate: 0.0000003
+sequence_per_sec: 26.6827807
+2020-12-11 14:55:27,891 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 20 | Iter 160:
+per_token_loss: 8.5819426 | avg_token_loss: 8.6011848 | learning_rate: 0.0000004
+sequence_per_sec: 27.2269142
+2020-12-11 14:59:45,115 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 25 | Iter 200:
+per_token_loss: 8.5584698 | avg_token_loss: 8.5948915 | learning_rate: 0.0000005
+sequence_per_sec: 27.6868661
+2020-12-11 15:04:04,110 - /root/multiASR/src/trainer.py[line:301] - INFO: Progress:
+Epoch 1 | Step 30 | Iter 240:
+per_token_loss: 8.5606232 | avg_token_loss: 8.5872469 | learning_rate: 0.0000006
+sequence_per_sec: 28.2789378

@@ -4,6 +4,7 @@ import argparse
 import logging
 import yaml
 import torch
+import pdb
 
 if "LAS_LOG_LEVEL" in os.environ:
     LOG_LEVEL = os.environ["LAS_LOG_LEVEL"]
@@ -130,12 +131,14 @@ if __name__ == "__main__":
         pkg = torch.load(
             os.path.join(trainingconfig["exp_dir"], "last-ckpt.pt"))
         model.restore(pkg["model"])
-
+    
+    #pdb.set_trace()
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
-        logging.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
-        model = torch.nn.DataParallel(model)
-
-    model = model.cuda()
+        logging.info("Let's use {} GPUs!".format(ngpu))
+        gpu_ids = [int(i) for i in range(ngpu)]
+        model = torch.nn.DataParallel(model.cuda())
+    else:
+        model = model.cuda()
 
     trainer = Trainer(model, trainingconfig, tr_loader, cv_loader)
 
