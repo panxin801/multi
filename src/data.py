@@ -191,7 +191,7 @@ def load_wave_batch(paths, channels):
     # The following needs some changing
     padded_waveforms = torch.zeros(len(lengths), channels, max_length)
     for i in range(len(lengths)):
-        padded_waveforms[i,:,lengths[i]] += waveforms[i]
+        padded_waveforms[i,:,:lengths[i]] += waveforms[i]
     return padded_waveforms, torch.LongTensor(lengths)
 
 

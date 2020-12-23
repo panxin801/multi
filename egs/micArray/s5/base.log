@@ -1,4 +1,4 @@
-2020-12-23 16:09:45,004 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
+2020-12-23 16:13:53,166 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
 Model info:
 Model(
   (splayer): SPLayer(
@@ -215,9 +215,9 @@ Model(
     (output_affine): Linear(in_features=512, out_features=5060, bias=True)
   )
 )
-2020-12-23 16:09:45,004 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:133] - INFO: Let's use 6 GPUs!
-2020-12-23 16:09:45,006 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:144] - INFO: Start training...
-2020-12-23 16:09:45,007 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
+2020-12-23 16:13:53,167 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:133] - INFO: Let's use 6 GPUs!
+2020-12-23 16:13:53,168 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:144] - INFO: Start training...
+2020-12-23 16:13:53,168 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
 Traceback (most recent call last):
   File "/root/multiASR/egs/micArray/s5/../../../src/train.py", line 145, in <module>
     trainer.train()
@@ -233,7 +233,7 @@ Traceback (most recent call last):
     data.reraise()
   File "/root/.local/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
     raise self.exc_type(msg)
-NameError: Caught NameError in DataLoader worker process 0.
+IndexError: Caught IndexError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File "/root/.local/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
     data = fetcher.fetch(index)
@@ -242,6 +242,6 @@ Original Traceback (most recent call last):
   File "/root/multiASR/src/data.py", line 245, in __call__
     padded_waveforms, wave_lengths = load_wave_batch(paths, self.channels)
   File "/root/multiASR/src/data.py", line 194, in load_wave_batch
-    padded_waveforms[i,:,length[i]] += waveforms[i]
-NameError: name 'length' is not defined
+    padded_waveforms[i,:,lengths[i]] += waveforms[i]
+IndexError: index 92843 is out of bounds for dimension 2 with size 92843
 
