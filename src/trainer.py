@@ -156,8 +156,7 @@ class Trainer(object):
             self.best_cvloss = min(self.cv_loss)
 
         if utils.TENSORBOARD_LOGGING == 1:
-            #self.visualize_figure()
-            pass
+            self.visualize_figure()
 
         while self.epoch < self.num_epoch:
             timer.tic()

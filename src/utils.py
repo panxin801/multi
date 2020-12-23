@@ -10,7 +10,7 @@ import torch.nn as nn
 from third_party import wavfile
 from third_party import kaldi_io as kio
 
-TENSORBOARD_LOGGING = 1
+TENSORBOARD_LOGGING = 0
 
 
 def cleanup_ckpt(expdir, num_last_ckpt_keep):

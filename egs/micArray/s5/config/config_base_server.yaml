@@ -3,7 +3,7 @@ data:
   devset: /root/multiASR/egs/micArray/s5/exp/test.json
   vocab_path: /root/multiASR/egs/micArray/s5/exp/aishell1_train_chars.txt
   maxlen: 60
-  fetchworker_num: 0
+  fetchworker_num: 6
   channels: 16
 model:
   signal:

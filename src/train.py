@@ -28,12 +28,9 @@ import encoder_layers
 import decoder_layers
 import lm_layers
 import models
-
 from trainer import Trainer
 
 
-# /home/panxin/repo/multiASR/egs/micArray/s5/config_base.yaml
-# E:\multiASR\egs\micArray\s5\config_base.yaml
 def get_args():
     parser = argparse.ArgumentParser(description="""
      Usage: train.py <config>""")
@@ -63,8 +60,7 @@ if __name__ == "__main__":
     modelconfig = config["model"]
 
     training_set = data.SpeechDataset(dataconfig["trainset"])
-    # valid_set = data.SpeechDataset(dataconfig["devset"], reverse=True)
-    valid_set = data.SpeechDataset(dataconfig["trainset"], reverse=True)
+    valid_set = data.SpeechDataset(dataconfig["devset"], reverse=True)
     if "vocab_path" in dataconfig:
         tokenizer = data.CharTokenizer(dataconfig["vocab_path"])
     else:
@@ -136,7 +132,7 @@ if __name__ == "__main__":
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
         logging.info("Let's use {} GPUs!".format(ngpu))
         gpu_ids = [int(i) for i in range(ngpu)]
-        model = torch.nn.DataParallel(model.cuda())
+        model = torch.nn.DataParallel(model)
     else:
         model = model.cuda()
 
