@@ -132,7 +132,7 @@ if __name__ == "__main__":
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
         logging.info("Let's use {} GPUs!".format(ngpu))
         gpu_ids = [int(i) for i in range(ngpu)]
-        model = torch.nn.DataParallel(model)
+        model = torch.nn.DataParallel(model.cuda())
     else:
         model = model.cuda()
 

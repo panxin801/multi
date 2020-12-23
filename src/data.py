@@ -162,7 +162,7 @@ class TimeBasedSampler(Sampler):
                 batchs.append(batch)
             else:
                 b = len(batch)
-                batchs.append(batch[b // ngpu * ngpu:])
+                batchs.append(batch[:b // ngpu * ngpu])
         self.batchs = batchs
 
     def __iter__(self):

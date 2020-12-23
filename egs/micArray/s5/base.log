@@ -1,4 +1,4 @@
-2020-12-23 16:13:53,166 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
+2020-12-23 16:22:12,109 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
 Model info:
 Model(
   (splayer): SPLayer(
@@ -215,33 +215,18 @@ Model(
     (output_affine): Linear(in_features=512, out_features=5060, bias=True)
   )
 )
-2020-12-23 16:13:53,167 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:133] - INFO: Let's use 6 GPUs!
-2020-12-23 16:13:53,168 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:144] - INFO: Start training...
-2020-12-23 16:13:53,168 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
+2020-12-23 16:22:12,109 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:133] - INFO: Let's use 6 GPUs!
+2020-12-23 16:22:12,111 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:144] - INFO: Start training...
+2020-12-23 16:22:12,111 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
 Traceback (most recent call last):
   File "/root/multiASR/egs/micArray/s5/../../../src/train.py", line 145, in <module>
     trainer.train()
   File "/root/multiASR/src/trainer.py", line 165, in train
     tr_loss = self.iter_one_epoch()
-  File "/root/multiASR/src/trainer.py", line 225, in iter_one_epoch
-    data = next(loader_iter)
-  File "/root/.local/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 345, in __next__
-    data = self._next_data()
-  File "/root/.local/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 856, in _next_data
-    return self._process_data(data)
-  File "/root/.local/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 881, in _process_data
-    data.reraise()
-  File "/root/.local/lib/python3.7/site-packages/torch/_utils.py", line 395, in reraise
-    raise self.exc_type(msg)
-IndexError: Caught IndexError in DataLoader worker process 0.
-Original Traceback (most recent call last):
-  File "/root/.local/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 178, in _worker_loop
-    data = fetcher.fetch(index)
-  File "/root/.local/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 47, in fetch
-    return self.collate_fn(data)
-  File "/root/multiASR/src/data.py", line 245, in __call__
-    padded_waveforms, wave_lengths = load_wave_batch(paths, self.channels)
-  File "/root/multiASR/src/data.py", line 194, in load_wave_batch
-    padded_waveforms[i,:,lengths[i]] += waveforms[i]
-IndexError: index 92843 is out of bounds for dimension 2 with size 92843
-
+  File "/root/multiASR/src/trainer.py", line 244, in iter_one_epoch
+    lst_t=self.lst_t)
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/root/.local/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 149, in forward
+    "them on device: {}".format(self.src_device_obj, t.device))
+RuntimeError: module must have its parameters and buffers on device cuda:0 (device_ids[0]) but found one of them on device: cpu
