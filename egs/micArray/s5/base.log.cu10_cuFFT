@@ -1,0 +1,3161 @@
+2020-12-23 16:33:20,437 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
+Model info:
+Model(
+  (splayer): SPLayer(
+    (CConv): ComplexConv(
+      (conv_re): Conv2d(16, 16, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+      (conv_im): Conv2d(16, 16, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+    )
+    (LastCConv): ComplexConv(
+      (conv_re): Conv2d(16, 1, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+      (conv_im): Conv2d(16, 1, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+    )
+    (LastConv): Conv2d(2, 1, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (encoder): Transformer(
+    (sub): Conv2dSubsampleV2(
+      (conv): Sequential(
+        (subsample/conv0): Conv2d(1, 32, kernel_size=(3, 3), stride=(2, 1))
+        (subsample/relu0): ReLU()
+        (subsample/conv1): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 1))
+        (subsample/relu1): ReLU()
+      )
+      (affine): Linear(in_features=8096, out_features=512, bias=True)
+    )
+    (pe): PositionalEncoding()
+    (dropout): Dropout(p=0.1, inplace=False)
+    (transformer_encoder): TransformerEncoder(
+      (layers): ModuleList(
+        (0): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (1): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (2): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (3): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (4): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (5): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+      )
+      (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (decoder): TransformerDecoder(
+    (emb): Embedding(5060, 512)
+    (pe): PositionalEncoding()
+    (dropout): Dropout(p=0.1, inplace=False)
+    (transformer_block): TransformerDecoder(
+      (layers): ModuleList(
+        (0): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (1): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (2): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (3): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (4): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (5): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (output_affine): Linear(in_features=512, out_features=5060, bias=True)
+  )
+)
+2020-12-23 16:33:20,437 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:133] - INFO: Let's use 6 GPUs!
+2020-12-23 16:33:20,506 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:144] - INFO: Start training...
+2020-12-23 16:33:20,506 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
+/pytorch/aten/src/ATen/native/BinaryOps.cpp:81: UserWarning: Integer division of tensors using div or / is deprecated, and in a future release div will perform true division as in Python 3. Use true_divide or floor_divide (// in Python) instead.
+/root/.local/lib/python3.7/site-packages/torch/nn/parallel/_functions.py:61: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+2020-12-23 16:41:38,735 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 5 | Iter 40:
+per_token_loss: 8.6275425 | avg_token_loss: 8.6380606 | learning_rate: 0.0000001
+sequence_per_sec: 15.4506682
+2020-12-23 16:45:50,323 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 10 | Iter 80:
+per_token_loss: 8.5994759 | avg_token_loss: 8.6349506 | learning_rate: 0.0000002
+sequence_per_sec: 20.1832581
+2020-12-23 16:50:02,458 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 15 | Iter 120:
+per_token_loss: 8.6173830 | avg_token_loss: 8.6301775 | learning_rate: 0.0000003
+sequence_per_sec: 22.7587635
+2020-12-23 16:54:13,883 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 20 | Iter 160:
+per_token_loss: 8.5691137 | avg_token_loss: 8.6266336 | learning_rate: 0.0000004
+sequence_per_sec: 24.3925682
+2020-12-23 16:58:26,884 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 25 | Iter 200:
+per_token_loss: 8.5850973 | avg_token_loss: 8.6208153 | learning_rate: 0.0000005
+sequence_per_sec: 25.5575944
+2020-12-23 17:02:38,116 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 30 | Iter 240:
+per_token_loss: 8.5340290 | avg_token_loss: 8.6134386 | learning_rate: 0.0000006
+sequence_per_sec: 26.3391997
+2020-12-23 17:09:22,024 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 35 | Iter 280:
+per_token_loss: 8.5599976 | avg_token_loss: 8.6045561 | learning_rate: 0.0000007
+sequence_per_sec: 24.9534184
+2020-12-23 17:13:31,373 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 40 | Iter 320:
+per_token_loss: 8.4985380 | avg_token_loss: 8.5943146 | learning_rate: 0.0000009
+sequence_per_sec: 25.4539003
+2020-12-23 17:17:44,268 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 45 | Iter 360:
+per_token_loss: 8.4857483 | avg_token_loss: 8.5821161 | learning_rate: 0.0000010
+sequence_per_sec: 26.0759061
+2020-12-23 17:27:17,510 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 50 | Iter 400:
+per_token_loss: 8.4438839 | avg_token_loss: 8.5702353 | learning_rate: 0.0000011
+sequence_per_sec: 23.8471266
+2020-12-23 17:31:37,057 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 55 | Iter 440:
+per_token_loss: 8.3855457 | avg_token_loss: 8.5571308 | learning_rate: 0.0000012
+sequence_per_sec: 24.3180470
+2020-12-23 17:35:57,269 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 60 | Iter 480:
+per_token_loss: 8.3549976 | avg_token_loss: 8.5441608 | learning_rate: 0.0000013
+sequence_per_sec: 24.7641907
+2020-12-23 17:40:17,544 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 65 | Iter 520:
+per_token_loss: 8.4281301 | avg_token_loss: 8.5303793 | learning_rate: 0.0000014
+sequence_per_sec: 25.0731429
+2020-12-23 17:44:36,667 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 70 | Iter 560:
+per_token_loss: 8.3357630 | avg_token_loss: 8.5154305 | learning_rate: 0.0000015
+sequence_per_sec: 25.3553036
+2020-12-23 17:48:55,938 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 75 | Iter 600:
+per_token_loss: 8.2186918 | avg_token_loss: 8.5002050 | learning_rate: 0.0000016
+sequence_per_sec: 25.5913198
+2020-12-23 17:53:15,470 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 80 | Iter 640:
+per_token_loss: 8.3044291 | avg_token_loss: 8.4845018 | learning_rate: 0.0000017
+sequence_per_sec: 25.7816023
+2020-12-23 17:57:34,804 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 85 | Iter 680:
+per_token_loss: 8.1353016 | avg_token_loss: 8.4676685 | learning_rate: 0.0000018
+sequence_per_sec: 26.0055757
+2020-12-23 18:01:53,824 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 90 | Iter 720:
+per_token_loss: 8.1964025 | avg_token_loss: 8.4502954 | learning_rate: 0.0000019
+sequence_per_sec: 26.2035908
+2020-12-23 18:06:11,639 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 95 | Iter 760:
+per_token_loss: 8.0390253 | avg_token_loss: 8.4335375 | learning_rate: 0.0000021
+sequence_per_sec: 26.3619339
+2020-12-23 18:10:30,386 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 100 | Iter 800:
+per_token_loss: 8.1586905 | avg_token_loss: 8.4173098 | learning_rate: 0.0000022
+sequence_per_sec: 26.4258987
+2020-12-23 18:14:48,362 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 105 | Iter 840:
+per_token_loss: 8.0857887 | avg_token_loss: 8.4002380 | learning_rate: 0.0000023
+sequence_per_sec: 26.5656829
+2020-12-23 18:19:08,527 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 110 | Iter 880:
+per_token_loss: 7.9969816 | avg_token_loss: 8.3841400 | learning_rate: 0.0000024
+sequence_per_sec: 26.6215493
+2020-12-23 18:23:27,452 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 115 | Iter 920:
+per_token_loss: 8.0398331 | avg_token_loss: 8.3675480 | learning_rate: 0.0000025
+sequence_per_sec: 26.7142879
+2020-12-23 18:27:46,751 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 120 | Iter 960:
+per_token_loss: 7.8417616 | avg_token_loss: 8.3508635 | learning_rate: 0.0000026
+sequence_per_sec: 26.8310141
+2020-12-23 18:32:04,944 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 125 | Iter 1000:
+per_token_loss: 7.9293666 | avg_token_loss: 8.3352547 | learning_rate: 0.0000027
+sequence_per_sec: 26.9096408
+2020-12-23 18:36:23,877 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 130 | Iter 1040:
+per_token_loss: 7.9210773 | avg_token_loss: 8.3191977 | learning_rate: 0.0000028
+sequence_per_sec: 27.0353738
+2020-12-23 18:40:41,789 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 135 | Iter 1080:
+per_token_loss: 7.9403987 | avg_token_loss: 8.3042498 | learning_rate: 0.0000029
+sequence_per_sec: 27.1177236
+2020-12-23 18:45:01,326 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 140 | Iter 1120:
+per_token_loss: 7.8282094 | avg_token_loss: 8.2897701 | learning_rate: 0.0000030
+sequence_per_sec: 27.1815244
+2020-12-23 18:49:18,744 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 145 | Iter 1160:
+per_token_loss: 7.8873968 | avg_token_loss: 8.2758760 | learning_rate: 0.0000031
+sequence_per_sec: 27.2586092
+2020-12-23 18:53:35,947 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 150 | Iter 1200:
+per_token_loss: 7.8765359 | avg_token_loss: 8.2614155 | learning_rate: 0.0000033
+sequence_per_sec: 27.3759146
+2020-12-23 18:57:53,822 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 155 | Iter 1240:
+per_token_loss: 7.7590556 | avg_token_loss: 8.2478132 | learning_rate: 0.0000034
+sequence_per_sec: 27.4599115
+2020-12-23 19:02:12,435 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 160 | Iter 1280:
+per_token_loss: 7.8277502 | avg_token_loss: 8.2346649 | learning_rate: 0.0000035
+sequence_per_sec: 27.5058320
+2020-12-23 19:06:29,889 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 165 | Iter 1320:
+per_token_loss: 7.8015361 | avg_token_loss: 8.2216024 | learning_rate: 0.0000036
+sequence_per_sec: 27.5637927
+2020-12-23 19:10:46,572 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 170 | Iter 1360:
+per_token_loss: 8.0515785 | avg_token_loss: 8.2083111 | learning_rate: 0.0000037
+sequence_per_sec: 27.6545175
+2020-12-23 19:15:07,177 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 175 | Iter 1400:
+per_token_loss: 7.7955756 | avg_token_loss: 8.1961327 | learning_rate: 0.0000038
+sequence_per_sec: 27.7036583
+2020-12-23 19:19:26,166 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 180 | Iter 1440:
+per_token_loss: 7.8108835 | avg_token_loss: 8.1844625 | learning_rate: 0.0000039
+sequence_per_sec: 27.7341194
+2020-12-23 19:23:45,788 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 185 | Iter 1480:
+per_token_loss: 7.7731695 | avg_token_loss: 8.1735487 | learning_rate: 0.0000040
+sequence_per_sec: 27.7440239
+2020-12-23 19:28:05,488 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 190 | Iter 1520:
+per_token_loss: 7.7359757 | avg_token_loss: 8.1626177 | learning_rate: 0.0000041
+sequence_per_sec: 27.7509663
+2020-12-23 19:32:22,358 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 195 | Iter 1560:
+per_token_loss: 7.6900187 | avg_token_loss: 8.1511974 | learning_rate: 0.0000042
+sequence_per_sec: 27.8073625
+2020-12-23 19:36:59,575 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 200 | Iter 1600:
+per_token_loss: 7.5968065 | avg_token_loss: 8.1402950 | learning_rate: 0.0000043
+sequence_per_sec: 27.7840732
+2020-12-23 19:41:16,842 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 205 | Iter 1640:
+per_token_loss: 7.7192039 | avg_token_loss: 8.1295147 | learning_rate: 0.0000045
+sequence_per_sec: 27.8498583
+2020-12-23 19:45:35,624 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 210 | Iter 1680:
+per_token_loss: 7.7106695 | avg_token_loss: 8.1192255 | learning_rate: 0.0000046
+sequence_per_sec: 27.8659564
+2020-12-23 19:49:57,114 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 215 | Iter 1720:
+per_token_loss: 7.6725955 | avg_token_loss: 8.1090002 | learning_rate: 0.0000047
+sequence_per_sec: 27.9074052
+2020-12-23 19:54:13,815 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 220 | Iter 1760:
+per_token_loss: 7.6310902 | avg_token_loss: 8.0986586 | learning_rate: 0.0000048
+sequence_per_sec: 27.9502236
+2020-12-23 19:58:30,821 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 225 | Iter 1800:
+per_token_loss: 7.5756111 | avg_token_loss: 8.0883837 | learning_rate: 0.0000049
+sequence_per_sec: 27.9998220
+2020-12-23 20:03:35,811 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 230 | Iter 1840:
+per_token_loss: 7.5695152 | avg_token_loss: 8.0786467 | learning_rate: 0.0000050
+sequence_per_sec: 27.9188451
+2020-12-23 20:07:52,844 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 235 | Iter 1880:
+per_token_loss: 7.6002192 | avg_token_loss: 8.0684872 | learning_rate: 0.0000051
+sequence_per_sec: 27.9640423
+2020-12-23 20:12:11,339 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 240 | Iter 1920:
+per_token_loss: 7.6494541 | avg_token_loss: 8.0581322 | learning_rate: 0.0000052
+sequence_per_sec: 28.0317780
+2020-12-23 20:16:29,106 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 245 | Iter 1960:
+per_token_loss: 7.7366934 | avg_token_loss: 8.0483856 | learning_rate: 0.0000053
+sequence_per_sec: 28.0733644
+2020-12-23 20:20:56,526 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 250 | Iter 2000:
+per_token_loss: 7.6299281 | avg_token_loss: 8.0382986 | learning_rate: 0.0000054
+sequence_per_sec: 28.1312085
+2020-12-23 20:25:16,144 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 255 | Iter 2040:
+per_token_loss: 7.5573206 | avg_token_loss: 8.0287476 | learning_rate: 0.0000055
+sequence_per_sec: 28.1699292
+2020-12-23 20:29:32,170 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 260 | Iter 2080:
+per_token_loss: 7.5853071 | avg_token_loss: 8.0199337 | learning_rate: 0.0000057
+sequence_per_sec: 28.1652586
+2020-12-23 20:33:49,719 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 265 | Iter 2120:
+per_token_loss: 7.4948740 | avg_token_loss: 8.0106831 | learning_rate: 0.0000058
+sequence_per_sec: 28.1918730
+2020-12-23 20:38:08,300 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 270 | Iter 2160:
+per_token_loss: 7.5351720 | avg_token_loss: 8.0015926 | learning_rate: 0.0000059
+sequence_per_sec: 28.2286469
+2020-12-23 20:42:25,997 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 275 | Iter 2200:
+per_token_loss: 7.4696274 | avg_token_loss: 7.9925766 | learning_rate: 0.0000060
+sequence_per_sec: 28.2521964
+2020-12-23 20:46:44,562 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 280 | Iter 2240:
+per_token_loss: 7.3956966 | avg_token_loss: 7.9834108 | learning_rate: 0.0000061
+sequence_per_sec: 28.2882312
+2020-12-23 20:51:02,311 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 285 | Iter 2280:
+per_token_loss: 7.4413619 | avg_token_loss: 7.9740586 | learning_rate: 0.0000062
+sequence_per_sec: 28.3285714
+2020-12-23 20:55:19,583 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 290 | Iter 2320:
+per_token_loss: 7.4592910 | avg_token_loss: 7.9654679 | learning_rate: 0.0000063
+sequence_per_sec: 28.3263732
+2020-12-23 20:59:39,432 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 295 | Iter 2360:
+per_token_loss: 7.3961048 | avg_token_loss: 7.9566197 | learning_rate: 0.0000064
+sequence_per_sec: 28.3399996
+2020-12-23 21:03:59,183 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 300 | Iter 2400:
+per_token_loss: 7.4429488 | avg_token_loss: 7.9473963 | learning_rate: 0.0000065
+sequence_per_sec: 28.3670068
+2020-12-23 21:08:18,076 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 305 | Iter 2440:
+per_token_loss: 7.4031858 | avg_token_loss: 7.9386168 | learning_rate: 0.0000066
+sequence_per_sec: 28.3717361
+2020-12-23 21:12:35,306 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 310 | Iter 2480:
+per_token_loss: 7.5190363 | avg_token_loss: 7.9295597 | learning_rate: 0.0000067
+sequence_per_sec: 28.3981363
+2020-12-23 21:16:54,302 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 315 | Iter 2520:
+per_token_loss: 7.4079657 | avg_token_loss: 7.9207840 | learning_rate: 0.0000069
+sequence_per_sec: 28.4038057
+2020-12-23 21:21:14,419 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 320 | Iter 2560:
+per_token_loss: 7.3625650 | avg_token_loss: 7.9118466 | learning_rate: 0.0000070
+sequence_per_sec: 28.4283547
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate calledWaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate calledWaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate calledWaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate calledWaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate calledWaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called
+WaveCollate called2020-12-23 21:25:33,955 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 325 | Iter 2600:
+per_token_loss: 7.3101549 | avg_token_loss: 7.9027591 | learning_rate: 0.0000071
+sequence_per_sec: 28.4441930
+2020-12-23 21:29:53,824 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 330 | Iter 2640:
+per_token_loss: 7.4456882 | avg_token_loss: 7.8941054 | learning_rate: 0.0000072
+sequence_per_sec: 28.4411824
+2020-12-23 21:34:13,526 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 335 | Iter 2680:
+per_token_loss: 7.2747297 | avg_token_loss: 7.8850908 | learning_rate: 0.0000073
+sequence_per_sec: 28.4614273
+2020-12-23 21:38:35,581 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 340 | Iter 2720:
+per_token_loss: 7.4996672 | avg_token_loss: 7.8765845 | learning_rate: 0.0000074
+sequence_per_sec: 28.4618971
+2020-12-23 21:42:55,503 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 345 | Iter 2760:
+per_token_loss: 7.2289205 | avg_token_loss: 7.8678975 | learning_rate: 0.0000075
+sequence_per_sec: 28.4691708
+2020-12-23 21:47:15,572 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 350 | Iter 2800:
+per_token_loss: 7.2310486 | avg_token_loss: 7.8586326 | learning_rate: 0.0000076
+sequence_per_sec: 28.5077036
+2020-12-23 21:51:36,136 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 355 | Iter 2840:
+per_token_loss: 7.1988006 | avg_token_loss: 7.8497729 | learning_rate: 0.0000077
+sequence_per_sec: 28.5171545
+2020-12-23 21:55:55,392 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 360 | Iter 2880:
+per_token_loss: 7.3634710 | avg_token_loss: 7.8413200 | learning_rate: 0.0000078
+sequence_per_sec: 28.5124353
+2020-12-23 22:00:16,459 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 365 | Iter 2920:
+per_token_loss: 7.0737143 | avg_token_loss: 7.8323402 | learning_rate: 0.0000079
+sequence_per_sec: 28.5336520
+2020-12-23 22:04:35,270 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 370 | Iter 2960:
+per_token_loss: 7.1515341 | avg_token_loss: 7.8236260 | learning_rate: 0.0000081
+sequence_per_sec: 28.5433609
+2020-12-23 22:08:57,423 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 375 | Iter 3000:
+per_token_loss: 7.1249127 | avg_token_loss: 7.8149467 | learning_rate: 0.0000082
+sequence_per_sec: 28.5379785
+2020-12-23 22:13:17,902 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 380 | Iter 3040:
+per_token_loss: 7.3515568 | avg_token_loss: 7.8059888 | learning_rate: 0.0000083
+sequence_per_sec: 28.5447489
+2020-12-23 22:17:38,179 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 385 | Iter 3080:
+per_token_loss: 7.1449351 | avg_token_loss: 7.7969017 | learning_rate: 0.0000084
+sequence_per_sec: 28.5606663
+2020-12-23 22:21:58,109 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 390 | Iter 3120:
+per_token_loss: 7.0059586 | avg_token_loss: 7.7882390 | learning_rate: 0.0000085
+sequence_per_sec: 28.5711919
+2020-12-23 22:26:18,696 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 395 | Iter 3160:
+per_token_loss: 7.1316733 | avg_token_loss: 7.7798300 | learning_rate: 0.0000086
+sequence_per_sec: 28.5672618
+2020-12-23 22:30:37,474 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 400 | Iter 3200:
+per_token_loss: 6.9588938 | avg_token_loss: 7.7710857 | learning_rate: 0.0000087
+sequence_per_sec: 28.5896202
+2020-12-23 22:34:57,006 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 405 | Iter 3240:
+per_token_loss: 7.0864816 | avg_token_loss: 7.7627792 | learning_rate: 0.0000088
+sequence_per_sec: 28.5971780
+2020-12-23 22:39:18,560 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 410 | Iter 3280:
+per_token_loss: 6.9772701 | avg_token_loss: 7.7543225 | learning_rate: 0.0000089
+sequence_per_sec: 28.5882821
+2020-12-23 22:43:37,726 - /root/multiASR/src/trainer.py[line:300] - INFO: Progress:
+Epoch 1 | Step 415 | Iter 3320:
+per_token_loss: 7.1136093 | avg_token_loss: 7.7455845 | learning_rate: 0.0000090
+sequence_per_sec: 28.6082982
+terminate called after throwing an instance of 'c10::Error'
+  what():  cuFFT error: CUFFT_INVALID_PLAN (CUFFT_CHECK at /pytorch/aten/src/ATen/native/cuda/CuFFTUtils.h:70)
+frame #0: c10::Error::Error(c10::SourceLocation, std::string const&) + 0x46 (0x7f01b6d15536 in /root/.local/lib/python3.7/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x299e1e0 (0x7f01b9b0f1e0 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x29a3c0d (0x7f01b9b14c0d in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: at::native::_fft_cufft(at::Tensor const&, long, bool, bool, bool, c10::ArrayRef<long>, bool, bool, c10::ArrayRef<long>) + 0x752 (0x7f01b9b12af2 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xfa2408 (0x7f01b8113408 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: <unknown function> + 0xfe27a4 (0x7f01b81537a4 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0x2c2221c (0x7f01e90bb21c in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: <unknown function> + 0x10c3f44 (0x7f01e755cf44 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0xde1d5f (0x7f01e727ad5f in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::native::rfft(at::Tensor const&, long, bool, bool) + 0x22 (0x7f01e727c0f2 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x1152ef4 (0x7f01e75ebef4 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: <unknown function> + 0x2cf1434 (0x7f01e918a434 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: <unknown function> + 0x1189308 (0x7f01e7622308 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #13: <unknown function> + 0x298603 (0x7f01f56e1603 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #59: <unknown function> + 0x76ba (0x7f01f8c0f6ba in /lib/x86_64-linux-gnu/libpthread.so.0)
+frame #60: clone + 0x6d (0x7f01f894541d in /lib/x86_64-linux-gnu/libc.so.6)
+
