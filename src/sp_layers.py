@@ -144,7 +144,10 @@ class SPLayer(nn.Module):
         retCC = self.CConv(padded_features)
         retCC = self.CConv(retCC)
         padded_features = self.LastCConv(retCC)
-        padded_features = padded_features.squeeze()
+        # New added line seems dim mismatch. 
+        # Bug: Expected 4-dimensional input for 4-dimensional weight [1, 2, 1, 1], but got 3-dimensional input of size [2, 2818, 257] instead
+        if padded_features.dim() == 4:
+            padded_features = padded_features.squeeze()
         padded_features = self.LastConv(padded_features).squeeze()
         # seems like [25,736,257]
 
