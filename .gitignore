@@ -1,3 +1,4 @@
 # ignore dirs
 exp/
 data/
+egs/micArray/s5/logs/
