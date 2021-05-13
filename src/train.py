@@ -78,7 +78,7 @@ if __name__ == "__main__":
                                             trainingconfig["batch_time"] *
                                             ngpu,
                                             ngpu,
-                                            shuffle=True)
+                                            shuffle=False) # True
     validsampler = data.TimeBasedSampler(
         valid_set, trainingconfig["batch_time"] * ngpu, ngpu,
         shuffle=False)  # for plot longer utterance
@@ -127,7 +127,6 @@ if __name__ == "__main__":
         pkg = torch.load(
             os.path.join(trainingconfig["exp_dir"], "last-ckpt.pt"))
         model.restore(pkg["model"])
-    
     #pdb.set_trace()
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
         logging.info("Let's use {} GPUs!".format(ngpu))
@@ -135,9 +134,7 @@ if __name__ == "__main__":
         model = torch.nn.DataParallel(model.cuda())
     else:
         model = model.cuda()
-
     trainer = Trainer(model, trainingconfig, tr_loader, cv_loader)
-
     if args.continue_training:
         logging.info("Restore trainer states...")
         trainer.restore(pkg)

@@ -236,7 +236,7 @@ class WaveCollate(object):
         return
 
     def __call__(self, batch):
-        print("WaveCollate called")
+        #print("WaveCollate called")
         utts = [d["utt"] for d in batch]
         paths = [d["path"] for d in batch]
         trans = [d["transcript"] for d in batch]

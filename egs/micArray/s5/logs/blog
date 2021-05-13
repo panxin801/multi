@@ -1,0 +1,3285 @@
+2021-03-16 18:33:37,407 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:122] - INFO: 
+Model info:
+Model(
+  (splayer): SPLayer(
+    (CConv): ComplexConv(
+      (conv_re): Conv2d(16, 16, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+      (conv_im): Conv2d(16, 16, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+    )
+    (LastCConv): ComplexConv(
+      (conv_re): Conv2d(16, 1, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+      (conv_im): Conv2d(16, 1, kernel_size=(3, 5), stride=(1, 1), padding=(1, 2))
+    )
+    (LastConv): Conv2d(2, 1, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (encoder): Transformer(
+    (sub): Conv2dSubsampleV2(
+      (conv): Sequential(
+        (subsample/conv0): Conv2d(1, 32, kernel_size=(3, 3), stride=(2, 1))
+        (subsample/relu0): ReLU()
+        (subsample/conv1): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 1))
+        (subsample/relu1): ReLU()
+      )
+      (affine): Linear(in_features=8096, out_features=512, bias=True)
+    )
+    (pe): PositionalEncoding()
+    (dropout): Dropout(p=0.1, inplace=False)
+    (transformer_encoder): TransformerEncoder(
+      (layers): ModuleList(
+        (0): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (1): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (2): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (3): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (4): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (5): TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+        )
+      )
+      (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (decoder): TransformerDecoder(
+    (emb): Embedding(5060, 512)
+    (pe): PositionalEncoding()
+    (dropout): Dropout(p=0.1, inplace=False)
+    (transformer_block): TransformerDecoder(
+      (layers): ModuleList(
+        (0): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (1): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (2): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (3): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (4): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+        (5): TransformerDecoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (multihead_attn): MultiheadAttention(
+            (out_proj): Linear(in_features=512, out_features=512, bias=True)
+          )
+          (linear1): Linear(in_features=512, out_features=4096, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear2): Linear(in_features=2048, out_features=512, bias=True)
+          (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (norm3): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.1, inplace=False)
+          (dropout2): Dropout(p=0.1, inplace=False)
+          (dropout3): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (output_affine): Linear(in_features=512, out_features=5060, bias=True)
+  )
+)
+2021-03-16 18:33:37,407 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:126] - INFO: Load package from exp/multiASR/last-ckpt.pt.
+2021-03-16 18:33:39,068 - /root/multiASR/src/models.py[line:320] - INFO: Restore model states...
+2021-03-16 18:33:39,112 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:132] - INFO: Let's use 4 GPUs!
+2021-03-16 18:33:39,191 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:139] - INFO: Restore trainer states...
+2021-03-16 18:33:39,260 - /root/multiASR/egs/micArray/s5/../../../src/train.py[line:141] - INFO: Start training...
+2021-03-16 18:33:39,260 - /root/multiASR/src/trainer.py[line:164] - INFO: Training
+/pytorch/aten/src/ATen/native/BinaryOps.cpp:81: UserWarning: Integer division of tensors using div or / is deprecated, and in a future release div will perform true division as in Python 3. Use true_divide or floor_divide (// in Python) instead.
+/root/.local/lib/python3.7/site-packages/torch/nn/parallel/_functions.py:61: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+2021-03-16 18:36:13,338 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36891 | Iter 40:
+per_token_loss: 1.3513268 | avg_token_loss: 1.3448259 | learning_rate: 0.0002301
+sequence_per_sec: 22.0201519
+2021-03-16 18:38:23,903 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36896 | Iter 80:
+per_token_loss: 1.3303987 | avg_token_loss: 1.3317684 | learning_rate: 0.0002301
+sequence_per_sec: 23.7256936
+2021-03-16 18:40:34,167 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36901 | Iter 120:
+per_token_loss: 1.3134004 | avg_token_loss: 1.3308947 | learning_rate: 0.0002301
+sequence_per_sec: 24.7213220
+2021-03-16 18:42:44,402 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36906 | Iter 160:
+per_token_loss: 1.2893730 | avg_token_loss: 1.3316149 | learning_rate: 0.0002301
+sequence_per_sec: 25.1412814
+2021-03-16 18:44:54,452 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36911 | Iter 200:
+per_token_loss: 1.3112760 | avg_token_loss: 1.3316510 | learning_rate: 0.0002300
+sequence_per_sec: 25.5470613
+2021-03-16 18:47:05,062 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36916 | Iter 240:
+per_token_loss: 1.3276250 | avg_token_loss: 1.3306938 | learning_rate: 0.0002300
+sequence_per_sec: 25.6309568
+2021-03-16 18:49:15,873 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36921 | Iter 280:
+per_token_loss: 1.3441644 | avg_token_loss: 1.3302399 | learning_rate: 0.0002300
+sequence_per_sec: 25.6612764
+2021-03-16 18:51:25,282 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36926 | Iter 320:
+per_token_loss: 1.3360156 | avg_token_loss: 1.3313019 | learning_rate: 0.0002300
+sequence_per_sec: 26.0430751
+2021-03-16 18:53:35,044 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36931 | Iter 360:
+per_token_loss: 1.3181330 | avg_token_loss: 1.3313071 | learning_rate: 0.0002300
+sequence_per_sec: 26.1162072
+2021-03-16 18:55:45,185 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36936 | Iter 400:
+per_token_loss: 1.2974832 | avg_token_loss: 1.3318597 | learning_rate: 0.0002300
+sequence_per_sec: 26.0599310
+2021-03-16 18:57:54,787 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36941 | Iter 440:
+per_token_loss: 1.2885311 | avg_token_loss: 1.3316740 | learning_rate: 0.0002299
+sequence_per_sec: 26.1830223
+2021-03-16 19:00:07,196 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36946 | Iter 480:
+per_token_loss: 1.3263973 | avg_token_loss: 1.3315935 | learning_rate: 0.0002299
+sequence_per_sec: 26.0525496
+2021-03-16 19:02:17,409 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36951 | Iter 520:
+per_token_loss: 1.2708660 | avg_token_loss: 1.3310518 | learning_rate: 0.0002299
+sequence_per_sec: 26.1479997
+2021-03-16 19:04:27,047 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36956 | Iter 560:
+per_token_loss: 1.2931840 | avg_token_loss: 1.3304355 | learning_rate: 0.0002299
+sequence_per_sec: 26.1839670
+2021-03-16 19:06:38,780 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36961 | Iter 600:
+per_token_loss: 1.3836247 | avg_token_loss: 1.3299623 | learning_rate: 0.0002299
+sequence_per_sec: 26.0817730
+2021-03-16 19:08:48,170 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36966 | Iter 640:
+per_token_loss: 1.2587328 | avg_token_loss: 1.3297862 | learning_rate: 0.0002299
+sequence_per_sec: 26.0771749
+2021-03-16 19:10:59,827 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36971 | Iter 680:
+per_token_loss: 1.3015426 | avg_token_loss: 1.3297489 | learning_rate: 0.0002298
+sequence_per_sec: 26.1729889
+2021-03-16 19:13:10,780 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36976 | Iter 720:
+per_token_loss: 1.2963285 | avg_token_loss: 1.3298033 | learning_rate: 0.0002298
+sequence_per_sec: 26.1982511
+2021-03-16 19:15:21,170 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36981 | Iter 760:
+per_token_loss: 1.3147812 | avg_token_loss: 1.3293588 | learning_rate: 0.0002298
+sequence_per_sec: 26.1262380
+2021-03-16 19:17:30,782 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36986 | Iter 800:
+per_token_loss: 1.3026938 | avg_token_loss: 1.3290101 | learning_rate: 0.0002298
+sequence_per_sec: 26.2500451
+2021-03-16 19:19:40,701 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36991 | Iter 840:
+per_token_loss: 1.3110813 | avg_token_loss: 1.3285786 | learning_rate: 0.0002298
+sequence_per_sec: 26.2727013
+2021-03-16 19:21:51,061 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 36996 | Iter 880:
+per_token_loss: 1.3690337 | avg_token_loss: 1.3287405 | learning_rate: 0.0002298
+sequence_per_sec: 26.2583280
+2021-03-16 19:24:00,500 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37001 | Iter 920:
+per_token_loss: 1.3778728 | avg_token_loss: 1.3287609 | learning_rate: 0.0002298
+sequence_per_sec: 26.2482658
+2021-03-16 19:26:10,502 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37006 | Iter 960:
+per_token_loss: 1.3355392 | avg_token_loss: 1.3287542 | learning_rate: 0.0002297
+sequence_per_sec: 26.1795253
+2021-03-16 19:28:19,588 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37011 | Iter 1000:
+per_token_loss: 1.2968527 | avg_token_loss: 1.3283113 | learning_rate: 0.0002297
+sequence_per_sec: 26.1295603
+2021-03-16 19:30:28,580 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37016 | Iter 1040:
+per_token_loss: 1.3467517 | avg_token_loss: 1.3283775 | learning_rate: 0.0002297
+sequence_per_sec: 26.1195099
+2021-03-16 19:32:36,952 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37021 | Iter 1080:
+per_token_loss: 1.3401725 | avg_token_loss: 1.3282485 | learning_rate: 0.0002297
+sequence_per_sec: 26.0716172
+2021-03-16 19:34:45,811 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37026 | Iter 1120:
+per_token_loss: 1.2801194 | avg_token_loss: 1.3278496 | learning_rate: 0.0002297
+sequence_per_sec: 26.0936886
+2021-03-16 19:36:55,319 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37031 | Iter 1160:
+per_token_loss: 1.3318013 | avg_token_loss: 1.3278649 | learning_rate: 0.0002297
+sequence_per_sec: 26.1253521
+2021-03-16 19:39:05,628 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37036 | Iter 1200:
+per_token_loss: 1.3158408 | avg_token_loss: 1.3278117 | learning_rate: 0.0002296
+sequence_per_sec: 26.1395559
+2021-03-16 19:41:14,903 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37041 | Iter 1240:
+per_token_loss: 1.3210510 | avg_token_loss: 1.3279557 | learning_rate: 0.0002296
+sequence_per_sec: 26.1950024
+2021-03-16 19:43:24,644 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37046 | Iter 1280:
+per_token_loss: 1.3155719 | avg_token_loss: 1.3277496 | learning_rate: 0.0002296
+sequence_per_sec: 26.2222933
+2021-03-16 19:45:33,449 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37051 | Iter 1320:
+per_token_loss: 1.3248770 | avg_token_loss: 1.3275598 | learning_rate: 0.0002296
+sequence_per_sec: 26.2135752
+2021-03-16 19:47:42,826 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37056 | Iter 1360:
+per_token_loss: 1.3754005 | avg_token_loss: 1.3275175 | learning_rate: 0.0002296
+sequence_per_sec: 26.2073029
+2021-03-16 19:49:52,601 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37061 | Iter 1400:
+per_token_loss: 1.3599160 | avg_token_loss: 1.3276353 | learning_rate: 0.0002296
+sequence_per_sec: 26.2605207
+2021-03-16 19:52:01,157 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37066 | Iter 1440:
+per_token_loss: 1.2880262 | avg_token_loss: 1.3275435 | learning_rate: 0.0002296
+sequence_per_sec: 26.3141918
+2021-03-16 19:54:09,892 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37071 | Iter 1480:
+per_token_loss: 1.3404875 | avg_token_loss: 1.3273882 | learning_rate: 0.0002295
+sequence_per_sec: 26.3454926
+2021-03-16 19:56:18,071 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37076 | Iter 1520:
+per_token_loss: 1.3313767 | avg_token_loss: 1.3273408 | learning_rate: 0.0002295
+sequence_per_sec: 26.3341286
+2021-03-16 19:58:28,225 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37081 | Iter 1560:
+per_token_loss: 1.3248947 | avg_token_loss: 1.3273985 | learning_rate: 0.0002295
+sequence_per_sec: 26.3082060
+2021-03-16 20:00:38,326 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37086 | Iter 1600:
+per_token_loss: 1.2840368 | avg_token_loss: 1.3273934 | learning_rate: 0.0002295
+sequence_per_sec: 26.2992127
+2021-03-16 20:02:47,493 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37091 | Iter 1640:
+per_token_loss: 1.2867413 | avg_token_loss: 1.3273916 | learning_rate: 0.0002295
+sequence_per_sec: 26.3292463
+2021-03-16 20:04:57,479 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37096 | Iter 1680:
+per_token_loss: 1.3818238 | avg_token_loss: 1.3274852 | learning_rate: 0.0002295
+sequence_per_sec: 26.3314200
+2021-03-16 20:07:06,596 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37101 | Iter 1720:
+per_token_loss: 1.2913464 | avg_token_loss: 1.3274549 | learning_rate: 0.0002294
+sequence_per_sec: 26.3300861
+2021-03-16 20:09:15,850 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37106 | Iter 1760:
+per_token_loss: 1.3791968 | avg_token_loss: 1.3275928 | learning_rate: 0.0002294
+sequence_per_sec: 26.3855144
+2021-03-16 20:11:25,544 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37111 | Iter 1800:
+per_token_loss: 1.3380471 | avg_token_loss: 1.3276671 | learning_rate: 0.0002294
+sequence_per_sec: 26.3863700
+2021-03-16 20:13:34,652 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37116 | Iter 1840:
+per_token_loss: 1.3199050 | avg_token_loss: 1.3276138 | learning_rate: 0.0002294
+sequence_per_sec: 26.3939162
+2021-03-16 20:15:45,186 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37121 | Iter 1880:
+per_token_loss: 1.3292882 | avg_token_loss: 1.3275810 | learning_rate: 0.0002294
+sequence_per_sec: 26.4185375
+2021-03-16 20:17:55,411 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37126 | Iter 1920:
+per_token_loss: 1.3537639 | avg_token_loss: 1.3275397 | learning_rate: 0.0002294
+sequence_per_sec: 26.4388384
+2021-03-16 20:20:05,359 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37131 | Iter 1960:
+per_token_loss: 1.3380562 | avg_token_loss: 1.3275027 | learning_rate: 0.0002294
+sequence_per_sec: 26.4290142
+2021-03-16 20:22:14,851 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37136 | Iter 2000:
+per_token_loss: 1.3314766 | avg_token_loss: 1.3274328 | learning_rate: 0.0002293
+sequence_per_sec: 26.4304362
+2021-03-16 20:24:26,308 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37141 | Iter 2040:
+per_token_loss: 1.2995462 | avg_token_loss: 1.3274230 | learning_rate: 0.0002293
+sequence_per_sec: 26.4740620
+2021-03-16 20:26:36,412 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37146 | Iter 2080:
+per_token_loss: 1.2978315 | avg_token_loss: 1.3273003 | learning_rate: 0.0002293
+sequence_per_sec: 26.4575282
+2021-03-16 20:28:45,181 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37151 | Iter 2120:
+per_token_loss: 1.2928267 | avg_token_loss: 1.3272001 | learning_rate: 0.0002293
+sequence_per_sec: 26.4754769
+2021-03-16 20:30:55,756 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37156 | Iter 2160:
+per_token_loss: 1.2820697 | avg_token_loss: 1.3273052 | learning_rate: 0.0002293
+sequence_per_sec: 26.4879076
+2021-03-16 20:33:06,119 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37161 | Iter 2200:
+per_token_loss: 1.3015653 | avg_token_loss: 1.3271528 | learning_rate: 0.0002293
+sequence_per_sec: 26.4654020
+2021-03-16 20:35:15,218 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37166 | Iter 2240:
+per_token_loss: 1.3487303 | avg_token_loss: 1.3271096 | learning_rate: 0.0002292
+sequence_per_sec: 26.4690899
+2021-03-16 20:37:26,137 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37171 | Iter 2280:
+per_token_loss: 1.3357915 | avg_token_loss: 1.3270818 | learning_rate: 0.0002292
+sequence_per_sec: 26.4506899
+2021-03-16 20:39:35,501 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37176 | Iter 2320:
+per_token_loss: 1.2947550 | avg_token_loss: 1.3270861 | learning_rate: 0.0002292
+sequence_per_sec: 26.4462654
+2021-03-16 20:41:44,513 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37181 | Iter 2360:
+per_token_loss: 1.3024698 | avg_token_loss: 1.3269073 | learning_rate: 0.0002292
+sequence_per_sec: 26.4378432
+2021-03-16 20:43:53,864 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37186 | Iter 2400:
+per_token_loss: 1.3196557 | avg_token_loss: 1.3267967 | learning_rate: 0.0002292
+sequence_per_sec: 26.4092254
+2021-03-16 20:46:02,297 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37191 | Iter 2440:
+per_token_loss: 1.3291259 | avg_token_loss: 1.3268119 | learning_rate: 0.0002292
+sequence_per_sec: 26.4183739
+2021-03-16 20:48:11,191 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37196 | Iter 2480:
+per_token_loss: 1.3477911 | avg_token_loss: 1.3266698 | learning_rate: 0.0002292
+sequence_per_sec: 26.4123552
+2021-03-16 20:50:21,361 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37201 | Iter 2520:
+per_token_loss: 1.3067913 | avg_token_loss: 1.3266009 | learning_rate: 0.0002291
+sequence_per_sec: 26.4290325
+2021-03-16 20:52:30,790 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37206 | Iter 2560:
+per_token_loss: 1.2827562 | avg_token_loss: 1.3266068 | learning_rate: 0.0002291
+sequence_per_sec: 26.4420195
+2021-03-16 20:54:39,734 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37211 | Iter 2600:
+per_token_loss: 1.3466445 | avg_token_loss: 1.3267026 | learning_rate: 0.0002291
+sequence_per_sec: 26.4511580
+2021-03-16 20:56:49,528 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37216 | Iter 2640:
+per_token_loss: 1.3200787 | avg_token_loss: 1.3266752 | learning_rate: 0.0002291
+sequence_per_sec: 26.4371729
+2021-03-16 20:58:57,409 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37221 | Iter 2680:
+per_token_loss: 1.3741977 | avg_token_loss: 1.3267010 | learning_rate: 0.0002291
+sequence_per_sec: 26.4504074
+2021-03-16 21:01:05,103 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37226 | Iter 2720:
+per_token_loss: 1.3037622 | avg_token_loss: 1.3266846 | learning_rate: 0.0002291
+sequence_per_sec: 26.4609425
+2021-03-16 21:03:13,801 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37231 | Iter 2760:
+per_token_loss: 1.2794534 | avg_token_loss: 1.3266430 | learning_rate: 0.0002290
+sequence_per_sec: 26.4812956
+2021-03-16 21:05:22,423 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37236 | Iter 2800:
+per_token_loss: 1.3307652 | avg_token_loss: 1.3266430 | learning_rate: 0.0002290
+sequence_per_sec: 26.4903973
+2021-03-16 21:07:31,716 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37241 | Iter 2840:
+per_token_loss: 1.3439422 | avg_token_loss: 1.3265219 | learning_rate: 0.0002290
+sequence_per_sec: 26.4845563
+2021-03-16 21:09:41,755 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37246 | Iter 2880:
+per_token_loss: 1.3077315 | avg_token_loss: 1.3265675 | learning_rate: 0.0002290
+sequence_per_sec: 26.4516745
+2021-03-16 21:11:50,897 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37251 | Iter 2920:
+per_token_loss: 1.3207899 | avg_token_loss: 1.3265735 | learning_rate: 0.0002290
+sequence_per_sec: 26.4621934
+2021-03-16 21:14:00,229 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37256 | Iter 2960:
+per_token_loss: 1.3390114 | avg_token_loss: 1.3265001 | learning_rate: 0.0002290
+sequence_per_sec: 26.4748910
+2021-03-16 21:16:09,066 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37261 | Iter 3000:
+per_token_loss: 1.3013519 | avg_token_loss: 1.3266473 | learning_rate: 0.0002290
+sequence_per_sec: 26.4913501
+2021-03-16 21:18:17,210 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37266 | Iter 3040:
+per_token_loss: 1.3662696 | avg_token_loss: 1.3267734 | learning_rate: 0.0002289
+sequence_per_sec: 26.4979598
+2021-03-16 21:20:25,131 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37271 | Iter 3080:
+per_token_loss: 1.3596790 | avg_token_loss: 1.3268424 | learning_rate: 0.0002289
+sequence_per_sec: 26.5102818
+2021-03-16 21:22:34,715 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37276 | Iter 3120:
+per_token_loss: 1.3472779 | avg_token_loss: 1.3267580 | learning_rate: 0.0002289
+sequence_per_sec: 26.5008044
+2021-03-16 21:24:43,326 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37281 | Iter 3160:
+per_token_loss: 1.3177032 | avg_token_loss: 1.3266920 | learning_rate: 0.0002289
+sequence_per_sec: 26.5058347
+2021-03-16 21:26:51,719 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37286 | Iter 3200:
+per_token_loss: 1.3200773 | avg_token_loss: 1.3266615 | learning_rate: 0.0002289
+sequence_per_sec: 26.5033131
+2021-03-16 21:29:00,664 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37291 | Iter 3240:
+per_token_loss: 1.3165166 | avg_token_loss: 1.3267429 | learning_rate: 0.0002289
+sequence_per_sec: 26.5186738
+2021-03-16 21:31:08,987 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37296 | Iter 3280:
+per_token_loss: 1.3004172 | avg_token_loss: 1.3268408 | learning_rate: 0.0002288
+sequence_per_sec: 26.5173283
+2021-03-16 21:33:19,016 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37301 | Iter 3320:
+per_token_loss: 1.3219299 | avg_token_loss: 1.3268303 | learning_rate: 0.0002288
+sequence_per_sec: 26.5199518
+2021-03-16 21:35:27,297 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37306 | Iter 3360:
+per_token_loss: 1.3275096 | avg_token_loss: 1.3268784 | learning_rate: 0.0002288
+sequence_per_sec: 26.5185811
+2021-03-16 21:37:36,162 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37311 | Iter 3400:
+per_token_loss: 1.3026226 | avg_token_loss: 1.3268490 | learning_rate: 0.0002288
+sequence_per_sec: 26.5225602
+Epoch 10 | Step 37316 | Iter 3440:
+per_token_loss: 1.2964249 | avg_token_loss: 1.3268034 | learning_rate: 0.0002288
+sequence_per_sec: 26.5300793
+2021-03-16 21:41:54,351 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37321 | Iter 3480:
+per_token_loss: 1.2716430 | avg_token_loss: 1.3268602 | learning_rate: 0.0002288
+sequence_per_sec: 26.5238592
+2021-03-16 21:44:04,353 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37326 | Iter 3520:
+per_token_loss: 1.2927831 | avg_token_loss: 1.3268977 | learning_rate: 0.0002288
+sequence_per_sec: 26.5186826
+2021-03-16 21:46:14,112 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37331 | Iter 3560:
+per_token_loss: 1.3089525 | avg_token_loss: 1.3268657 | learning_rate: 0.0002287
+sequence_per_sec: 26.5238327
+2021-03-16 21:48:22,936 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37336 | Iter 3600:
+per_token_loss: 1.3835143 | avg_token_loss: 1.3268762 | learning_rate: 0.0002287
+sequence_per_sec: 26.5164588
+2021-03-16 21:50:31,532 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37341 | Iter 3640:
+per_token_loss: 1.3194629 | avg_token_loss: 1.3268387 | learning_rate: 0.0002287
+sequence_per_sec: 26.5163279
+2021-03-16 21:52:41,517 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37346 | Iter 3680:
+per_token_loss: 1.3367225 | avg_token_loss: 1.3269135 | learning_rate: 0.0002287
+sequence_per_sec: 26.5268215
+2021-03-16 21:54:50,567 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37351 | Iter 3720:
+per_token_loss: 1.2655034 | avg_token_loss: 1.3268802 | learning_rate: 0.0002287
+sequence_per_sec: 26.5206202
+2021-03-16 21:56:59,436 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37356 | Iter 3760:
+per_token_loss: 1.3174510 | avg_token_loss: 1.3268415 | learning_rate: 0.0002287
+sequence_per_sec: 26.5200816
+2021-03-16 21:59:08,022 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37361 | Iter 3800:
+per_token_loss: 1.3579931 | avg_token_loss: 1.3268266 | learning_rate: 0.0002286
+sequence_per_sec: 26.5170497
+2021-03-16 22:01:17,056 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37366 | Iter 3840:
+per_token_loss: 1.3031565 | avg_token_loss: 1.3268005 | learning_rate: 0.0002286
+sequence_per_sec: 26.5142957
+2021-03-16 22:03:26,751 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37371 | Iter 3880:
+per_token_loss: 1.3506043 | avg_token_loss: 1.3268778 | learning_rate: 0.0002286
+sequence_per_sec: 26.5366914
+2021-03-16 22:05:33,485 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37376 | Iter 3920:
+per_token_loss: 1.3039696 | avg_token_loss: 1.3269316 | learning_rate: 0.0002286
+sequence_per_sec: 26.5367047
+2021-03-16 22:07:43,905 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37381 | Iter 3960:
+per_token_loss: 1.3025914 | avg_token_loss: 1.3269817 | learning_rate: 0.0002286
+sequence_per_sec: 26.5376637
+2021-03-16 22:09:53,484 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37386 | Iter 4000:
+per_token_loss: 1.3152514 | avg_token_loss: 1.3269912 | learning_rate: 0.0002286
+sequence_per_sec: 26.5337057
+2021-03-16 22:12:02,042 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37391 | Iter 4040:
+per_token_loss: 1.3373781 | avg_token_loss: 1.3270673 | learning_rate: 0.0002286
+sequence_per_sec: 26.5257933
+2021-03-16 22:14:12,852 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37396 | Iter 4080:
+per_token_loss: 1.3485576 | avg_token_loss: 1.3271385 | learning_rate: 0.0002285
+sequence_per_sec: 26.5250902
+2021-03-16 22:16:21,129 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37401 | Iter 4120:
+per_token_loss: 1.3699149 | avg_token_loss: 1.3272853 | learning_rate: 0.0002285
+sequence_per_sec: 26.5191623
+2021-03-16 22:18:29,726 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37406 | Iter 4160:
+per_token_loss: 1.3450071 | avg_token_loss: 1.3273263 | learning_rate: 0.0002285
+sequence_per_sec: 26.5127576
+2021-03-16 22:20:38,192 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37411 | Iter 4200:
+per_token_loss: 1.3877779 | avg_token_loss: 1.3274456 | learning_rate: 0.0002285
+sequence_per_sec: 26.5082117
+2021-03-16 22:22:46,154 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37416 | Iter 4240:
+per_token_loss: 1.2909986 | avg_token_loss: 1.3274581 | learning_rate: 0.0002285
+sequence_per_sec: 26.4971865
+2021-03-16 22:24:55,152 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37421 | Iter 4280:
+per_token_loss: 1.3362004 | avg_token_loss: 1.3275627 | learning_rate: 0.0002285
+sequence_per_sec: 26.5018947
+2021-03-16 22:27:03,562 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37426 | Iter 4320:
+per_token_loss: 1.2791840 | avg_token_loss: 1.3275547 | learning_rate: 0.0002284
+sequence_per_sec: 26.5008908
+2021-03-16 22:29:11,061 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37431 | Iter 4360:
+per_token_loss: 1.3045024 | avg_token_loss: 1.3276570 | learning_rate: 0.0002284
+sequence_per_sec: 26.5009131
+2021-03-16 22:31:20,460 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37436 | Iter 4400:
+per_token_loss: 1.3275180 | avg_token_loss: 1.3276393 | learning_rate: 0.0002284
+sequence_per_sec: 26.5098575
+2021-03-16 22:33:28,128 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37441 | Iter 4440:
+per_token_loss: 1.4053402 | avg_token_loss: 1.3277874 | learning_rate: 0.0002284
+sequence_per_sec: 26.5008429
+2021-03-16 22:35:35,723 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37446 | Iter 4480:
+per_token_loss: 1.2946142 | avg_token_loss: 1.3278008 | learning_rate: 0.0002284
+sequence_per_sec: 26.4917721
+2021-03-16 22:37:43,990 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37451 | Iter 4520:
+per_token_loss: 1.3196318 | avg_token_loss: 1.3278213 | learning_rate: 0.0002284
+sequence_per_sec: 26.4888165
+2021-03-16 22:39:50,886 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37456 | Iter 4560:
+per_token_loss: 1.3359629 | avg_token_loss: 1.3278782 | learning_rate: 0.0002284
+sequence_per_sec: 26.4971883
+2021-03-16 22:41:59,537 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37461 | Iter 4600:
+per_token_loss: 1.3135147 | avg_token_loss: 1.3279407 | learning_rate: 0.0002283
+sequence_per_sec: 26.5018924
+2021-03-16 22:44:08,633 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37466 | Iter 4640:
+per_token_loss: 1.2776382 | avg_token_loss: 1.3278836 | learning_rate: 0.0002283
+sequence_per_sec: 26.4893591
+2021-03-16 22:46:17,297 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37471 | Iter 4680:
+per_token_loss: 1.3625008 | avg_token_loss: 1.3279088 | learning_rate: 0.0002283
+sequence_per_sec: 26.4971938
+2021-03-16 22:48:26,036 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37476 | Iter 4720:
+per_token_loss: 1.3079739 | avg_token_loss: 1.3279319 | learning_rate: 0.0002283
+sequence_per_sec: 26.4988799
+2021-03-16 22:50:34,032 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37481 | Iter 4760:
+per_token_loss: 1.3476654 | avg_token_loss: 1.3279742 | learning_rate: 0.0002283
+sequence_per_sec: 26.5009390
+2021-03-16 22:52:42,803 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37486 | Iter 4800:
+per_token_loss: 1.3473910 | avg_token_loss: 1.3280649 | learning_rate: 0.0002283
+sequence_per_sec: 26.5032522
+2021-03-16 22:54:50,923 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37491 | Iter 4840:
+per_token_loss: 1.3489590 | avg_token_loss: 1.3280796 | learning_rate: 0.0002282
+sequence_per_sec: 26.4989825
+2021-03-16 22:56:59,662 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37496 | Iter 4880:
+per_token_loss: 1.4313326 | avg_token_loss: 1.3281008 | learning_rate: 0.0002282
+sequence_per_sec: 26.5042804
+2021-03-16 22:59:09,684 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37501 | Iter 4920:
+per_token_loss: 1.3599235 | avg_token_loss: 1.3281263 | learning_rate: 0.0002282
+sequence_per_sec: 26.4990914
+2021-03-16 23:01:17,165 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37506 | Iter 4960:
+per_token_loss: 1.3007650 | avg_token_loss: 1.3281319 | learning_rate: 0.0002282
+sequence_per_sec: 26.5099660
+2021-03-16 23:03:24,310 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37511 | Iter 5000:
+per_token_loss: 1.3123473 | avg_token_loss: 1.3281661 | learning_rate: 0.0002282
+sequence_per_sec: 26.5154584
+2021-03-16 23:05:34,388 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37516 | Iter 5040:
+per_token_loss: 1.3075264 | avg_token_loss: 1.3281103 | learning_rate: 0.0002282
+sequence_per_sec: 26.5217935
+2021-03-16 23:07:42,085 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37521 | Iter 5080:
+per_token_loss: 1.3339672 | avg_token_loss: 1.3281876 | learning_rate: 0.0002282
+sequence_per_sec: 26.5294061
+2021-03-16 23:09:49,854 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37526 | Iter 5120:
+per_token_loss: 1.3164383 | avg_token_loss: 1.3281646 | learning_rate: 0.0002281
+sequence_per_sec: 26.5283013
+2021-03-16 23:11:58,196 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37531 | Iter 5160:
+per_token_loss: 1.3037536 | avg_token_loss: 1.3281834 | learning_rate: 0.0002281
+sequence_per_sec: 26.5292501
+2021-03-16 23:14:06,394 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37536 | Iter 5200:
+per_token_loss: 1.3753183 | avg_token_loss: 1.3281910 | learning_rate: 0.0002281
+sequence_per_sec: 26.5227674
+2021-03-16 23:16:13,992 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37541 | Iter 5240:
+per_token_loss: 1.3842436 | avg_token_loss: 1.3282565 | learning_rate: 0.0002281
+sequence_per_sec: 26.5245950
+2021-03-16 23:18:22,859 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37546 | Iter 5280:
+per_token_loss: 1.2961193 | avg_token_loss: 1.3282713 | learning_rate: 0.0002281
+sequence_per_sec: 26.5261613
+2021-03-16 23:20:31,069 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37551 | Iter 5320:
+per_token_loss: 1.3463997 | avg_token_loss: 1.3282580 | learning_rate: 0.0002281
+sequence_per_sec: 26.5205457
+2021-03-16 23:22:39,521 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37556 | Iter 5360:
+per_token_loss: 1.3121997 | avg_token_loss: 1.3282287 | learning_rate: 0.0002281
+sequence_per_sec: 26.5284732
+2021-03-16 23:24:47,073 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37561 | Iter 5400:
+per_token_loss: 1.3618548 | avg_token_loss: 1.3282682 | learning_rate: 0.0002280
+sequence_per_sec: 26.5385553
+2021-03-16 23:26:54,448 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37566 | Iter 5440:
+per_token_loss: 1.3925445 | avg_token_loss: 1.3283176 | learning_rate: 0.0002280
+sequence_per_sec: 26.5444346
+2021-03-16 23:29:02,275 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37571 | Iter 5480:
+per_token_loss: 1.2797152 | avg_token_loss: 1.3283564 | learning_rate: 0.0002280
+sequence_per_sec: 26.5588234
+2021-03-16 23:31:10,525 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37576 | Iter 5520:
+per_token_loss: 1.3052937 | avg_token_loss: 1.3283774 | learning_rate: 0.0002280
+sequence_per_sec: 26.5732630
+2021-03-16 23:33:18,272 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37581 | Iter 5560:
+per_token_loss: 1.3909671 | avg_token_loss: 1.3284190 | learning_rate: 0.0002280
+sequence_per_sec: 26.5650664
+2021-03-16 23:35:27,521 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37586 | Iter 5600:
+per_token_loss: 1.3295259 | avg_token_loss: 1.3284118 | learning_rate: 0.0002280
+sequence_per_sec: 26.5612328
+2021-03-16 23:37:36,588 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37591 | Iter 5640:
+per_token_loss: 1.3879648 | avg_token_loss: 1.3284625 | learning_rate: 0.0002279
+sequence_per_sec: 26.5697585
+2021-03-16 23:39:46,181 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37596 | Iter 5680:
+per_token_loss: 1.2817384 | avg_token_loss: 1.3285563 | learning_rate: 0.0002279
+sequence_per_sec: 26.5720437
+2021-03-16 23:41:54,487 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37601 | Iter 5720:
+per_token_loss: 1.3765980 | avg_token_loss: 1.3285717 | learning_rate: 0.0002279
+sequence_per_sec: 26.5782287
+2021-03-16 23:44:02,666 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37606 | Iter 5760:
+per_token_loss: 1.3298446 | avg_token_loss: 1.3285381 | learning_rate: 0.0002279
+sequence_per_sec: 26.5835102
+2021-03-16 23:46:12,072 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37611 | Iter 5800:
+per_token_loss: 1.3118874 | avg_token_loss: 1.3285636 | learning_rate: 0.0002279
+sequence_per_sec: 26.5864360
+2021-03-16 23:48:20,199 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37616 | Iter 5840:
+per_token_loss: 1.2880408 | avg_token_loss: 1.3285635 | learning_rate: 0.0002279
+sequence_per_sec: 26.5900782
+2021-03-16 23:50:29,283 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37621 | Iter 5880:
+per_token_loss: 1.3650379 | avg_token_loss: 1.3285589 | learning_rate: 0.0002279
+sequence_per_sec: 26.5858823
+2021-03-16 23:52:37,586 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37626 | Iter 5920:
+per_token_loss: 1.3586285 | avg_token_loss: 1.3286068 | learning_rate: 0.0002278
+sequence_per_sec: 26.5855233
+2021-03-16 23:54:45,310 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37631 | Iter 5960:
+per_token_loss: 1.3274654 | avg_token_loss: 1.3286458 | learning_rate: 0.0002278
+sequence_per_sec: 26.5963144
+2021-03-16 23:56:55,802 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37636 | Iter 6000:
+per_token_loss: 1.3863630 | avg_token_loss: 1.3286400 | learning_rate: 0.0002278
+sequence_per_sec: 26.5934939
+2021-03-16 23:59:04,479 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37641 | Iter 6040:
+per_token_loss: 1.3247142 | avg_token_loss: 1.3286510 | learning_rate: 0.0002278
+sequence_per_sec: 26.5960452
+2021-03-17 00:01:13,700 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37646 | Iter 6080:
+per_token_loss: 1.2785839 | avg_token_loss: 1.3286618 | learning_rate: 0.0002278
+sequence_per_sec: 26.5958756
+2021-03-17 00:03:23,909 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37651 | Iter 6120:
+per_token_loss: 1.3079890 | avg_token_loss: 1.3286030 | learning_rate: 0.0002278
+sequence_per_sec: 26.5948428
+2021-03-17 00:05:32,682 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37656 | Iter 6160:
+per_token_loss: 1.3884482 | avg_token_loss: 1.3286439 | learning_rate: 0.0002277
+sequence_per_sec: 26.5918377
+2021-03-17 00:07:40,850 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37661 | Iter 6200:
+per_token_loss: 1.3180658 | avg_token_loss: 1.3286990 | learning_rate: 0.0002277
+sequence_per_sec: 26.5969727
+2021-03-17 00:09:51,071 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37666 | Iter 6240:
+per_token_loss: 1.3273326 | avg_token_loss: 1.3286370 | learning_rate: 0.0002277
+sequence_per_sec: 26.5934729
+2021-03-17 00:11:59,857 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37671 | Iter 6280:
+per_token_loss: 1.2815857 | avg_token_loss: 1.3286268 | learning_rate: 0.0002277
+sequence_per_sec: 26.5825382
+2021-03-17 00:14:09,362 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37676 | Iter 6320:
+per_token_loss: 1.3008996 | avg_token_loss: 1.3286145 | learning_rate: 0.0002277
+sequence_per_sec: 26.5860087
+2021-03-17 00:16:18,296 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37681 | Iter 6360:
+per_token_loss: 1.3264415 | avg_token_loss: 1.3286259 | learning_rate: 0.0002277
+sequence_per_sec: 26.5760550
+2021-03-17 00:18:29,282 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37686 | Iter 6400:
+per_token_loss: 1.3284076 | avg_token_loss: 1.3285943 | learning_rate: 0.0002277
+sequence_per_sec: 26.5605494
+2021-03-17 00:20:39,221 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37691 | Iter 6440:
+per_token_loss: 1.3519503 | avg_token_loss: 1.3286659 | learning_rate: 0.0002276
+sequence_per_sec: 26.5630664
+2021-03-17 00:22:48,815 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37696 | Iter 6480:
+per_token_loss: 1.3526140 | avg_token_loss: 1.3286773 | learning_rate: 0.0002276
+sequence_per_sec: 26.5591409
+2021-03-17 00:24:58,116 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37701 | Iter 6520:
+per_token_loss: 1.3939533 | avg_token_loss: 1.3287346 | learning_rate: 0.0002276
+sequence_per_sec: 26.5567465
+2021-03-17 00:27:06,726 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37706 | Iter 6560:
+per_token_loss: 1.2964120 | avg_token_loss: 1.3287430 | learning_rate: 0.0002276
+sequence_per_sec: 26.5595796
+2021-03-17 00:29:17,068 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37711 | Iter 6600:
+per_token_loss: 1.3653203 | avg_token_loss: 1.3288115 | learning_rate: 0.0002276
+sequence_per_sec: 26.5538875
+2021-03-17 00:31:26,819 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37716 | Iter 6640:
+per_token_loss: 1.3145866 | avg_token_loss: 1.3288472 | learning_rate: 0.0002276
+sequence_per_sec: 26.5538157
+2021-03-17 00:33:36,005 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37721 | Iter 6680:
+per_token_loss: 1.3503523 | avg_token_loss: 1.3288510 | learning_rate: 0.0002276
+sequence_per_sec: 26.5528011
+2021-03-17 00:35:45,846 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37726 | Iter 6720:
+per_token_loss: 1.3072407 | avg_token_loss: 1.3288974 | learning_rate: 0.0002275
+sequence_per_sec: 26.5535308
+2021-03-17 00:37:55,206 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37731 | Iter 6760:
+per_token_loss: 1.3544774 | avg_token_loss: 1.3289145 | learning_rate: 0.0002275
+sequence_per_sec: 26.5508534
+2021-03-17 00:40:05,011 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37736 | Iter 6800:
+per_token_loss: 1.3288188 | avg_token_loss: 1.3289118 | learning_rate: 0.0002275
+sequence_per_sec: 26.5558087
+2021-03-17 00:42:14,218 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37741 | Iter 6840:
+per_token_loss: 1.3024968 | avg_token_loss: 1.3288913 | learning_rate: 0.0002275
+sequence_per_sec: 26.5479298
+2021-03-17 00:44:23,448 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37746 | Iter 6880:
+per_token_loss: 1.3309715 | avg_token_loss: 1.3289071 | learning_rate: 0.0002275
+sequence_per_sec: 26.5420219
+
+Epoch 10 | Step 37751 | Iter 6920:
+per_token_loss: 1.3527222 | avg_token_loss: 1.3289084 | learning_rate: 0.0002275
+sequence_per_sec: 26.5251707
+2021-03-17 00:48:41,798 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37756 | Iter 6960:
+per_token_loss: 1.4170054 | avg_token_loss: 1.3289248 | learning_rate: 0.0002274
+sequence_per_sec: 26.5212028
+2021-03-17 00:50:51,048 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37761 | Iter 7000:
+per_token_loss: 1.3835720 | avg_token_loss: 1.3289629 | learning_rate: 0.0002274
+sequence_per_sec: 26.5093656
+2021-03-17 00:53:00,914 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37766 | Iter 7040:
+per_token_loss: 1.3693584 | avg_token_loss: 1.3289680 | learning_rate: 0.0002274
+sequence_per_sec: 26.5016649
+2021-03-17 00:55:10,195 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37771 | Iter 7080:
+per_token_loss: 1.3039070 | avg_token_loss: 1.3290201 | learning_rate: 0.0002274
+sequence_per_sec: 26.5056084
+2021-03-17 00:57:19,066 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37776 | Iter 7120:
+per_token_loss: 1.3584509 | avg_token_loss: 1.3290310 | learning_rate: 0.0002274
+sequence_per_sec: 26.5069817
+2021-03-17 00:59:28,631 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37781 | Iter 7160:
+per_token_loss: 1.3138266 | avg_token_loss: 1.3290502 | learning_rate: 0.0002274
+sequence_per_sec: 26.5122920
+2021-03-17 01:01:38,914 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37786 | Iter 7200:
+per_token_loss: 1.3428593 | avg_token_loss: 1.3290874 | learning_rate: 0.0002274
+sequence_per_sec: 26.5071653
+2021-03-17 01:03:48,380 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37791 | Iter 7240:
+per_token_loss: 1.2991192 | avg_token_loss: 1.3291899 | learning_rate: 0.0002273
+sequence_per_sec: 26.5035796
+2021-03-17 01:05:59,499 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37796 | Iter 7280:
+per_token_loss: 1.3253201 | avg_token_loss: 1.3292285 | learning_rate: 0.0002273
+sequence_per_sec: 26.5024678
+2021-03-17 01:08:09,175 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37801 | Iter 7320:
+per_token_loss: 1.2764494 | avg_token_loss: 1.3293085 | learning_rate: 0.0002273
+sequence_per_sec: 26.5047702
+2021-03-17 01:10:18,060 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37806 | Iter 7360:
+per_token_loss: 1.3464574 | avg_token_loss: 1.3294007 | learning_rate: 0.0002273
+sequence_per_sec: 26.5061439
+2021-03-17 01:12:27,701 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37811 | Iter 7400:
+per_token_loss: 1.2929870 | avg_token_loss: 1.3294137 | learning_rate: 0.0002273
+sequence_per_sec: 26.5042965
+2021-03-17 01:14:37,840 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37816 | Iter 7440:
+per_token_loss: 1.3637946 | avg_token_loss: 1.3294553 | learning_rate: 0.0002273
+sequence_per_sec: 26.5033707
+2021-03-17 01:16:47,580 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37821 | Iter 7480:
+per_token_loss: 1.3217698 | avg_token_loss: 1.3294886 | learning_rate: 0.0002273
+sequence_per_sec: 26.5027942
+2021-03-17 01:18:56,296 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37826 | Iter 7520:
+per_token_loss: 1.3467369 | avg_token_loss: 1.3295361 | learning_rate: 0.0002272
+sequence_per_sec: 26.4985247
+2021-03-17 01:21:06,154 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37831 | Iter 7560:
+per_token_loss: 1.2808675 | avg_token_loss: 1.3296076 | learning_rate: 0.0002272
+sequence_per_sec: 26.4942486
+2021-03-17 01:23:15,664 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37836 | Iter 7600:
+per_token_loss: 1.3576751 | avg_token_loss: 1.3296418 | learning_rate: 0.0002272
+sequence_per_sec: 26.4942837
+2021-03-17 01:25:25,173 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37841 | Iter 7640:
+per_token_loss: 1.4441806 | avg_token_loss: 1.3297142 | learning_rate: 0.0002272
+sequence_per_sec: 26.4920707
+2021-03-17 01:27:34,400 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37846 | Iter 7680:
+per_token_loss: 1.3184254 | avg_token_loss: 1.3297962 | learning_rate: 0.0002272
+sequence_per_sec: 26.4956203
+2021-03-17 01:29:43,020 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37851 | Iter 7720:
+per_token_loss: 1.3967886 | avg_token_loss: 1.3298973 | learning_rate: 0.0002272
+sequence_per_sec: 26.4989846
+2021-03-17 01:31:53,431 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37856 | Iter 7760:
+per_token_loss: 1.2686979 | avg_token_loss: 1.3299229 | learning_rate: 0.0002271
+sequence_per_sec: 26.4942031
+2021-03-17 01:34:02,588 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37861 | Iter 7800:
+per_token_loss: 1.3356459 | avg_token_loss: 1.3299974 | learning_rate: 0.0002271
+sequence_per_sec: 26.4927086
+2021-03-17 01:36:10,865 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37866 | Iter 7840:
+per_token_loss: 1.4168313 | avg_token_loss: 1.3300316 | learning_rate: 0.0002271
+sequence_per_sec: 26.4930570
+2021-03-17 01:38:20,375 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37871 | Iter 7880:
+per_token_loss: 1.4038621 | avg_token_loss: 1.3301202 | learning_rate: 0.0002271
+sequence_per_sec: 26.5011324
+2021-03-17 01:40:30,512 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37876 | Iter 7920:
+per_token_loss: 1.4484000 | avg_token_loss: 1.3302206 | learning_rate: 0.0002271
+sequence_per_sec: 26.4998184
+2021-03-17 01:42:39,156 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37881 | Iter 7960:
+per_token_loss: 1.3239914 | avg_token_loss: 1.3303276 | learning_rate: 0.0002271
+sequence_per_sec: 26.4999597
+2021-03-17 01:44:48,613 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37886 | Iter 8000:
+per_token_loss: 1.3688346 | avg_token_loss: 1.3303840 | learning_rate: 0.0002271
+sequence_per_sec: 26.5117720
+2021-03-17 01:46:57,813 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37891 | Iter 8040:
+per_token_loss: 1.3561682 | avg_token_loss: 1.3304830 | learning_rate: 0.0002270
+sequence_per_sec: 26.5086236
+2021-03-17 01:49:06,295 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37896 | Iter 8080:
+per_token_loss: 1.3079727 | avg_token_loss: 1.3305612 | learning_rate: 0.0002270
+sequence_per_sec: 26.5137435
+2021-03-17 01:51:15,279 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37901 | Iter 8120:
+per_token_loss: 1.3100150 | avg_token_loss: 1.3306525 | learning_rate: 0.0002270
+sequence_per_sec: 26.5177175
+2021-03-17 01:53:24,477 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37906 | Iter 8160:
+per_token_loss: 1.3215617 | avg_token_loss: 1.3306900 | learning_rate: 0.0002270
+sequence_per_sec: 26.5143375
+2021-03-17 01:55:33,845 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37911 | Iter 8200:
+per_token_loss: 1.3870258 | avg_token_loss: 1.3308054 | learning_rate: 0.0002270
+sequence_per_sec: 26.5107644
+2021-03-17 01:57:41,662 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37916 | Iter 8240:
+per_token_loss: 1.3209158 | avg_token_loss: 1.3308946 | learning_rate: 0.0002270
+sequence_per_sec: 26.5163257
+2021-03-17 01:59:50,752 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37921 | Iter 8280:
+per_token_loss: 1.3291384 | avg_token_loss: 1.3309644 | learning_rate: 0.0002270
+sequence_per_sec: 26.5109501
+2021-03-17 02:02:00,737 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37926 | Iter 8320:
+per_token_loss: 1.3035016 | avg_token_loss: 1.3310521 | learning_rate: 0.0002269
+sequence_per_sec: 26.5083392
+2021-03-17 02:04:08,607 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37931 | Iter 8360:
+per_token_loss: 1.3397119 | avg_token_loss: 1.3311870 | learning_rate: 0.0002269
+sequence_per_sec: 26.5065420
+2021-03-17 02:06:18,314 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37936 | Iter 8400:
+per_token_loss: 1.3478217 | avg_token_loss: 1.3312341 | learning_rate: 0.0002269
+sequence_per_sec: 26.5051289
+2021-03-17 02:08:27,842 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37941 | Iter 8440:
+per_token_loss: 1.3299974 | avg_token_loss: 1.3313130 | learning_rate: 0.0002269
+sequence_per_sec: 26.5056490
+2021-03-17 02:10:36,367 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37946 | Iter 8480:
+per_token_loss: 1.3376393 | avg_token_loss: 1.3313640 | learning_rate: 0.0002269
+sequence_per_sec: 26.4991753
+2021-03-17 02:12:45,620 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37951 | Iter 8520:
+per_token_loss: 1.4434196 | avg_token_loss: 1.3314120 | learning_rate: 0.0002269
+sequence_per_sec: 26.4984125
+2021-03-17 02:14:54,922 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37956 | Iter 8560:
+per_token_loss: 1.3641061 | avg_token_loss: 1.3314531 | learning_rate: 0.0002268
+sequence_per_sec: 26.4967274
+2021-03-17 02:17:03,981 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37961 | Iter 8600:
+per_token_loss: 1.3337713 | avg_token_loss: 1.3314830 | learning_rate: 0.0002268
+sequence_per_sec: 26.4908178
+2021-03-17 02:19:13,296 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37966 | Iter 8640:
+per_token_loss: 1.3444865 | avg_token_loss: 1.3315662 | learning_rate: 0.0002268
+sequence_per_sec: 26.4899085
+2021-03-17 02:21:22,336 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37971 | Iter 8680:
+per_token_loss: 1.3189520 | avg_token_loss: 1.3316333 | learning_rate: 0.0002268
+sequence_per_sec: 26.4899454
+2021-03-17 02:23:32,799 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37976 | Iter 8720:
+per_token_loss: 1.2680769 | avg_token_loss: 1.3316787 | learning_rate: 0.0002268
+sequence_per_sec: 26.4932558
+2021-03-17 02:25:41,906 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37981 | Iter 8760:
+per_token_loss: 1.3478115 | avg_token_loss: 1.3317325 | learning_rate: 0.0002268
+sequence_per_sec: 26.5033972
+2021-03-17 02:27:50,032 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37986 | Iter 8800:
+per_token_loss: 1.3647093 | avg_token_loss: 1.3317968 | learning_rate: 0.0002268
+sequence_per_sec: 26.5062136
+2021-03-17 02:29:58,559 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37991 | Iter 8840:
+per_token_loss: 1.3379025 | avg_token_loss: 1.3318490 | learning_rate: 0.0002267
+sequence_per_sec: 26.5047069
+2021-03-17 02:32:07,015 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 37996 | Iter 8880:
+per_token_loss: 1.3723279 | avg_token_loss: 1.3318952 | learning_rate: 0.0002267
+sequence_per_sec: 26.4986966
+2021-03-17 02:34:16,530 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38001 | Iter 8920:
+per_token_loss: 1.2832429 | avg_token_loss: 1.3319256 | learning_rate: 0.0002267
+sequence_per_sec: 26.4964721
+2021-03-17 02:36:27,470 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38006 | Iter 8960:
+per_token_loss: 1.4941461 | avg_token_loss: 1.3319820 | learning_rate: 0.0002267
+sequence_per_sec: 26.4993413
+2021-03-17 02:38:36,467 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38011 | Iter 9000:
+per_token_loss: 1.3587327 | avg_token_loss: 1.3320912 | learning_rate: 0.0002267
+sequence_per_sec: 26.5001937
+2021-03-17 02:40:45,204 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38016 | Iter 9040:
+per_token_loss: 1.4079695 | avg_token_loss: 1.3321713 | learning_rate: 0.0002267
+sequence_per_sec: 26.5033522
+2021-03-17 02:42:55,405 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38021 | Iter 9080:
+per_token_loss: 1.3825226 | avg_token_loss: 1.3322486 | learning_rate: 0.0002267
+sequence_per_sec: 26.5120241
+2021-03-17 02:45:06,214 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38026 | Iter 9120:
+per_token_loss: 1.3895581 | avg_token_loss: 1.3323436 | learning_rate: 0.0002266
+sequence_per_sec: 26.5075356
+2021-03-17 02:47:14,920 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38031 | Iter 9160:
+per_token_loss: 1.2946274 | avg_token_loss: 1.3323855 | learning_rate: 0.0002266
+sequence_per_sec: 26.5030678
+2021-03-17 02:49:23,096 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38036 | Iter 9200:
+per_token_loss: 1.3650775 | avg_token_loss: 1.3324323 | learning_rate: 0.0002266
+sequence_per_sec: 26.5049026
+2021-03-17 02:51:32,770 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38041 | Iter 9240:
+per_token_loss: 1.4008554 | avg_token_loss: 1.3325377 | learning_rate: 0.0002266
+sequence_per_sec: 26.5077032
+2021-03-17 02:53:41,075 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38046 | Iter 9280:
+per_token_loss: 1.3368841 | avg_token_loss: 1.3326148 | learning_rate: 0.0002266
+sequence_per_sec: 26.5079159
+2021-03-17 02:55:50,216 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38051 | Iter 9320:
+per_token_loss: 1.3256265 | avg_token_loss: 1.3327253 | learning_rate: 0.0002266
+sequence_per_sec: 26.5051531
+2021-03-17 02:57:58,906 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38056 | Iter 9360:
+per_token_loss: 1.3342056 | avg_token_loss: 1.3327788 | learning_rate: 0.0002265
+sequence_per_sec: 26.5027026
+2021-03-17 03:00:08,311 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38061 | Iter 9400:
+per_token_loss: 1.2963732 | avg_token_loss: 1.3328435 | learning_rate: 0.0002265
+sequence_per_sec: 26.5102737
+2021-03-17 03:02:17,057 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38066 | Iter 9440:
+per_token_loss: 1.3861029 | avg_token_loss: 1.3329363 | learning_rate: 0.0002265
+sequence_per_sec: 26.5055173
+2021-03-17 03:04:26,986 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38071 | Iter 9480:
+per_token_loss: 1.4524115 | avg_token_loss: 1.3329864 | learning_rate: 0.0002265
+sequence_per_sec: 26.5051114
+2021-03-17 03:06:35,963 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38076 | Iter 9520:
+per_token_loss: 1.3595136 | avg_token_loss: 1.3330790 | learning_rate: 0.0002265
+sequence_per_sec: 26.5026912
+2021-03-17 03:08:46,592 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38081 | Iter 9560:
+per_token_loss: 1.3088347 | avg_token_loss: 1.3332086 | learning_rate: 0.0002265
+sequence_per_sec: 26.5035609
+2021-03-17 03:10:55,308 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38086 | Iter 9600:
+per_token_loss: 1.3387291 | avg_token_loss: 1.3332882 | learning_rate: 0.0002265
+sequence_per_sec: 26.5021286
+2021-03-17 03:13:03,261 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38091 | Iter 9640:
+per_token_loss: 1.3900474 | avg_token_loss: 1.3333561 | learning_rate: 0.0002264
+sequence_per_sec: 26.5007872
+2021-03-17 03:15:12,717 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38096 | Iter 9680:
+per_token_loss: 1.3135602 | avg_token_loss: 1.3334203 | learning_rate: 0.0002264
+sequence_per_sec: 26.5010603
+2021-03-17 03:17:21,712 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38101 | Iter 9720:
+per_token_loss: 1.2932099 | avg_token_loss: 1.3335086 | learning_rate: 0.0002264
+sequence_per_sec: 26.5087418
+2021-03-17 03:19:30,688 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38106 | Iter 9760:
+per_token_loss: 1.3666370 | avg_token_loss: 1.3336092 | learning_rate: 0.0002264
+sequence_per_sec: 26.5086645
+2021-03-17 03:21:39,317 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38111 | Iter 9800:
+per_token_loss: 1.3377283 | avg_token_loss: 1.3336947 | learning_rate: 0.0002264
+sequence_per_sec: 26.5117808
+2021-03-17 03:23:48,324 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38116 | Iter 9840:
+per_token_loss: 1.3946059 | avg_token_loss: 1.3337454 | learning_rate: 0.0002264
+sequence_per_sec: 26.5062229
+2021-03-17 03:25:57,137 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38121 | Iter 9880:
+per_token_loss: 1.3643968 | avg_token_loss: 1.3337911 | learning_rate: 0.0002264
+sequence_per_sec: 26.5139022
+2021-03-17 03:28:06,944 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38126 | Iter 9920:
+per_token_loss: 1.2946538 | avg_token_loss: 1.3338245 | learning_rate: 0.0002263
+sequence_per_sec: 26.5021165
+2021-03-17 03:30:17,046 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38131 | Iter 9960:
+per_token_loss: 1.3213249 | avg_token_loss: 1.3338902 | learning_rate: 0.0002263
+sequence_per_sec: 26.5057212
+2021-03-17 03:32:25,318 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38136 | Iter 10000:
+per_token_loss: 1.4066708 | avg_token_loss: 1.3339325 | learning_rate: 0.0002263
+sequence_per_sec: 26.5109448
+2021-03-17 03:34:35,486 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38141 | Iter 10040:
+per_token_loss: 1.2677103 | avg_token_loss: 1.3340005 | learning_rate: 0.0002263
+sequence_per_sec: 26.5089082
+2021-03-17 03:36:44,384 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38146 | Iter 10080:
+per_token_loss: 1.4249085 | avg_token_loss: 1.3340847 | learning_rate: 0.0002263
+sequence_per_sec: 26.5142353
+2021-03-17 03:38:52,166 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38151 | Iter 10120:
+per_token_loss: 1.3747467 | avg_token_loss: 1.3341511 | learning_rate: 0.0002263
+sequence_per_sec: 26.5121787
+2021-03-17 03:41:01,586 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38156 | Iter 10160:
+per_token_loss: 1.3326935 | avg_token_loss: 1.3341957 | learning_rate: 0.0002263
+sequence_per_sec: 26.5112166
+2021-03-17 03:43:11,210 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38161 | Iter 10200:
+per_token_loss: 1.3214623 | avg_token_loss: 1.3342228 | learning_rate: 0.0002262
+sequence_per_sec: 26.5096252
+2021-03-17 03:45:19,968 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38166 | Iter 10240:
+per_token_loss: 1.3359056 | avg_token_loss: 1.3342497 | learning_rate: 0.0002262
+sequence_per_sec: 26.5133477
+2021-03-17 03:47:29,058 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38171 | Iter 10280:
+per_token_loss: 1.3414472 | avg_token_loss: 1.3343257 | learning_rate: 0.0002262
+sequence_per_sec: 26.5085741
+2021-03-17 03:49:37,900 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38176 | Iter 10320:
+per_token_loss: 1.3349946 | avg_token_loss: 1.3344663 | learning_rate: 0.0002262
+sequence_per_sec: 26.5093059
+
+Epoch 10 | Step 38181 | Iter 10360:
+per_token_loss: 1.3841840 | avg_token_loss: 1.3345641 | learning_rate: 0.0002262
+sequence_per_sec: 26.5101606
+2021-03-17 03:53:54,179 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38186 | Iter 10400:
+per_token_loss: 1.2998466 | avg_token_loss: 1.3346152 | learning_rate: 0.0002262
+sequence_per_sec: 26.5125920
+2021-03-17 03:56:02,496 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38191 | Iter 10440:
+per_token_loss: 1.3468260 | avg_token_loss: 1.3347178 | learning_rate: 0.0002261
+sequence_per_sec: 26.5134807
+2021-03-17 03:58:11,852 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38196 | Iter 10480:
+per_token_loss: 1.3645220 | avg_token_loss: 1.3347952 | learning_rate: 0.0002261
+sequence_per_sec: 26.5092852
+2021-03-17 04:00:20,863 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38201 | Iter 10520:
+per_token_loss: 1.3023404 | avg_token_loss: 1.3348551 | learning_rate: 0.0002261
+sequence_per_sec: 26.5078811
+2021-03-17 04:02:29,364 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38206 | Iter 10560:
+per_token_loss: 1.3356357 | avg_token_loss: 1.3349288 | learning_rate: 0.0002261
+sequence_per_sec: 26.5046320
+2021-03-17 04:04:38,033 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38211 | Iter 10600:
+per_token_loss: 1.3299115 | avg_token_loss: 1.3349907 | learning_rate: 0.0002261
+sequence_per_sec: 26.5086477
+2021-03-17 04:06:46,337 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38216 | Iter 10640:
+per_token_loss: 1.3028575 | avg_token_loss: 1.3350674 | learning_rate: 0.0002261
+sequence_per_sec: 26.5179563
+2021-03-17 04:08:55,468 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38221 | Iter 10680:
+per_token_loss: 1.3516214 | avg_token_loss: 1.3350903 | learning_rate: 0.0002261
+sequence_per_sec: 26.5155097
+2021-03-17 04:11:05,611 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38226 | Iter 10720:
+per_token_loss: 1.3164980 | avg_token_loss: 1.3351622 | learning_rate: 0.0002260
+sequence_per_sec: 26.5171495
+2021-03-17 04:13:13,598 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38231 | Iter 10760:
+per_token_loss: 1.3166699 | avg_token_loss: 1.3352284 | learning_rate: 0.0002260
+sequence_per_sec: 26.5229408
+2021-03-17 04:15:22,990 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38236 | Iter 10800:
+per_token_loss: 1.3513653 | avg_token_loss: 1.3353003 | learning_rate: 0.0002260
+sequence_per_sec: 26.5268365
+2021-03-17 04:17:31,087 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38241 | Iter 10840:
+per_token_loss: 1.3297156 | avg_token_loss: 1.3353549 | learning_rate: 0.0002260
+sequence_per_sec: 26.5286398
+2021-03-17 04:19:40,442 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38246 | Iter 10880:
+per_token_loss: 1.3083726 | avg_token_loss: 1.3354145 | learning_rate: 0.0002260
+sequence_per_sec: 26.5303165
+2021-03-17 04:21:49,799 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38251 | Iter 10920:
+per_token_loss: 1.3209349 | avg_token_loss: 1.3354765 | learning_rate: 0.0002260
+sequence_per_sec: 26.5381860
+2021-03-17 04:24:00,012 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38256 | Iter 10960:
+per_token_loss: 1.3050518 | avg_token_loss: 1.3355294 | learning_rate: 0.0002260
+sequence_per_sec: 26.5351412
+2021-03-17 04:26:10,009 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38261 | Iter 11000:
+per_token_loss: 1.4237994 | avg_token_loss: 1.3355730 | learning_rate: 0.0002259
+sequence_per_sec: 26.5343976
+2021-03-17 04:28:19,152 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38266 | Iter 11040:
+per_token_loss: 1.3015842 | avg_token_loss: 1.3356042 | learning_rate: 0.0002259
+sequence_per_sec: 26.5332204
+2021-03-17 04:30:27,635 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38271 | Iter 11080:
+per_token_loss: 1.3271097 | avg_token_loss: 1.3355887 | learning_rate: 0.0002259
+sequence_per_sec: 26.5336237
+2021-03-17 04:32:36,837 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38276 | Iter 11120:
+per_token_loss: 1.3674672 | avg_token_loss: 1.3356488 | learning_rate: 0.0002259
+sequence_per_sec: 26.5337457
+2021-03-17 04:34:46,318 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38281 | Iter 11160:
+per_token_loss: 1.3106642 | avg_token_loss: 1.3356957 | learning_rate: 0.0002259
+sequence_per_sec: 26.5325102
+2021-03-17 04:36:54,650 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38286 | Iter 11200:
+per_token_loss: 1.3621591 | avg_token_loss: 1.3357694 | learning_rate: 0.0002259
+sequence_per_sec: 26.5334794
+2021-03-17 04:39:03,884 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38291 | Iter 11240:
+per_token_loss: 1.3397739 | avg_token_loss: 1.3357413 | learning_rate: 0.0002259
+sequence_per_sec: 26.5314888
+2021-03-17 04:41:12,882 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38296 | Iter 11280:
+per_token_loss: 1.2960250 | avg_token_loss: 1.3357569 | learning_rate: 0.0002258
+sequence_per_sec: 26.5213021
+2021-03-17 04:43:21,850 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38301 | Iter 11320:
+per_token_loss: 1.4481170 | avg_token_loss: 1.3357460 | learning_rate: 0.0002258
+sequence_per_sec: 26.5184729
+2021-03-17 04:45:30,939 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38306 | Iter 11360:
+per_token_loss: 1.3392516 | avg_token_loss: 1.3357589 | learning_rate: 0.0002258
+sequence_per_sec: 26.5226361
+2021-03-17 04:47:41,526 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38311 | Iter 11400:
+per_token_loss: 1.3443065 | avg_token_loss: 1.3357885 | learning_rate: 0.0002258
+sequence_per_sec: 26.5240651
+2021-03-17 04:49:51,471 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38316 | Iter 11440:
+per_token_loss: 1.3546478 | avg_token_loss: 1.3357997 | learning_rate: 0.0002258
+sequence_per_sec: 26.5309947
+2021-03-17 04:52:01,046 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38321 | Iter 11480:
+per_token_loss: 1.3461912 | avg_token_loss: 1.3358355 | learning_rate: 0.0002258
+sequence_per_sec: 26.5293534
+2021-03-17 04:54:11,273 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38326 | Iter 11520:
+per_token_loss: 1.3154793 | avg_token_loss: 1.3358452 | learning_rate: 0.0002257
+sequence_per_sec: 26.5300185
+2021-03-17 04:56:20,541 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38331 | Iter 11560:
+per_token_loss: 1.3260798 | avg_token_loss: 1.3358722 | learning_rate: 0.0002257
+sequence_per_sec: 26.5274276
+2021-03-17 04:58:28,948 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38336 | Iter 11600:
+per_token_loss: 1.3752776 | avg_token_loss: 1.3358673 | learning_rate: 0.0002257
+sequence_per_sec: 26.5328942
+2021-03-17 05:00:38,817 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38341 | Iter 11640:
+per_token_loss: 1.3159784 | avg_token_loss: 1.3358774 | learning_rate: 0.0002257
+sequence_per_sec: 26.5343267
+2021-03-17 05:02:48,668 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38346 | Iter 11680:
+per_token_loss: 1.2973851 | avg_token_loss: 1.3358722 | learning_rate: 0.0002257
+sequence_per_sec: 26.5373831
+2021-03-17 05:04:56,816 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38351 | Iter 11720:
+per_token_loss: 1.3156081 | avg_token_loss: 1.3358650 | learning_rate: 0.0002257
+sequence_per_sec: 26.5379733
+2021-03-17 05:07:06,415 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38356 | Iter 11760:
+per_token_loss: 1.3009396 | avg_token_loss: 1.3358741 | learning_rate: 0.0002257
+sequence_per_sec: 26.5335043
+2021-03-17 05:09:15,612 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38361 | Iter 11800:
+per_token_loss: 1.2905806 | avg_token_loss: 1.3358861 | learning_rate: 0.0002256
+sequence_per_sec: 26.5349719
+2021-03-17 05:11:24,717 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38366 | Iter 11840:
+per_token_loss: 1.3709797 | avg_token_loss: 1.3359574 | learning_rate: 0.0002256
+sequence_per_sec: 26.5407458
+2021-03-17 05:13:34,796 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38371 | Iter 11880:
+per_token_loss: 1.2903751 | avg_token_loss: 1.3359696 | learning_rate: 0.0002256
+sequence_per_sec: 26.5427314
+2021-03-17 05:15:44,450 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38376 | Iter 11920:
+per_token_loss: 1.3169920 | avg_token_loss: 1.3359905 | learning_rate: 0.0002256
+sequence_per_sec: 26.5444615
+2021-03-17 05:17:54,490 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38381 | Iter 11960:
+per_token_loss: 1.2966762 | avg_token_loss: 1.3359871 | learning_rate: 0.0002256
+sequence_per_sec: 26.5430042
+2021-03-17 05:20:03,659 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38386 | Iter 12000:
+per_token_loss: 1.2914299 | avg_token_loss: 1.3359746 | learning_rate: 0.0002256
+sequence_per_sec: 26.5477253
+2021-03-17 05:22:12,898 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38391 | Iter 12040:
+per_token_loss: 1.3036857 | avg_token_loss: 1.3359972 | learning_rate: 0.0002256
+sequence_per_sec: 26.5474466
+2021-03-17 05:24:23,153 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38396 | Iter 12080:
+per_token_loss: 1.3298671 | avg_token_loss: 1.3360019 | learning_rate: 0.0002255
+sequence_per_sec: 26.5465955
+2021-03-17 05:26:32,524 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38401 | Iter 12120:
+per_token_loss: 1.3106470 | avg_token_loss: 1.3359860 | learning_rate: 0.0002255
+sequence_per_sec: 26.5466130
+2021-03-17 05:28:42,658 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38406 | Iter 12160:
+per_token_loss: 1.3578901 | avg_token_loss: 1.3359512 | learning_rate: 0.0002255
+sequence_per_sec: 26.5426124
+2021-03-17 05:30:51,444 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38411 | Iter 12200:
+per_token_loss: 1.3350712 | avg_token_loss: 1.3359623 | learning_rate: 0.0002255
+sequence_per_sec: 26.5449542
+2021-03-17 05:33:01,148 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38416 | Iter 12240:
+per_token_loss: 1.4322765 | avg_token_loss: 1.3359792 | learning_rate: 0.0002255
+sequence_per_sec: 26.5438855
+2021-03-17 05:35:10,600 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38421 | Iter 12280:
+per_token_loss: 1.3242002 | avg_token_loss: 1.3359603 | learning_rate: 0.0002255
+sequence_per_sec: 26.5414453
+2021-03-17 05:37:22,061 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38426 | Iter 12320:
+per_token_loss: 1.3954822 | avg_token_loss: 1.3359450 | learning_rate: 0.0002255
+sequence_per_sec: 26.5351896
+2021-03-17 05:39:31,878 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38431 | Iter 12360:
+per_token_loss: 1.3880241 | avg_token_loss: 1.3359686 | learning_rate: 0.0002254
+sequence_per_sec: 26.5339886
+2021-03-17 05:41:40,976 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38436 | Iter 12400:
+per_token_loss: 1.3492126 | avg_token_loss: 1.3359528 | learning_rate: 0.0002254
+sequence_per_sec: 26.5352376
+2021-03-17 05:43:51,534 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38441 | Iter 12440:
+per_token_loss: 1.3080609 | avg_token_loss: 1.3359369 | learning_rate: 0.0002254
+sequence_per_sec: 26.5329159
+2021-03-17 05:46:02,314 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38446 | Iter 12480:
+per_token_loss: 1.3336862 | avg_token_loss: 1.3359896 | learning_rate: 0.0002254
+sequence_per_sec: 26.5363707
+2021-03-17 05:48:12,355 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38451 | Iter 12520:
+per_token_loss: 1.3558694 | avg_token_loss: 1.3359817 | learning_rate: 0.0002254
+sequence_per_sec: 26.5298777
+2021-03-17 05:50:21,297 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38456 | Iter 12560:
+per_token_loss: 1.3110299 | avg_token_loss: 1.3359525 | learning_rate: 0.0002254
+sequence_per_sec: 26.5264123
+2021-03-17 05:52:30,750 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38461 | Iter 12600:
+per_token_loss: 1.3263990 | avg_token_loss: 1.3359348 | learning_rate: 0.0002254
+sequence_per_sec: 26.5262600
+2021-03-17 05:54:40,105 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38466 | Iter 12640:
+per_token_loss: 1.3348719 | avg_token_loss: 1.3359145 | learning_rate: 0.0002253
+sequence_per_sec: 26.5263595
+2021-03-17 05:56:49,778 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38471 | Iter 12680:
+per_token_loss: 1.2724301 | avg_token_loss: 1.3358884 | learning_rate: 0.0002253
+sequence_per_sec: 26.5217840
+2021-03-17 05:58:59,721 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38476 | Iter 12720:
+per_token_loss: 1.3283150 | avg_token_loss: 1.3358779 | learning_rate: 0.0002253
+sequence_per_sec: 26.5186408
+2021-03-17 06:01:09,091 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38481 | Iter 12760:
+per_token_loss: 1.4022750 | avg_token_loss: 1.3358830 | learning_rate: 0.0002253
+sequence_per_sec: 26.5178702
+2021-03-17 06:03:19,854 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38486 | Iter 12800:
+per_token_loss: 1.4691516 | avg_token_loss: 1.3358785 | learning_rate: 0.0002253
+sequence_per_sec: 26.5202154
+2021-03-17 06:05:29,777 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38491 | Iter 12840:
+per_token_loss: 1.4082496 | avg_token_loss: 1.3358849 | learning_rate: 0.0002253
+sequence_per_sec: 26.5200786
+2021-03-17 06:07:39,510 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38496 | Iter 12880:
+per_token_loss: 1.3452170 | avg_token_loss: 1.3358797 | learning_rate: 0.0002252
+sequence_per_sec: 26.5291975
+2021-03-17 06:09:49,255 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38501 | Iter 12920:
+per_token_loss: 1.3367412 | avg_token_loss: 1.3358537 | learning_rate: 0.0002252
+sequence_per_sec: 26.5282734
+2021-03-17 06:11:58,887 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38506 | Iter 12960:
+per_token_loss: 1.3613235 | avg_token_loss: 1.3358070 | learning_rate: 0.0002252
+sequence_per_sec: 26.5299174
+2021-03-17 06:14:10,157 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38511 | Iter 13000:
+per_token_loss: 1.2957431 | avg_token_loss: 1.3357753 | learning_rate: 0.0002252
+sequence_per_sec: 26.5253056
+2021-03-17 06:16:20,006 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38516 | Iter 13040:
+per_token_loss: 1.3675593 | avg_token_loss: 1.3357524 | learning_rate: 0.0002252
+sequence_per_sec: 26.5217816
+2021-03-17 06:18:30,251 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38521 | Iter 13080:
+per_token_loss: 1.2907676 | avg_token_loss: 1.3357064 | learning_rate: 0.0002252
+sequence_per_sec: 26.5156829
+2021-03-17 06:20:40,243 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38526 | Iter 13120:
+per_token_loss: 1.3269264 | avg_token_loss: 1.3357015 | learning_rate: 0.0002252
+sequence_per_sec: 26.5138084
+2021-03-17 06:22:49,987 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38531 | Iter 13160:
+per_token_loss: 1.3193394 | avg_token_loss: 1.3356669 | learning_rate: 0.0002251
+sequence_per_sec: 26.5159884
+2021-03-17 06:24:59,843 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38536 | Iter 13200:
+per_token_loss: 1.3429623 | avg_token_loss: 1.3356206 | learning_rate: 0.0002251
+sequence_per_sec: 26.5131753
+2021-03-17 06:27:08,280 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38541 | Iter 13240:
+per_token_loss: 1.3329792 | avg_token_loss: 1.3355961 | learning_rate: 0.0002251
+sequence_per_sec: 26.5111926
+2021-03-17 06:29:17,658 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38546 | Iter 13280:
+per_token_loss: 1.2715720 | avg_token_loss: 1.3355727 | learning_rate: 0.0002251
+sequence_per_sec: 26.5131836
+2021-03-17 06:31:28,217 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38551 | Iter 13320:
+per_token_loss: 1.2972327 | avg_token_loss: 1.3355457 | learning_rate: 0.0002251
+sequence_per_sec: 26.5113052
+2021-03-17 06:33:38,805 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38556 | Iter 13360:
+per_token_loss: 1.3181947 | avg_token_loss: 1.3355361 | learning_rate: 0.0002251
+sequence_per_sec: 26.5091096
+2021-03-17 06:35:49,520 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38561 | Iter 13400:
+per_token_loss: 1.3224115 | avg_token_loss: 1.3355564 | learning_rate: 0.0002251
+sequence_per_sec: 26.5127114
+2021-03-17 06:37:59,250 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38566 | Iter 13440:
+per_token_loss: 1.2986042 | avg_token_loss: 1.3355385 | learning_rate: 0.0002250
+sequence_per_sec: 26.5145423
+2021-03-17 06:40:09,636 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38571 | Iter 13480:
+per_token_loss: 1.3246162 | avg_token_loss: 1.3355360 | learning_rate: 0.0002250
+sequence_per_sec: 26.5143347
+2021-03-17 06:42:19,676 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38576 | Iter 13520:
+per_token_loss: 1.4226068 | avg_token_loss: 1.3355156 | learning_rate: 0.0002250
+sequence_per_sec: 26.5099374
+2021-03-17 06:44:29,049 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38581 | Iter 13560:
+per_token_loss: 1.3031251 | avg_token_loss: 1.3355149 | learning_rate: 0.0002250
+sequence_per_sec: 26.5093706
+2021-03-17 06:46:37,850 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38586 | Iter 13600:
+per_token_loss: 1.3036796 | avg_token_loss: 1.3355273 | learning_rate: 0.0002250
+sequence_per_sec: 26.5073162
+2021-03-17 06:48:47,173 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38591 | Iter 13640:
+per_token_loss: 1.3012975 | avg_token_loss: 1.3355657 | learning_rate: 0.0002250
+sequence_per_sec: 26.5099244
+2021-03-17 06:50:56,860 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38596 | Iter 13680:
+per_token_loss: 1.3072442 | avg_token_loss: 1.3355482 | learning_rate: 0.0002250
+sequence_per_sec: 26.5147706
+2021-03-17 06:53:05,558 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38601 | Iter 13720:
+per_token_loss: 1.3666309 | avg_token_loss: 1.3355180 | learning_rate: 0.0002249
+sequence_per_sec: 26.5155867
+2021-03-17 06:55:14,811 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38606 | Iter 13760:
+per_token_loss: 1.3558149 | avg_token_loss: 1.3355229 | learning_rate: 0.0002249
+sequence_per_sec: 26.5204668
+2021-03-17 06:57:25,407 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38611 | Iter 13800:
+per_token_loss: 1.3465015 | avg_token_loss: 1.3355362 | learning_rate: 0.0002249
+sequence_per_sec: 26.5242429
+
+Epoch 10 | Step 38616 | Iter 13840:
+per_token_loss: 1.3146300 | avg_token_loss: 1.3355191 | learning_rate: 0.0002249
+sequence_per_sec: 26.5214050
+2021-03-17 07:01:44,500 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38621 | Iter 13880:
+per_token_loss: 1.3264135 | avg_token_loss: 1.3355062 | learning_rate: 0.0002249
+sequence_per_sec: 26.5200223
+2021-03-17 07:03:55,277 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38626 | Iter 13920:
+per_token_loss: 1.3084648 | avg_token_loss: 1.3354671 | learning_rate: 0.0002249
+sequence_per_sec: 26.5213727
+2021-03-17 07:06:05,408 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38631 | Iter 13960:
+per_token_loss: 1.3571719 | avg_token_loss: 1.3354411 | learning_rate: 0.0002249
+sequence_per_sec: 26.5193393
+2021-03-17 07:08:14,364 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38636 | Iter 14000:
+per_token_loss: 1.3343310 | avg_token_loss: 1.3354337 | learning_rate: 0.0002248
+sequence_per_sec: 26.5168655
+2021-03-17 07:10:25,340 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38641 | Iter 14040:
+per_token_loss: 1.3245565 | avg_token_loss: 1.3354455 | learning_rate: 0.0002248
+sequence_per_sec: 26.5194140
+2021-03-17 07:12:35,784 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38646 | Iter 14080:
+per_token_loss: 1.3147806 | avg_token_loss: 1.3354194 | learning_rate: 0.0002248
+sequence_per_sec: 26.5186201
+2021-03-17 07:14:45,356 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38651 | Iter 14120:
+per_token_loss: 1.3312993 | avg_token_loss: 1.3354306 | learning_rate: 0.0002248
+sequence_per_sec: 26.5214166
+2021-03-17 07:16:55,575 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38656 | Iter 14160:
+per_token_loss: 1.3000585 | avg_token_loss: 1.3354157 | learning_rate: 0.0002248
+sequence_per_sec: 26.5213943
+2021-03-17 07:19:04,389 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38661 | Iter 14200:
+per_token_loss: 1.3728732 | avg_token_loss: 1.3354083 | learning_rate: 0.0002248
+sequence_per_sec: 26.5198142
+2021-03-17 07:21:13,826 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38666 | Iter 14240:
+per_token_loss: 1.3730092 | avg_token_loss: 1.3353928 | learning_rate: 0.0002248
+sequence_per_sec: 26.5190316
+2021-03-17 07:23:23,225 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38671 | Iter 14280:
+per_token_loss: 1.3002688 | avg_token_loss: 1.3353965 | learning_rate: 0.0002247
+sequence_per_sec: 26.5192913
+2021-03-17 07:25:32,509 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38676 | Iter 14320:
+per_token_loss: 1.3958100 | avg_token_loss: 1.3353822 | learning_rate: 0.0002247
+sequence_per_sec: 26.5171934
+2021-03-17 07:27:42,261 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38681 | Iter 14360:
+per_token_loss: 1.3543370 | avg_token_loss: 1.3353475 | learning_rate: 0.0002247
+sequence_per_sec: 26.5118440
+2021-03-17 07:29:51,426 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38686 | Iter 14400:
+per_token_loss: 1.3329378 | avg_token_loss: 1.3353307 | learning_rate: 0.0002247
+sequence_per_sec: 26.5137407
+2021-03-17 07:32:00,849 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38691 | Iter 14440:
+per_token_loss: 1.3283321 | avg_token_loss: 1.3353496 | learning_rate: 0.0002247
+sequence_per_sec: 26.5120433
+2021-03-17 07:34:10,413 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38696 | Iter 14480:
+per_token_loss: 1.3590140 | avg_token_loss: 1.3353339 | learning_rate: 0.0002247
+sequence_per_sec: 26.5147058
+2021-03-17 07:36:20,467 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38701 | Iter 14520:
+per_token_loss: 1.3643345 | avg_token_loss: 1.3353204 | learning_rate: 0.0002247
+sequence_per_sec: 26.5098421
+2021-03-17 07:38:29,452 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38706 | Iter 14560:
+per_token_loss: 1.3209889 | avg_token_loss: 1.3353087 | learning_rate: 0.0002246
+sequence_per_sec: 26.5088375
+2021-03-17 07:40:39,680 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38711 | Iter 14600:
+per_token_loss: 1.3363708 | avg_token_loss: 1.3353051 | learning_rate: 0.0002246
+sequence_per_sec: 26.5054240
+2021-03-17 07:42:50,655 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38716 | Iter 14640:
+per_token_loss: 1.3221048 | avg_token_loss: 1.3353013 | learning_rate: 0.0002246
+sequence_per_sec: 26.5038351
+2021-03-17 07:45:00,851 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38721 | Iter 14680:
+per_token_loss: 1.3633331 | avg_token_loss: 1.3353009 | learning_rate: 0.0002246
+sequence_per_sec: 26.5037919
+2021-03-17 07:47:11,113 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38726 | Iter 14720:
+per_token_loss: 1.3125871 | avg_token_loss: 1.3353028 | learning_rate: 0.0002246
+sequence_per_sec: 26.5032850
+2021-03-17 07:49:19,667 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38731 | Iter 14760:
+per_token_loss: 1.3337018 | avg_token_loss: 1.3353106 | learning_rate: 0.0002246
+sequence_per_sec: 26.5037792
+2021-03-17 07:51:29,404 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38736 | Iter 14800:
+per_token_loss: 1.3149899 | avg_token_loss: 1.3352962 | learning_rate: 0.0002246
+sequence_per_sec: 26.5038355
+2021-03-17 07:53:39,290 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38741 | Iter 14840:
+per_token_loss: 1.2936150 | avg_token_loss: 1.3352720 | learning_rate: 0.0002245
+sequence_per_sec: 26.5044490
+2021-03-17 07:55:48,769 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38746 | Iter 14880:
+per_token_loss: 1.4370191 | avg_token_loss: 1.3352492 | learning_rate: 0.0002245
+sequence_per_sec: 26.5002814
+2021-03-17 07:57:58,047 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38751 | Iter 14920:
+per_token_loss: 1.3256965 | avg_token_loss: 1.3352412 | learning_rate: 0.0002245
+sequence_per_sec: 26.5015667
+2021-03-17 08:00:07,234 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38756 | Iter 14960:
+per_token_loss: 1.4023014 | avg_token_loss: 1.3352541 | learning_rate: 0.0002245
+sequence_per_sec: 26.4983511
+2021-03-17 08:02:16,991 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38761 | Iter 15000:
+per_token_loss: 1.2949429 | avg_token_loss: 1.3353655 | learning_rate: 0.0002245
+sequence_per_sec: 26.4992139
+2021-03-17 08:04:25,604 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38766 | Iter 15040:
+per_token_loss: 1.3114526 | avg_token_loss: 1.3353963 | learning_rate: 0.0002245
+sequence_per_sec: 26.5010326
+2021-03-17 08:06:34,428 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38771 | Iter 15080:
+per_token_loss: 1.2975059 | avg_token_loss: 1.3353614 | learning_rate: 0.0002244
+sequence_per_sec: 26.5012503
+2021-03-17 08:08:43,740 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38776 | Iter 15120:
+per_token_loss: 1.2937673 | avg_token_loss: 1.3353457 | learning_rate: 0.0002244
+sequence_per_sec: 26.4989640
+2021-03-17 08:10:53,886 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38781 | Iter 15160:
+per_token_loss: 1.3046272 | avg_token_loss: 1.3353562 | learning_rate: 0.0002244
+sequence_per_sec: 26.4966717
+2021-03-17 08:13:03,145 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38786 | Iter 15200:
+per_token_loss: 1.4011642 | avg_token_loss: 1.3353837 | learning_rate: 0.0002244
+sequence_per_sec: 26.4938856
+2021-03-17 08:15:12,631 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38791 | Iter 15240:
+per_token_loss: 1.3015324 | avg_token_loss: 1.3354136 | learning_rate: 0.0002244
+sequence_per_sec: 26.4939212
+2021-03-17 08:17:22,111 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38796 | Iter 15280:
+per_token_loss: 1.3369427 | avg_token_loss: 1.3354319 | learning_rate: 0.0002244
+sequence_per_sec: 26.4924072
+2021-03-17 08:19:30,623 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38801 | Iter 15320:
+per_token_loss: 1.4325724 | avg_token_loss: 1.3354557 | learning_rate: 0.0002244
+sequence_per_sec: 26.4915715
+2021-03-17 08:21:39,489 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38806 | Iter 15360:
+per_token_loss: 1.3255191 | avg_token_loss: 1.3354942 | learning_rate: 0.0002243
+sequence_per_sec: 26.4927656
+2021-03-17 08:23:47,842 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38811 | Iter 15400:
+per_token_loss: 1.3042409 | avg_token_loss: 1.3354990 | learning_rate: 0.0002243
+sequence_per_sec: 26.4949896
+2021-03-17 08:25:56,949 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38816 | Iter 15440:
+per_token_loss: 1.3700680 | avg_token_loss: 1.3354956 | learning_rate: 0.0002243
+sequence_per_sec: 26.4940309
+2021-03-17 08:28:06,064 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38821 | Iter 15480:
+per_token_loss: 1.3356780 | avg_token_loss: 1.3355188 | learning_rate: 0.0002243
+sequence_per_sec: 26.4958328
+2021-03-17 08:30:14,871 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38826 | Iter 15520:
+per_token_loss: 1.3024588 | avg_token_loss: 1.3355451 | learning_rate: 0.0002243
+sequence_per_sec: 26.4972509
+2021-03-17 08:32:24,198 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38831 | Iter 15560:
+per_token_loss: 1.3177869 | avg_token_loss: 1.3355796 | learning_rate: 0.0002243
+sequence_per_sec: 26.4960501
+2021-03-17 08:34:33,404 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38836 | Iter 15600:
+per_token_loss: 1.2770600 | avg_token_loss: 1.3355918 | learning_rate: 0.0002243
+sequence_per_sec: 26.4987092
+2021-03-17 08:36:43,074 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38841 | Iter 15640:
+per_token_loss: 1.3059717 | avg_token_loss: 1.3356072 | learning_rate: 0.0002242
+sequence_per_sec: 26.5000516
+2021-03-17 08:38:51,987 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38846 | Iter 15680:
+per_token_loss: 1.3397907 | avg_token_loss: 1.3356196 | learning_rate: 0.0002242
+sequence_per_sec: 26.4991801
+2021-03-17 08:41:00,873 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38851 | Iter 15720:
+per_token_loss: 1.4091014 | avg_token_loss: 1.3356614 | learning_rate: 0.0002242
+sequence_per_sec: 26.5003707
+2021-03-17 08:43:09,882 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38856 | Iter 15760:
+per_token_loss: 1.2878530 | avg_token_loss: 1.3356501 | learning_rate: 0.0002242
+sequence_per_sec: 26.4997738
+2021-03-17 08:45:17,521 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38861 | Iter 15800:
+per_token_loss: 1.3049070 | avg_token_loss: 1.3356563 | learning_rate: 0.0002242
+sequence_per_sec: 26.4990968
+2021-03-17 08:47:28,195 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38866 | Iter 15840:
+per_token_loss: 1.2753203 | avg_token_loss: 1.3356373 | learning_rate: 0.0002242
+sequence_per_sec: 26.4968645
+2021-03-17 08:49:36,980 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38871 | Iter 15880:
+per_token_loss: 1.3486497 | avg_token_loss: 1.3356551 | learning_rate: 0.0002242
+sequence_per_sec: 26.4979374
+2021-03-17 08:51:46,491 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38876 | Iter 15920:
+per_token_loss: 1.3003081 | avg_token_loss: 1.3356775 | learning_rate: 0.0002241
+sequence_per_sec: 26.4981105
+2021-03-17 08:53:56,402 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38881 | Iter 15960:
+per_token_loss: 1.3502501 | avg_token_loss: 1.3356980 | learning_rate: 0.0002241
+sequence_per_sec: 26.4993627
+2021-03-17 08:56:05,799 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38886 | Iter 16000:
+per_token_loss: 1.3192558 | avg_token_loss: 1.3357311 | learning_rate: 0.0002241
+sequence_per_sec: 26.5040036
+2021-03-17 08:58:14,996 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38891 | Iter 16040:
+per_token_loss: 1.3145833 | avg_token_loss: 1.3357917 | learning_rate: 0.0002241
+sequence_per_sec: 26.5068514
+2021-03-17 09:00:24,362 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38896 | Iter 16080:
+per_token_loss: 1.3148330 | avg_token_loss: 1.3358039 | learning_rate: 0.0002241
+sequence_per_sec: 26.5051283
+2021-03-17 09:02:33,977 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38901 | Iter 16120:
+per_token_loss: 1.3332895 | avg_token_loss: 1.3358233 | learning_rate: 0.0002241
+sequence_per_sec: 26.5065283
+2021-03-17 09:04:42,946 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38906 | Iter 16160:
+per_token_loss: 1.4356018 | avg_token_loss: 1.3358519 | learning_rate: 0.0002241
+sequence_per_sec: 26.5064706
+2021-03-17 09:06:54,065 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38911 | Iter 16200:
+per_token_loss: 1.3478575 | avg_token_loss: 1.3358694 | learning_rate: 0.0002240
+sequence_per_sec: 26.5051096
+2021-03-17 09:09:02,049 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38916 | Iter 16240:
+per_token_loss: 1.4229591 | avg_token_loss: 1.3358974 | learning_rate: 0.0002240
+sequence_per_sec: 26.5018226
+2021-03-17 09:11:10,451 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38921 | Iter 16280:
+per_token_loss: 1.3497243 | avg_token_loss: 1.3358945 | learning_rate: 0.0002240
+sequence_per_sec: 26.4995625
+2021-03-17 09:13:20,443 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38926 | Iter 16320:
+per_token_loss: 1.3454709 | avg_token_loss: 1.3359326 | learning_rate: 0.0002240
+sequence_per_sec: 26.4944112
+2021-03-17 09:15:29,735 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38931 | Iter 16360:
+per_token_loss: 1.3800378 | avg_token_loss: 1.3359803 | learning_rate: 0.0002240
+sequence_per_sec: 26.4965739
+2021-03-17 09:17:39,464 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38936 | Iter 16400:
+per_token_loss: 1.3780770 | avg_token_loss: 1.3360085 | learning_rate: 0.0002240
+sequence_per_sec: 26.4938203
+2021-03-17 09:19:48,501 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38941 | Iter 16440:
+per_token_loss: 1.4766480 | avg_token_loss: 1.3360662 | learning_rate: 0.0002240
+sequence_per_sec: 26.4967063
+2021-03-17 09:21:58,773 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38946 | Iter 16480:
+per_token_loss: 1.2915243 | avg_token_loss: 1.3360797 | learning_rate: 0.0002239
+sequence_per_sec: 26.4942415
+2021-03-17 09:24:08,360 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38951 | Iter 16520:
+per_token_loss: 1.3882250 | avg_token_loss: 1.3361166 | learning_rate: 0.0002239
+sequence_per_sec: 26.4957907
+2021-03-17 09:26:18,085 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38956 | Iter 16560:
+per_token_loss: 1.3736520 | avg_token_loss: 1.3361504 | learning_rate: 0.0002239
+sequence_per_sec: 26.4962022
+2021-03-17 09:28:27,571 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38961 | Iter 16600:
+per_token_loss: 1.3061905 | avg_token_loss: 1.3361654 | learning_rate: 0.0002239
+sequence_per_sec: 26.4936300
+2021-03-17 09:30:37,430 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38966 | Iter 16640:
+per_token_loss: 1.3666546 | avg_token_loss: 1.3362032 | learning_rate: 0.0002239
+sequence_per_sec: 26.4916789
+2021-03-17 09:32:46,607 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38971 | Iter 16680:
+per_token_loss: 1.3336760 | avg_token_loss: 1.3362501 | learning_rate: 0.0002239
+sequence_per_sec: 26.4866186
+2021-03-17 09:34:56,703 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38976 | Iter 16720:
+per_token_loss: 1.3261080 | avg_token_loss: 1.3362944 | learning_rate: 0.0002239
+sequence_per_sec: 26.4876025
+2021-03-17 09:37:05,334 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38981 | Iter 16760:
+per_token_loss: 1.3497987 | avg_token_loss: 1.3363402 | learning_rate: 0.0002238
+sequence_per_sec: 26.4906623
+2021-03-17 09:39:12,831 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38986 | Iter 16800:
+per_token_loss: 1.3581033 | avg_token_loss: 1.3363888 | learning_rate: 0.0002238
+sequence_per_sec: 26.4925256
+2021-03-17 09:41:21,407 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38991 | Iter 16840:
+per_token_loss: 1.3945547 | avg_token_loss: 1.3364246 | learning_rate: 0.0002238
+sequence_per_sec: 26.4938211
+2021-03-17 09:43:31,032 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 38996 | Iter 16880:
+per_token_loss: 1.3579797 | avg_token_loss: 1.3364266 | learning_rate: 0.0002238
+sequence_per_sec: 26.4912868
+2021-03-17 09:45:40,484 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39001 | Iter 16920:
+per_token_loss: 1.3148466 | avg_token_loss: 1.3364291 | learning_rate: 0.0002238
+sequence_per_sec: 26.4908268
+2021-03-17 09:47:50,211 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39006 | Iter 16960:
+per_token_loss: 1.3377006 | avg_token_loss: 1.3364604 | learning_rate: 0.0002238
+sequence_per_sec: 26.4896351
+2021-03-17 09:49:59,726 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39011 | Iter 17000:
+per_token_loss: 1.3139712 | avg_token_loss: 1.3364723 | learning_rate: 0.0002238
+sequence_per_sec: 26.4894508
+2021-03-17 09:52:10,390 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39016 | Iter 17040:
+per_token_loss: 1.3638403 | avg_token_loss: 1.3365036 | learning_rate: 0.0002237
+sequence_per_sec: 26.4863664
+2021-03-17 09:54:20,262 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39021 | Iter 17080:
+per_token_loss: 1.4381773 | avg_token_loss: 1.3365488 | learning_rate: 0.0002237
+sequence_per_sec: 26.4855906
+2021-03-17 09:56:29,491 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39026 | Iter 17120:
+per_token_loss: 1.3514850 | avg_token_loss: 1.3365781 | learning_rate: 0.0002237
+sequence_per_sec: 26.4881990
+2021-03-17 09:58:39,775 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39031 | Iter 17160:
+per_token_loss: 1.4598256 | avg_token_loss: 1.3366030 | learning_rate: 0.0002237
+sequence_per_sec: 26.4903814
+2021-03-17 10:00:47,858 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39036 | Iter 17200:
+per_token_loss: 1.3107042 | avg_token_loss: 1.3366514 | learning_rate: 0.0002237
+sequence_per_sec: 26.4908067
+2021-03-17 10:02:56,892 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39041 | Iter 17240:
+per_token_loss: 1.4180168 | avg_token_loss: 1.3366941 | learning_rate: 0.0002237
+sequence_per_sec: 26.4919208
+
+Epoch 10 | Step 39046 | Iter 17280:
+per_token_loss: 1.4553524 | avg_token_loss: 1.3367113 | learning_rate: 0.0002237
+sequence_per_sec: 26.4947567
+2021-03-17 10:07:16,615 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39051 | Iter 17320:
+per_token_loss: 1.3547972 | avg_token_loss: 1.3367560 | learning_rate: 0.0002236
+sequence_per_sec: 26.4920463
+2021-03-17 10:09:27,140 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39056 | Iter 17360:
+per_token_loss: 1.2933239 | avg_token_loss: 1.3367851 | learning_rate: 0.0002236
+sequence_per_sec: 26.4935816
+2021-03-17 10:11:37,674 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39061 | Iter 17400:
+per_token_loss: 1.3587383 | avg_token_loss: 1.3367982 | learning_rate: 0.0002236
+sequence_per_sec: 26.4943013
+2021-03-17 10:13:47,474 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39066 | Iter 17440:
+per_token_loss: 1.3358639 | avg_token_loss: 1.3368161 | learning_rate: 0.0002236
+sequence_per_sec: 26.4981534
+2021-03-17 10:15:56,165 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39071 | Iter 17480:
+per_token_loss: 1.3467484 | avg_token_loss: 1.3368260 | learning_rate: 0.0002236
+sequence_per_sec: 26.4952888
+2021-03-17 10:18:05,495 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39076 | Iter 17520:
+per_token_loss: 1.3754101 | avg_token_loss: 1.3368671 | learning_rate: 0.0002236
+sequence_per_sec: 26.4958133
+2021-03-17 10:20:15,536 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39081 | Iter 17560:
+per_token_loss: 1.3034784 | avg_token_loss: 1.3368865 | learning_rate: 0.0002236
+sequence_per_sec: 26.4933316
+2021-03-17 10:22:25,013 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39086 | Iter 17600:
+per_token_loss: 1.3081925 | avg_token_loss: 1.3369193 | learning_rate: 0.0002235
+sequence_per_sec: 26.4943990
+2021-03-17 10:24:35,522 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39091 | Iter 17640:
+per_token_loss: 1.3797606 | avg_token_loss: 1.3369387 | learning_rate: 0.0002235
+sequence_per_sec: 26.4914969
+2021-03-17 10:26:45,549 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39096 | Iter 17680:
+per_token_loss: 1.2914573 | avg_token_loss: 1.3369682 | learning_rate: 0.0002235
+sequence_per_sec: 26.4896813
+2021-03-17 10:28:56,045 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39101 | Iter 17720:
+per_token_loss: 1.3321255 | avg_token_loss: 1.3370321 | learning_rate: 0.0002235
+sequence_per_sec: 26.4930929
+2021-03-17 10:31:05,903 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39106 | Iter 17760:
+per_token_loss: 1.4272251 | avg_token_loss: 1.3370515 | learning_rate: 0.0002235
+sequence_per_sec: 26.4920319
+2021-03-17 10:33:15,962 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39111 | Iter 17800:
+per_token_loss: 1.4569762 | avg_token_loss: 1.3370878 | learning_rate: 0.0002235
+sequence_per_sec: 26.4922065
+2021-03-17 10:35:25,075 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39116 | Iter 17840:
+per_token_loss: 1.4674891 | avg_token_loss: 1.3370937 | learning_rate: 0.0002235
+sequence_per_sec: 26.4931760
+2021-03-17 10:37:34,951 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39121 | Iter 17880:
+per_token_loss: 1.3045188 | avg_token_loss: 1.3371195 | learning_rate: 0.0002234
+sequence_per_sec: 26.4943401
+2021-03-17 10:39:44,408 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39126 | Iter 17920:
+per_token_loss: 1.2996168 | avg_token_loss: 1.3371072 | learning_rate: 0.0002234
+sequence_per_sec: 26.4937598
+2021-03-17 10:41:53,303 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39131 | Iter 17960:
+per_token_loss: 1.3476865 | avg_token_loss: 1.3371236 | learning_rate: 0.0002234
+sequence_per_sec: 26.4951323
+2021-03-17 10:44:04,512 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39136 | Iter 18000:
+per_token_loss: 1.2977425 | avg_token_loss: 1.3371525 | learning_rate: 0.0002234
+sequence_per_sec: 26.4947859
+2021-03-17 10:46:13,428 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39141 | Iter 18040:
+per_token_loss: 1.3083007 | avg_token_loss: 1.3371561 | learning_rate: 0.0002234
+sequence_per_sec: 26.4950129
+2021-03-17 10:48:22,119 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39146 | Iter 18080:
+per_token_loss: 1.3651794 | avg_token_loss: 1.3371552 | learning_rate: 0.0002234
+sequence_per_sec: 26.4953063
+2021-03-17 10:50:31,270 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39151 | Iter 18120:
+per_token_loss: 1.3440644 | avg_token_loss: 1.3371469 | learning_rate: 0.0002234
+sequence_per_sec: 26.4939948
+2021-03-17 10:52:40,205 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39156 | Iter 18160:
+per_token_loss: 1.3011578 | avg_token_loss: 1.3371522 | learning_rate: 0.0002233
+sequence_per_sec: 26.4933218
+2021-03-17 10:54:49,799 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39161 | Iter 18200:
+per_token_loss: 1.3570534 | avg_token_loss: 1.3371696 | learning_rate: 0.0002233
+sequence_per_sec: 26.4943815
+2021-03-17 10:56:57,811 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39166 | Iter 18240:
+per_token_loss: 1.4251244 | avg_token_loss: 1.3371935 | learning_rate: 0.0002233
+sequence_per_sec: 26.4924860
+2021-03-17 10:59:07,842 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39171 | Iter 18280:
+per_token_loss: 1.3289490 | avg_token_loss: 1.3372154 | learning_rate: 0.0002233
+sequence_per_sec: 26.4930000
+2021-03-17 11:01:17,683 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39176 | Iter 18320:
+per_token_loss: 1.3684753 | avg_token_loss: 1.3372355 | learning_rate: 0.0002233
+sequence_per_sec: 26.4940269
+2021-03-17 11:03:29,692 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39181 | Iter 18360:
+per_token_loss: 1.3243239 | avg_token_loss: 1.3372324 | learning_rate: 0.0002233
+sequence_per_sec: 26.4915825
+2021-03-17 11:05:38,981 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39186 | Iter 18400:
+per_token_loss: 1.3500537 | avg_token_loss: 1.3372223 | learning_rate: 0.0002233
+sequence_per_sec: 26.4862486
+2021-03-17 11:07:48,667 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39191 | Iter 18440:
+per_token_loss: 1.3870503 | avg_token_loss: 1.3372175 | learning_rate: 0.0002232
+sequence_per_sec: 26.4857264
+2021-03-17 11:09:58,179 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39196 | Iter 18480:
+per_token_loss: 1.3167449 | avg_token_loss: 1.3372338 | learning_rate: 0.0002232
+sequence_per_sec: 26.4875615
+2021-03-17 11:12:07,411 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39201 | Iter 18520:
+per_token_loss: 1.3378149 | avg_token_loss: 1.3372101 | learning_rate: 0.0002232
+sequence_per_sec: 26.4877734
+2021-03-17 11:14:17,158 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39206 | Iter 18560:
+per_token_loss: 1.3237023 | avg_token_loss: 1.3372146 | learning_rate: 0.0002232
+sequence_per_sec: 26.4885619
+2021-03-17 11:16:27,267 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39211 | Iter 18600:
+per_token_loss: 1.3438991 | avg_token_loss: 1.3371987 | learning_rate: 0.0002232
+sequence_per_sec: 26.4915330
+2021-03-17 11:18:37,064 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39216 | Iter 18640:
+per_token_loss: 1.3298481 | avg_token_loss: 1.3371680 | learning_rate: 0.0002232
+sequence_per_sec: 26.4877098
+2021-03-17 11:20:46,065 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39221 | Iter 18680:
+per_token_loss: 1.3449451 | avg_token_loss: 1.3371652 | learning_rate: 0.0002232
+sequence_per_sec: 26.4914467
+2021-03-17 11:22:55,497 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39226 | Iter 18720:
+per_token_loss: 1.3847467 | avg_token_loss: 1.3371712 | learning_rate: 0.0002231
+sequence_per_sec: 26.4905341
+2021-03-17 11:25:03,927 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39231 | Iter 18760:
+per_token_loss: 1.3404014 | avg_token_loss: 1.3371834 | learning_rate: 0.0002231
+sequence_per_sec: 26.4921353
+2021-03-17 11:27:14,229 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39236 | Iter 18800:
+per_token_loss: 1.4092028 | avg_token_loss: 1.3371726 | learning_rate: 0.0002231
+sequence_per_sec: 26.4889641
+2021-03-17 11:29:24,268 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39241 | Iter 18840:
+per_token_loss: 1.2789451 | avg_token_loss: 1.3371506 | learning_rate: 0.0002231
+sequence_per_sec: 26.4852824
+2021-03-17 11:31:33,653 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39246 | Iter 18880:
+per_token_loss: 1.3001013 | avg_token_loss: 1.3371648 | learning_rate: 0.0002231
+sequence_per_sec: 26.4878704
+2021-03-17 11:33:42,576 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39251 | Iter 18920:
+per_token_loss: 1.3345006 | avg_token_loss: 1.3371708 | learning_rate: 0.0002231
+sequence_per_sec: 26.4875451
+2021-03-17 11:35:51,829 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39256 | Iter 18960:
+per_token_loss: 1.3265887 | avg_token_loss: 1.3371614 | learning_rate: 0.0002231
+sequence_per_sec: 26.4834518
+2021-03-17 11:38:02,826 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39261 | Iter 19000:
+per_token_loss: 1.3740708 | avg_token_loss: 1.3371874 | learning_rate: 0.0002230
+sequence_per_sec: 26.4826576
+2021-03-17 11:40:13,745 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39266 | Iter 19040:
+per_token_loss: 1.3494693 | avg_token_loss: 1.3372005 | learning_rate: 0.0002230
+sequence_per_sec: 26.4795072
+2021-03-17 11:42:23,970 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39271 | Iter 19080:
+per_token_loss: 1.3265456 | avg_token_loss: 1.3372228 | learning_rate: 0.0002230
+sequence_per_sec: 26.4790918
+2021-03-17 11:44:34,205 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39276 | Iter 19120:
+per_token_loss: 1.2943864 | avg_token_loss: 1.3371913 | learning_rate: 0.0002230
+sequence_per_sec: 26.4788782
+2021-03-17 11:46:45,050 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39281 | Iter 19160:
+per_token_loss: 1.3196244 | avg_token_loss: 1.3371760 | learning_rate: 0.0002230
+sequence_per_sec: 26.4799117
+2021-03-17 11:48:55,463 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39286 | Iter 19200:
+per_token_loss: 1.2856178 | avg_token_loss: 1.3371634 | learning_rate: 0.0002230
+sequence_per_sec: 26.4800723
+2021-03-17 11:51:06,217 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39291 | Iter 19240:
+per_token_loss: 1.3346714 | avg_token_loss: 1.3371484 | learning_rate: 0.0002230
+sequence_per_sec: 26.4799928
+2021-03-17 11:53:16,893 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39296 | Iter 19280:
+per_token_loss: 1.3327419 | avg_token_loss: 1.3371090 | learning_rate: 0.0002229
+sequence_per_sec: 26.4779793
+2021-03-17 11:55:26,245 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39301 | Iter 19320:
+per_token_loss: 1.3407243 | avg_token_loss: 1.3371098 | learning_rate: 0.0002229
+sequence_per_sec: 26.4802859
+2021-03-17 11:57:36,587 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39306 | Iter 19360:
+per_token_loss: 1.3507464 | avg_token_loss: 1.3370941 | learning_rate: 0.0002229
+sequence_per_sec: 26.4806581
+2021-03-17 11:59:45,337 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39311 | Iter 19400:
+per_token_loss: 1.3197451 | avg_token_loss: 1.3370708 | learning_rate: 0.0002229
+sequence_per_sec: 26.4837601
+2021-03-17 12:01:54,512 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39316 | Iter 19440:
+per_token_loss: 1.3473240 | avg_token_loss: 1.3370714 | learning_rate: 0.0002229
+sequence_per_sec: 26.4834238
+2021-03-17 12:04:04,193 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39321 | Iter 19480:
+per_token_loss: 1.3789822 | avg_token_loss: 1.3370483 | learning_rate: 0.0002229
+sequence_per_sec: 26.4833451
+2021-03-17 12:06:13,681 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39326 | Iter 19520:
+per_token_loss: 1.3640715 | avg_token_loss: 1.3370258 | learning_rate: 0.0002229
+sequence_per_sec: 26.4810852
+2021-03-17 12:08:22,966 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39331 | Iter 19560:
+per_token_loss: 1.3060743 | avg_token_loss: 1.3370179 | learning_rate: 0.0002228
+sequence_per_sec: 26.4821757
+2021-03-17 12:10:32,751 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39336 | Iter 19600:
+per_token_loss: 1.2948067 | avg_token_loss: 1.3370240 | learning_rate: 0.0002228
+sequence_per_sec: 26.4827235
+2021-03-17 12:12:40,716 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39341 | Iter 19640:
+per_token_loss: 1.2921644 | avg_token_loss: 1.3370068 | learning_rate: 0.0002228
+sequence_per_sec: 26.4825173
+2021-03-17 12:14:49,922 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39346 | Iter 19680:
+per_token_loss: 1.3307528 | avg_token_loss: 1.3369992 | learning_rate: 0.0002228
+sequence_per_sec: 26.4838839
+2021-03-17 12:16:59,679 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39351 | Iter 19720:
+per_token_loss: 1.3430943 | avg_token_loss: 1.3369797 | learning_rate: 0.0002228
+sequence_per_sec: 26.4823053
+2021-03-17 12:19:08,818 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39356 | Iter 19760:
+per_token_loss: 1.3229516 | avg_token_loss: 1.3369749 | learning_rate: 0.0002228
+sequence_per_sec: 26.4812447
+2021-03-17 12:21:18,069 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39361 | Iter 19800:
+per_token_loss: 1.3529229 | avg_token_loss: 1.3369498 | learning_rate: 0.0002228
+sequence_per_sec: 26.4815768
+2021-03-17 12:23:29,429 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39366 | Iter 19840:
+per_token_loss: 1.2889098 | avg_token_loss: 1.3369323 | learning_rate: 0.0002227
+sequence_per_sec: 26.4800345
+2021-03-17 12:25:39,211 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39371 | Iter 19880:
+per_token_loss: 1.3128173 | avg_token_loss: 1.3369209 | learning_rate: 0.0002227
+sequence_per_sec: 26.4789044
+2021-03-17 12:27:48,503 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39376 | Iter 19920:
+per_token_loss: 1.3822052 | avg_token_loss: 1.3369150 | learning_rate: 0.0002227
+sequence_per_sec: 26.4793446
+2021-03-17 12:29:57,863 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39381 | Iter 19960:
+per_token_loss: 1.3577907 | avg_token_loss: 1.3369137 | learning_rate: 0.0002227
+sequence_per_sec: 26.4779799
+2021-03-17 12:32:07,905 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39386 | Iter 20000:
+per_token_loss: 1.3388535 | avg_token_loss: 1.3368996 | learning_rate: 0.0002227
+sequence_per_sec: 26.4763780
+2021-03-17 12:34:17,243 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39391 | Iter 20040:
+per_token_loss: 1.3900908 | avg_token_loss: 1.3368800 | learning_rate: 0.0002227
+sequence_per_sec: 26.4754890
+2021-03-17 12:36:26,291 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39396 | Iter 20080:
+per_token_loss: 1.3087082 | avg_token_loss: 1.3368583 | learning_rate: 0.0002227
+sequence_per_sec: 26.4753012
+2021-03-17 12:38:36,746 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39401 | Iter 20120:
+per_token_loss: 1.3894134 | avg_token_loss: 1.3368574 | learning_rate: 0.0002226
+sequence_per_sec: 26.4743580
+2021-03-17 12:40:45,718 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39406 | Iter 20160:
+per_token_loss: 1.2853962 | avg_token_loss: 1.3368554 | learning_rate: 0.0002226
+sequence_per_sec: 26.4729116
+2021-03-17 12:42:54,226 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39411 | Iter 20200:
+per_token_loss: 1.4116951 | avg_token_loss: 1.3368524 | learning_rate: 0.0002226
+sequence_per_sec: 26.4729306
+2021-03-17 12:45:04,348 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39416 | Iter 20240:
+per_token_loss: 1.3236172 | avg_token_loss: 1.3368539 | learning_rate: 0.0002226
+sequence_per_sec: 26.4722478
+2021-03-17 12:47:13,573 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39421 | Iter 20280:
+per_token_loss: 1.3275765 | avg_token_loss: 1.3368531 | learning_rate: 0.0002226
+sequence_per_sec: 26.4723600
+2021-03-17 12:49:22,804 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39426 | Iter 20320:
+per_token_loss: 1.3233063 | avg_token_loss: 1.3368361 | learning_rate: 0.0002226
+sequence_per_sec: 26.4741058
+2021-03-17 12:51:31,675 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39431 | Iter 20360:
+per_token_loss: 1.2904372 | avg_token_loss: 1.3368334 | learning_rate: 0.0002226
+sequence_per_sec: 26.4710269
+2021-03-17 12:53:41,030 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39436 | Iter 20400:
+per_token_loss: 1.3104556 | avg_token_loss: 1.3368254 | learning_rate: 0.0002225
+sequence_per_sec: 26.4693910
+2021-03-17 12:55:49,569 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39441 | Iter 20440:
+per_token_loss: 1.3355798 | avg_token_loss: 1.3368127 | learning_rate: 0.0002225
+sequence_per_sec: 26.4662615
+2021-03-17 12:57:59,125 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39446 | Iter 20480:
+per_token_loss: 1.3189558 | avg_token_loss: 1.3368191 | learning_rate: 0.0002225
+sequence_per_sec: 26.4662510
+2021-03-17 13:00:08,158 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39451 | Iter 20520:
+per_token_loss: 1.3329720 | avg_token_loss: 1.3368032 | learning_rate: 0.0002225
+sequence_per_sec: 26.4633087
+2021-03-17 13:02:14,521 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39456 | Iter 20560:
+per_token_loss: 1.4220797 | avg_token_loss: 1.3367919 | learning_rate: 0.0002225
+sequence_per_sec: 26.4624750
+2021-03-17 13:04:23,581 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39461 | Iter 20600:
+per_token_loss: 1.3029945 | avg_token_loss: 1.3367870 | learning_rate: 0.0002225
+sequence_per_sec: 26.4600744
+2021-03-17 13:06:33,482 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39466 | Iter 20640:
+per_token_loss: 1.5108498 | avg_token_loss: 1.3368020 | learning_rate: 0.0002225
+sequence_per_sec: 26.4599517
+2021-03-17 13:08:42,521 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39471 | Iter 20680:
+per_token_loss: 1.3327177 | avg_token_loss: 1.3368157 | learning_rate: 0.0002224
+sequence_per_sec: 26.4586517
+
+Epoch 10 | Step 39476 | Iter 20720:
+per_token_loss: 1.3318722 | avg_token_loss: 1.3368062 | learning_rate: 0.0002224
+sequence_per_sec: 26.4596723
+2021-03-17 13:12:59,863 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39481 | Iter 20760:
+per_token_loss: 1.3700517 | avg_token_loss: 1.3368154 | learning_rate: 0.0002224
+sequence_per_sec: 26.4598351
+2021-03-17 13:15:09,346 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39486 | Iter 20800:
+per_token_loss: 1.3919944 | avg_token_loss: 1.3367943 | learning_rate: 0.0002224
+sequence_per_sec: 26.4574705
+2021-03-17 13:17:18,984 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39491 | Iter 20840:
+per_token_loss: 1.3554820 | avg_token_loss: 1.3367863 | learning_rate: 0.0002224
+sequence_per_sec: 26.4548951
+2021-03-17 13:19:27,460 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39496 | Iter 20880:
+per_token_loss: 1.4055579 | avg_token_loss: 1.3367802 | learning_rate: 0.0002224
+sequence_per_sec: 26.4541982
+2021-03-17 13:21:36,713 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39501 | Iter 20920:
+per_token_loss: 1.3074143 | avg_token_loss: 1.3367491 | learning_rate: 0.0002224
+sequence_per_sec: 26.4556408
+2021-03-17 13:23:46,090 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39506 | Iter 20960:
+per_token_loss: 1.2850301 | avg_token_loss: 1.3367337 | learning_rate: 0.0002224
+sequence_per_sec: 26.4541883
+2021-03-17 13:25:55,198 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39511 | Iter 21000:
+per_token_loss: 1.3732961 | avg_token_loss: 1.3367237 | learning_rate: 0.0002223
+sequence_per_sec: 26.4545884
+2021-03-17 13:28:04,155 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39516 | Iter 21040:
+per_token_loss: 1.3405685 | avg_token_loss: 1.3367242 | learning_rate: 0.0002223
+sequence_per_sec: 26.4552643
+2021-03-17 13:30:13,854 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39521 | Iter 21080:
+per_token_loss: 1.3601211 | avg_token_loss: 1.3367122 | learning_rate: 0.0002223
+sequence_per_sec: 26.4548576
+2021-03-17 13:32:21,685 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39526 | Iter 21120:
+per_token_loss: 1.3134078 | avg_token_loss: 1.3367057 | learning_rate: 0.0002223
+sequence_per_sec: 26.4573518
+2021-03-17 13:34:30,237 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39531 | Iter 21160:
+per_token_loss: 1.2990084 | avg_token_loss: 1.3366731 | learning_rate: 0.0002223
+sequence_per_sec: 26.4589091
+2021-03-17 13:36:40,286 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39536 | Iter 21200:
+per_token_loss: 1.3830322 | avg_token_loss: 1.3366563 | learning_rate: 0.0002223
+sequence_per_sec: 26.4590705
+2021-03-17 13:38:49,470 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39541 | Iter 21240:
+per_token_loss: 1.3252157 | avg_token_loss: 1.3366284 | learning_rate: 0.0002223
+sequence_per_sec: 26.4598456
+2021-03-17 13:40:59,392 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39546 | Iter 21280:
+per_token_loss: 1.3660302 | avg_token_loss: 1.3366144 | learning_rate: 0.0002222
+sequence_per_sec: 26.4609281
+2021-03-17 13:43:09,711 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39551 | Iter 21320:
+per_token_loss: 1.3923284 | avg_token_loss: 1.3365976 | learning_rate: 0.0002222
+sequence_per_sec: 26.4575604
+2021-03-17 13:45:18,309 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39556 | Iter 21360:
+per_token_loss: 1.3844261 | avg_token_loss: 1.3365796 | learning_rate: 0.0002222
+sequence_per_sec: 26.4572390
+2021-03-17 13:47:27,137 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39561 | Iter 21400:
+per_token_loss: 1.3478335 | avg_token_loss: 1.3365643 | learning_rate: 0.0002222
+sequence_per_sec: 26.4579926
+2021-03-17 13:49:36,743 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39566 | Iter 21440:
+per_token_loss: 1.3486317 | avg_token_loss: 1.3365678 | learning_rate: 0.0002222
+sequence_per_sec: 26.4579614
+2021-03-17 13:51:45,150 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39571 | Iter 21480:
+per_token_loss: 1.3580683 | avg_token_loss: 1.3365686 | learning_rate: 0.0002222
+sequence_per_sec: 26.4566252
+2021-03-17 13:53:54,600 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39576 | Iter 21520:
+per_token_loss: 1.3262725 | avg_token_loss: 1.3365452 | learning_rate: 0.0002222
+sequence_per_sec: 26.4568938
+2021-03-17 13:56:04,057 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39581 | Iter 21560:
+per_token_loss: 1.3171585 | avg_token_loss: 1.3365157 | learning_rate: 0.0002221
+sequence_per_sec: 26.4582547
+2021-03-17 13:58:14,277 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39586 | Iter 21600:
+per_token_loss: 1.4046129 | avg_token_loss: 1.3365011 | learning_rate: 0.0002221
+sequence_per_sec: 26.4557123
+2021-03-17 14:00:23,679 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39591 | Iter 21640:
+per_token_loss: 1.3599677 | avg_token_loss: 1.3365020 | learning_rate: 0.0002221
+sequence_per_sec: 26.4563036
+2021-03-17 14:02:32,623 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39596 | Iter 21680:
+per_token_loss: 1.3644303 | avg_token_loss: 1.3364817 | learning_rate: 0.0002221
+sequence_per_sec: 26.4564778
+2021-03-17 14:04:42,141 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39601 | Iter 21720:
+per_token_loss: 1.2914171 | avg_token_loss: 1.3364618 | learning_rate: 0.0002221
+sequence_per_sec: 26.4582180
+2021-03-17 14:06:51,137 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39606 | Iter 21760:
+per_token_loss: 1.3267508 | avg_token_loss: 1.3364469 | learning_rate: 0.0002221
+sequence_per_sec: 26.4571643
+2021-03-17 14:09:01,223 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39611 | Iter 21800:
+per_token_loss: 1.3010849 | avg_token_loss: 1.3364165 | learning_rate: 0.0002221
+sequence_per_sec: 26.4555733
+2021-03-17 14:11:10,732 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39616 | Iter 21840:
+per_token_loss: 1.3473727 | avg_token_loss: 1.3364114 | learning_rate: 0.0002220
+sequence_per_sec: 26.4600041
+2021-03-17 14:13:19,201 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39621 | Iter 21880:
+per_token_loss: 1.3292521 | avg_token_loss: 1.3363988 | learning_rate: 0.0002220
+sequence_per_sec: 26.4620350
+2021-03-17 14:15:28,866 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39626 | Iter 21920:
+per_token_loss: 1.3981094 | avg_token_loss: 1.3363781 | learning_rate: 0.0002220
+sequence_per_sec: 26.4627273
+2021-03-17 14:17:40,530 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39631 | Iter 21960:
+per_token_loss: 1.3328985 | avg_token_loss: 1.3363590 | learning_rate: 0.0002220
+sequence_per_sec: 26.4639229
+2021-03-17 14:19:51,847 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39636 | Iter 22000:
+per_token_loss: 1.3383206 | avg_token_loss: 1.3363477 | learning_rate: 0.0002220
+sequence_per_sec: 26.4636977
+2021-03-17 14:22:02,729 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39641 | Iter 22040:
+per_token_loss: 1.3198230 | avg_token_loss: 1.3363425 | learning_rate: 0.0002220
+sequence_per_sec: 26.4638230
+2021-03-17 14:24:12,073 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39646 | Iter 22080:
+per_token_loss: 1.3268237 | avg_token_loss: 1.3363522 | learning_rate: 0.0002220
+sequence_per_sec: 26.4651737
+2021-03-17 14:26:21,676 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39651 | Iter 22120:
+per_token_loss: 1.3415474 | avg_token_loss: 1.3363531 | learning_rate: 0.0002219
+sequence_per_sec: 26.4638546
+2021-03-17 14:28:30,355 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39656 | Iter 22160:
+per_token_loss: 1.3765538 | avg_token_loss: 1.3363354 | learning_rate: 0.0002219
+sequence_per_sec: 26.4655820
+2021-03-17 14:30:39,691 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39661 | Iter 22200:
+per_token_loss: 1.2935851 | avg_token_loss: 1.3363155 | learning_rate: 0.0002219
+sequence_per_sec: 26.4659216
+2021-03-17 14:32:48,888 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39666 | Iter 22240:
+per_token_loss: 1.3754154 | avg_token_loss: 1.3362997 | learning_rate: 0.0002219
+sequence_per_sec: 26.4640455
+2021-03-17 14:34:57,629 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39671 | Iter 22280:
+per_token_loss: 1.3422793 | avg_token_loss: 1.3362920 | learning_rate: 0.0002219
+sequence_per_sec: 26.4645140
+2021-03-17 14:37:08,676 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39676 | Iter 22320:
+per_token_loss: 1.3058749 | avg_token_loss: 1.3362752 | learning_rate: 0.0002219
+sequence_per_sec: 26.4639501
+2021-03-17 14:39:16,868 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39681 | Iter 22360:
+per_token_loss: 1.2925246 | avg_token_loss: 1.3362477 | learning_rate: 0.0002219
+sequence_per_sec: 26.4634998
+2021-03-17 14:41:25,514 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39686 | Iter 22400:
+per_token_loss: 1.3813784 | avg_token_loss: 1.3362377 | learning_rate: 0.0002218
+sequence_per_sec: 26.4649841
+2021-03-17 14:43:34,397 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39691 | Iter 22440:
+per_token_loss: 1.3370429 | avg_token_loss: 1.3362044 | learning_rate: 0.0002218
+sequence_per_sec: 26.4645462
+2021-03-17 14:45:45,603 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39696 | Iter 22480:
+per_token_loss: 1.3118230 | avg_token_loss: 1.3361970 | learning_rate: 0.0002218
+sequence_per_sec: 26.4647274
+2021-03-17 14:47:54,704 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39701 | Iter 22520:
+per_token_loss: 1.3634375 | avg_token_loss: 1.3361752 | learning_rate: 0.0002218
+sequence_per_sec: 26.4628337
+2021-03-17 14:50:03,596 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39706 | Iter 22560:
+per_token_loss: 1.2924649 | avg_token_loss: 1.3361617 | learning_rate: 0.0002218
+sequence_per_sec: 26.4615330
+2021-03-17 14:52:14,313 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39711 | Iter 22600:
+per_token_loss: 1.2796955 | avg_token_loss: 1.3361325 | learning_rate: 0.0002218
+sequence_per_sec: 26.4601903
+2021-03-17 14:54:25,463 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39716 | Iter 22640:
+per_token_loss: 1.3763738 | avg_token_loss: 1.3361062 | learning_rate: 0.0002218
+sequence_per_sec: 26.4595114
+2021-03-17 14:56:35,331 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39721 | Iter 22680:
+per_token_loss: 1.3158301 | avg_token_loss: 1.3361163 | learning_rate: 0.0002217
+sequence_per_sec: 26.4592777
+2021-03-17 14:58:43,991 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39726 | Iter 22720:
+per_token_loss: 1.3387713 | avg_token_loss: 1.3361144 | learning_rate: 0.0002217
+sequence_per_sec: 26.4619991
+2021-03-17 15:00:53,276 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39731 | Iter 22760:
+per_token_loss: 1.2983804 | avg_token_loss: 1.3361120 | learning_rate: 0.0002217
+sequence_per_sec: 26.4624719
+2021-03-17 15:03:02,255 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39736 | Iter 22800:
+per_token_loss: 1.3967271 | avg_token_loss: 1.3361007 | learning_rate: 0.0002217
+sequence_per_sec: 26.4620265
+2021-03-17 15:05:11,950 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39741 | Iter 22840:
+per_token_loss: 1.2651975 | avg_token_loss: 1.3360921 | learning_rate: 0.0002217
+sequence_per_sec: 26.4615477
+2021-03-17 15:07:20,974 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39746 | Iter 22880:
+per_token_loss: 1.3825669 | avg_token_loss: 1.3360813 | learning_rate: 0.0002217
+sequence_per_sec: 26.4603139
+2021-03-17 15:09:30,331 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39751 | Iter 22920:
+per_token_loss: 1.2880156 | avg_token_loss: 1.3360752 | learning_rate: 0.0002217
+sequence_per_sec: 26.4607085
+2021-03-17 15:11:40,214 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39756 | Iter 22960:
+per_token_loss: 1.3352737 | avg_token_loss: 1.3360538 | learning_rate: 0.0002217
+sequence_per_sec: 26.4594011
+2021-03-17 15:13:49,809 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39761 | Iter 23000:
+per_token_loss: 1.3279433 | avg_token_loss: 1.3360442 | learning_rate: 0.0002216
+sequence_per_sec: 26.4577239
+2021-03-17 15:15:59,053 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39766 | Iter 23040:
+per_token_loss: 1.3243197 | avg_token_loss: 1.3360364 | learning_rate: 0.0002216
+sequence_per_sec: 26.4558130
+2021-03-17 15:18:08,707 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39771 | Iter 23080:
+per_token_loss: 1.3314487 | avg_token_loss: 1.3360318 | learning_rate: 0.0002216
+sequence_per_sec: 26.4571103
+2021-03-17 15:20:18,773 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39776 | Iter 23120:
+per_token_loss: 1.2860106 | avg_token_loss: 1.3360165 | learning_rate: 0.0002216
+sequence_per_sec: 26.4548606
+2021-03-17 15:22:28,358 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39781 | Iter 23160:
+per_token_loss: 1.3444185 | avg_token_loss: 1.3359976 | learning_rate: 0.0002216
+sequence_per_sec: 26.4547559
+2021-03-17 15:24:37,460 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39786 | Iter 23200:
+per_token_loss: 1.2898459 | avg_token_loss: 1.3359609 | learning_rate: 0.0002216
+sequence_per_sec: 26.4555522
+2021-03-17 15:26:46,798 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39791 | Iter 23240:
+per_token_loss: 1.3832166 | avg_token_loss: 1.3359567 | learning_rate: 0.0002216
+sequence_per_sec: 26.4553230
+2021-03-17 15:28:56,675 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39796 | Iter 23280:
+per_token_loss: 1.3181186 | avg_token_loss: 1.3359351 | learning_rate: 0.0002215
+sequence_per_sec: 26.4564872
+2021-03-17 15:31:05,673 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39801 | Iter 23320:
+per_token_loss: 1.2956059 | avg_token_loss: 1.3359214 | learning_rate: 0.0002215
+sequence_per_sec: 26.4540379
+2021-03-17 15:33:13,871 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39806 | Iter 23360:
+per_token_loss: 1.3410640 | avg_token_loss: 1.3358924 | learning_rate: 0.0002215
+sequence_per_sec: 26.4539302
+2021-03-17 15:35:22,071 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39811 | Iter 23400:
+per_token_loss: 1.3001707 | avg_token_loss: 1.3358605 | learning_rate: 0.0002215
+sequence_per_sec: 26.4543259
+2021-03-17 15:37:31,097 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39816 | Iter 23440:
+per_token_loss: 1.4289761 | avg_token_loss: 1.3358461 | learning_rate: 0.0002215
+sequence_per_sec: 26.4555166
+2021-03-17 15:39:39,211 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39821 | Iter 23480:
+per_token_loss: 1.2834204 | avg_token_loss: 1.3358206 | learning_rate: 0.0002215
+sequence_per_sec: 26.4548007
+2021-03-17 15:41:49,172 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39826 | Iter 23520:
+per_token_loss: 1.3403690 | avg_token_loss: 1.3357921 | learning_rate: 0.0002215
+sequence_per_sec: 26.4554644
+2021-03-17 15:43:59,207 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39831 | Iter 23560:
+per_token_loss: 1.2979552 | avg_token_loss: 1.3357643 | learning_rate: 0.0002214
+sequence_per_sec: 26.4590336
+2021-03-17 15:46:08,079 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39836 | Iter 23600:
+per_token_loss: 1.3153960 | avg_token_loss: 1.3357245 | learning_rate: 0.0002214
+sequence_per_sec: 26.4582237
+2021-03-17 15:48:17,825 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39841 | Iter 23640:
+per_token_loss: 1.3454695 | avg_token_loss: 1.3356980 | learning_rate: 0.0002214
+sequence_per_sec: 26.4571695
+2021-03-17 15:50:27,646 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39846 | Iter 23680:
+per_token_loss: 1.3966542 | avg_token_loss: 1.3356708 | learning_rate: 0.0002214
+sequence_per_sec: 26.4562896
+2021-03-17 15:52:37,287 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39851 | Iter 23720:
+per_token_loss: 1.2601510 | avg_token_loss: 1.3356644 | learning_rate: 0.0002214
+sequence_per_sec: 26.4583571
+2021-03-17 15:54:46,550 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39856 | Iter 23760:
+per_token_loss: 1.2885263 | avg_token_loss: 1.3356266 | learning_rate: 0.0002214
+sequence_per_sec: 26.4585564
+2021-03-17 15:56:55,575 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39861 | Iter 23800:
+per_token_loss: 1.2998823 | avg_token_loss: 1.3356045 | learning_rate: 0.0002214
+sequence_per_sec: 26.4590753
+2021-03-17 15:59:04,295 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39866 | Iter 23840:
+per_token_loss: 1.3178043 | avg_token_loss: 1.3355701 | learning_rate: 0.0002213
+sequence_per_sec: 26.4584676
+2021-03-17 16:01:13,374 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39871 | Iter 23880:
+per_token_loss: 1.2781770 | avg_token_loss: 1.3355464 | learning_rate: 0.0002213
+sequence_per_sec: 26.4577965
+2021-03-17 16:03:25,365 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39876 | Iter 23920:
+per_token_loss: 1.3238130 | avg_token_loss: 1.3355104 | learning_rate: 0.0002213
+sequence_per_sec: 26.4561889
+2021-03-17 16:05:34,531 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39881 | Iter 23960:
+per_token_loss: 1.2885536 | avg_token_loss: 1.3354721 | learning_rate: 0.0002213
+sequence_per_sec: 26.4593219
+2021-03-17 16:07:43,817 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39886 | Iter 24000:
+per_token_loss: 1.3390729 | avg_token_loss: 1.3354369 | learning_rate: 0.0002213
+sequence_per_sec: 26.4590656
+2021-03-17 16:09:54,427 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39891 | Iter 24040:
+per_token_loss: 1.2879758 | avg_token_loss: 1.3354123 | learning_rate: 0.0002213
+sequence_per_sec: 26.4585131
+2021-03-17 16:12:03,859 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39896 | Iter 24080:
+per_token_loss: 1.3133285 | avg_token_loss: 1.3353804 | learning_rate: 0.0002213
+sequence_per_sec: 26.4592538
+2021-03-17 16:14:12,640 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39901 | Iter 24120:
+per_token_loss: 1.3715949 | avg_token_loss: 1.3353471 | learning_rate: 0.0002212
+sequence_per_sec: 26.4595168
+2021-03-17 16:16:21,366 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39906 | Iter 24160:
+per_token_loss: 1.3628088 | avg_token_loss: 1.3353082 | learning_rate: 0.0002212
+sequence_per_sec: 26.4587834
+
+Epoch 10 | Step 39911 | Iter 24200:
+per_token_loss: 1.3983105 | avg_token_loss: 1.3352813 | learning_rate: 0.0002212
+sequence_per_sec: 26.4573304
+2021-03-17 16:20:39,151 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39916 | Iter 24240:
+per_token_loss: 1.3042116 | avg_token_loss: 1.3352475 | learning_rate: 0.0002212
+sequence_per_sec: 26.4568329
+2021-03-17 16:22:49,255 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39921 | Iter 24280:
+per_token_loss: 1.3384938 | avg_token_loss: 1.3352246 | learning_rate: 0.0002212
+sequence_per_sec: 26.4579277
+2021-03-17 16:24:58,311 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39926 | Iter 24320:
+per_token_loss: 1.3016791 | avg_token_loss: 1.3351945 | learning_rate: 0.0002212
+sequence_per_sec: 26.4600370
+2021-03-17 16:27:07,289 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39931 | Iter 24360:
+per_token_loss: 1.2542685 | avg_token_loss: 1.3351716 | learning_rate: 0.0002212
+sequence_per_sec: 26.4597615
+2021-03-17 16:29:16,989 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39936 | Iter 24400:
+per_token_loss: 1.4138699 | avg_token_loss: 1.3351362 | learning_rate: 0.0002212
+sequence_per_sec: 26.4593262
+2021-03-17 16:31:26,064 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39941 | Iter 24440:
+per_token_loss: 1.2447062 | avg_token_loss: 1.3351181 | learning_rate: 0.0002211
+sequence_per_sec: 26.4617619
+2021-03-17 16:33:35,698 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39946 | Iter 24480:
+per_token_loss: 1.2968417 | avg_token_loss: 1.3350989 | learning_rate: 0.0002211
+sequence_per_sec: 26.4595955
+2021-03-17 16:35:45,885 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39951 | Iter 24520:
+per_token_loss: 1.2838832 | avg_token_loss: 1.3350743 | learning_rate: 0.0002211
+sequence_per_sec: 26.4572284
+2021-03-17 16:37:55,666 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39956 | Iter 24560:
+per_token_loss: 1.4315531 | avg_token_loss: 1.3350470 | learning_rate: 0.0002211
+sequence_per_sec: 26.4559864
+2021-03-17 16:40:05,996 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39961 | Iter 24600:
+per_token_loss: 1.3363738 | avg_token_loss: 1.3350097 | learning_rate: 0.0002211
+sequence_per_sec: 26.4570574
+2021-03-17 16:42:15,055 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39966 | Iter 24640:
+per_token_loss: 1.2615128 | avg_token_loss: 1.3349873 | learning_rate: 0.0002211
+sequence_per_sec: 26.4573226
+2021-03-17 16:44:24,794 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39971 | Iter 24680:
+per_token_loss: 1.3205897 | avg_token_loss: 1.3349432 | learning_rate: 0.0002211
+sequence_per_sec: 26.4576069
+2021-03-17 16:46:35,424 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39976 | Iter 24720:
+per_token_loss: 1.2639246 | avg_token_loss: 1.3349241 | learning_rate: 0.0002210
+sequence_per_sec: 26.4565145
+2021-03-17 16:48:46,476 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39981 | Iter 24760:
+per_token_loss: 1.3557835 | avg_token_loss: 1.3348836 | learning_rate: 0.0002210
+sequence_per_sec: 26.4580184
+2021-03-17 16:50:55,533 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39986 | Iter 24800:
+per_token_loss: 1.2815926 | avg_token_loss: 1.3348535 | learning_rate: 0.0002210
+sequence_per_sec: 26.4602362
+2021-03-17 16:53:04,913 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39991 | Iter 24840:
+per_token_loss: 1.2746596 | avg_token_loss: 1.3348105 | learning_rate: 0.0002210
+sequence_per_sec: 26.4590350
+2021-03-17 16:55:13,552 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 39996 | Iter 24880:
+per_token_loss: 1.2807400 | avg_token_loss: 1.3347784 | learning_rate: 0.0002210
+sequence_per_sec: 26.4590509
+2021-03-17 16:57:23,077 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40001 | Iter 24920:
+per_token_loss: 1.3101716 | avg_token_loss: 1.3347440 | learning_rate: 0.0002210
+sequence_per_sec: 26.4585672
+2021-03-17 16:59:33,112 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40006 | Iter 24960:
+per_token_loss: 1.3317424 | avg_token_loss: 1.3347158 | learning_rate: 0.0002210
+sequence_per_sec: 26.4576553
+2021-03-17 17:01:42,713 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40011 | Iter 25000:
+per_token_loss: 1.3066922 | avg_token_loss: 1.3346869 | learning_rate: 0.0002209
+sequence_per_sec: 26.4563624
+2021-03-17 17:03:53,166 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40016 | Iter 25040:
+per_token_loss: 1.3385025 | avg_token_loss: 1.3346529 | learning_rate: 0.0002209
+sequence_per_sec: 26.4552297
+2021-03-17 17:06:03,479 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40021 | Iter 25080:
+per_token_loss: 1.2608391 | avg_token_loss: 1.3346149 | learning_rate: 0.0002209
+sequence_per_sec: 26.4564722
+2021-03-17 17:08:14,653 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40026 | Iter 25120:
+per_token_loss: 1.2925574 | avg_token_loss: 1.3345885 | learning_rate: 0.0002209
+sequence_per_sec: 26.4563924
+2021-03-17 17:10:24,010 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40031 | Iter 25160:
+per_token_loss: 1.2998277 | avg_token_loss: 1.3345562 | learning_rate: 0.0002209
+sequence_per_sec: 26.4559694
+2021-03-17 17:12:34,031 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40036 | Iter 25200:
+per_token_loss: 1.3185831 | avg_token_loss: 1.3345407 | learning_rate: 0.0002209
+sequence_per_sec: 26.4536775
+2021-03-17 17:14:43,903 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40041 | Iter 25240:
+per_token_loss: 1.3144994 | avg_token_loss: 1.3344958 | learning_rate: 0.0002209
+sequence_per_sec: 26.4522614
+2021-03-17 17:16:54,520 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40046 | Iter 25280:
+per_token_loss: 1.2871703 | avg_token_loss: 1.3344622 | learning_rate: 0.0002208
+sequence_per_sec: 26.4521226
+2021-03-17 17:19:03,738 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40051 | Iter 25320:
+per_token_loss: 1.3066713 | avg_token_loss: 1.3344232 | learning_rate: 0.0002208
+sequence_per_sec: 26.4509680
+2021-03-17 17:21:14,259 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40056 | Iter 25360:
+per_token_loss: 1.2900435 | avg_token_loss: 1.3344032 | learning_rate: 0.0002208
+sequence_per_sec: 26.4526671
+2021-03-17 17:23:24,201 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40061 | Iter 25400:
+per_token_loss: 1.3042134 | avg_token_loss: 1.3343759 | learning_rate: 0.0002208
+sequence_per_sec: 26.4527617
+2021-03-17 17:25:32,640 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40066 | Iter 25440:
+per_token_loss: 1.3271966 | avg_token_loss: 1.3343377 | learning_rate: 0.0002208
+sequence_per_sec: 26.4528832
+2021-03-17 17:27:42,142 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40071 | Iter 25480:
+per_token_loss: 1.3714659 | avg_token_loss: 1.3343068 | learning_rate: 0.0002208
+sequence_per_sec: 26.4513999
+2021-03-17 17:29:51,186 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40076 | Iter 25520:
+per_token_loss: 1.2775488 | avg_token_loss: 1.3342612 | learning_rate: 0.0002208
+sequence_per_sec: 26.4516421
+2021-03-17 17:32:00,650 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40081 | Iter 25560:
+per_token_loss: 1.3060322 | avg_token_loss: 1.3342302 | learning_rate: 0.0002208
+sequence_per_sec: 26.4517670
+2021-03-17 17:34:10,512 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40086 | Iter 25600:
+per_token_loss: 1.3107100 | avg_token_loss: 1.3341974 | learning_rate: 0.0002207
+sequence_per_sec: 26.4506175
+2021-03-17 17:36:19,494 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40091 | Iter 25640:
+per_token_loss: 1.3382159 | avg_token_loss: 1.3341742 | learning_rate: 0.0002207
+sequence_per_sec: 26.4488343
+2021-03-17 17:38:29,039 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40096 | Iter 25680:
+per_token_loss: 1.3544683 | avg_token_loss: 1.3341372 | learning_rate: 0.0002207
+sequence_per_sec: 26.4470279
+2021-03-17 17:40:38,345 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40101 | Iter 25720:
+per_token_loss: 1.2974119 | avg_token_loss: 1.3341249 | learning_rate: 0.0002207
+sequence_per_sec: 26.4484881
+2021-03-17 17:42:47,619 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40106 | Iter 25760:
+per_token_loss: 1.3272238 | avg_token_loss: 1.3341022 | learning_rate: 0.0002207
+sequence_per_sec: 26.4486823
+2021-03-17 17:44:57,639 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40111 | Iter 25800:
+per_token_loss: 1.2986560 | avg_token_loss: 1.3340628 | learning_rate: 0.0002207
+sequence_per_sec: 26.4472189
+2021-03-17 17:47:07,823 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40116 | Iter 25840:
+per_token_loss: 1.3363736 | avg_token_loss: 1.3340293 | learning_rate: 0.0002207
+sequence_per_sec: 26.4479425
+2021-03-17 17:49:16,779 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40121 | Iter 25880:
+per_token_loss: 1.3121077 | avg_token_loss: 1.3339975 | learning_rate: 0.0002206
+sequence_per_sec: 26.4474898
+2021-03-17 17:51:27,605 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40126 | Iter 25920:
+per_token_loss: 1.3440647 | avg_token_loss: 1.3339717 | learning_rate: 0.0002206
+sequence_per_sec: 26.4466185
+2021-03-17 17:53:37,538 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40131 | Iter 25960:
+per_token_loss: 1.3535911 | avg_token_loss: 1.3339496 | learning_rate: 0.0002206
+sequence_per_sec: 26.4479486
+2021-03-17 17:55:47,066 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40136 | Iter 26000:
+per_token_loss: 1.3046035 | avg_token_loss: 1.3339164 | learning_rate: 0.0002206
+sequence_per_sec: 26.4491213
+2021-03-17 17:57:56,815 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40141 | Iter 26040:
+per_token_loss: 1.3762223 | avg_token_loss: 1.3338922 | learning_rate: 0.0002206
+sequence_per_sec: 26.4481224
+2021-03-17 18:00:07,150 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40146 | Iter 26080:
+per_token_loss: 1.3127534 | avg_token_loss: 1.3338722 | learning_rate: 0.0002206
+sequence_per_sec: 26.4492272
+2021-03-17 18:02:15,682 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40151 | Iter 26120:
+per_token_loss: 1.2804216 | avg_token_loss: 1.3338432 | learning_rate: 0.0002206
+sequence_per_sec: 26.4485627
+2021-03-17 18:04:26,349 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40156 | Iter 26160:
+per_token_loss: 1.3018085 | avg_token_loss: 1.3338174 | learning_rate: 0.0002205
+sequence_per_sec: 26.4497896
+2021-03-17 18:06:34,435 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40161 | Iter 26200:
+per_token_loss: 1.2768013 | avg_token_loss: 1.3337902 | learning_rate: 0.0002205
+sequence_per_sec: 26.4507462
+2021-03-17 18:08:45,765 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40166 | Iter 26240:
+per_token_loss: 1.2755995 | avg_token_loss: 1.3337674 | learning_rate: 0.0002205
+sequence_per_sec: 26.4510051
+2021-03-17 18:10:55,032 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40171 | Iter 26280:
+per_token_loss: 1.3856697 | avg_token_loss: 1.3337402 | learning_rate: 0.0002205
+sequence_per_sec: 26.4495555
+2021-03-17 18:13:04,185 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40176 | Iter 26320:
+per_token_loss: 1.3029405 | avg_token_loss: 1.3337026 | learning_rate: 0.0002205
+sequence_per_sec: 26.4496005
+2021-03-17 18:15:13,401 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40181 | Iter 26360:
+per_token_loss: 1.3345643 | avg_token_loss: 1.3336757 | learning_rate: 0.0002205
+sequence_per_sec: 26.4495386
+2021-03-17 18:17:23,418 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40186 | Iter 26400:
+per_token_loss: 1.2967261 | avg_token_loss: 1.3336544 | learning_rate: 0.0002205
+sequence_per_sec: 26.4500174
+2021-03-17 18:19:32,886 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40191 | Iter 26440:
+per_token_loss: 1.3104194 | avg_token_loss: 1.3336285 | learning_rate: 0.0002204
+sequence_per_sec: 26.4480384
+2021-03-17 18:21:41,806 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40196 | Iter 26480:
+per_token_loss: 1.3783174 | avg_token_loss: 1.3336024 | learning_rate: 0.0002204
+sequence_per_sec: 26.4506394
+2021-03-17 18:23:51,275 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40201 | Iter 26520:
+per_token_loss: 1.2854226 | avg_token_loss: 1.3335774 | learning_rate: 0.0002204
+sequence_per_sec: 26.4521663
+2021-03-17 18:25:59,352 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40206 | Iter 26560:
+per_token_loss: 1.2793071 | avg_token_loss: 1.3335453 | learning_rate: 0.0002204
+sequence_per_sec: 26.4513774
+2021-03-17 18:28:09,284 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40211 | Iter 26600:
+per_token_loss: 1.3545374 | avg_token_loss: 1.3335172 | learning_rate: 0.0002204
+sequence_per_sec: 26.4501093
+2021-03-17 18:30:18,265 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40216 | Iter 26640:
+per_token_loss: 1.3293880 | avg_token_loss: 1.3334908 | learning_rate: 0.0002204
+sequence_per_sec: 26.4524823
+2021-03-17 18:32:27,591 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40221 | Iter 26680:
+per_token_loss: 1.3183918 | avg_token_loss: 1.3334693 | learning_rate: 0.0002204
+sequence_per_sec: 26.4535438
+2021-03-17 18:34:37,168 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40226 | Iter 26720:
+per_token_loss: 1.2993646 | avg_token_loss: 1.3334458 | learning_rate: 0.0002204
+sequence_per_sec: 26.4535857
+2021-03-17 18:36:47,159 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40231 | Iter 26760:
+per_token_loss: 1.3591223 | avg_token_loss: 1.3334121 | learning_rate: 0.0002203
+sequence_per_sec: 26.4559185
+2021-03-17 18:38:56,132 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40236 | Iter 26800:
+per_token_loss: 1.3058416 | avg_token_loss: 1.3333782 | learning_rate: 0.0002203
+sequence_per_sec: 26.4564631
+2021-03-17 18:41:06,114 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40241 | Iter 26840:
+per_token_loss: 1.2909205 | avg_token_loss: 1.3333528 | learning_rate: 0.0002203
+sequence_per_sec: 26.4576845
+2021-03-17 18:43:16,030 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40246 | Iter 26880:
+per_token_loss: 1.3354806 | avg_token_loss: 1.3333316 | learning_rate: 0.0002203
+sequence_per_sec: 26.4587187
+2021-03-17 18:45:25,854 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40251 | Iter 26920:
+per_token_loss: 1.3492762 | avg_token_loss: 1.3333172 | learning_rate: 0.0002203
+sequence_per_sec: 26.4590138
+2021-03-17 18:47:37,081 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40256 | Iter 26960:
+per_token_loss: 1.2968191 | avg_token_loss: 1.3332943 | learning_rate: 0.0002203
+sequence_per_sec: 26.4571346
+2021-03-17 18:49:46,419 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40261 | Iter 27000:
+per_token_loss: 1.2671621 | avg_token_loss: 1.3332587 | learning_rate: 0.0002203
+sequence_per_sec: 26.4545017
+2021-03-17 18:51:55,730 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40266 | Iter 27040:
+per_token_loss: 1.2961470 | avg_token_loss: 1.3332329 | learning_rate: 0.0002202
+sequence_per_sec: 26.4502289
+2021-03-17 18:54:05,937 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40271 | Iter 27080:
+per_token_loss: 1.2782152 | avg_token_loss: 1.3332162 | learning_rate: 0.0002202
+sequence_per_sec: 26.4511878
+2021-03-17 18:56:14,149 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40276 | Iter 27120:
+per_token_loss: 1.3129220 | avg_token_loss: 1.3331953 | learning_rate: 0.0002202
+sequence_per_sec: 26.4505128
+2021-03-17 18:58:23,685 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40281 | Iter 27160:
+per_token_loss: 1.2886541 | avg_token_loss: 1.3331751 | learning_rate: 0.0002202
+sequence_per_sec: 26.4493929
+2021-03-17 19:00:32,799 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40286 | Iter 27200:
+per_token_loss: 1.2854006 | avg_token_loss: 1.3331656 | learning_rate: 0.0002202
+sequence_per_sec: 26.4479005
+2021-03-17 19:02:41,987 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40291 | Iter 27240:
+per_token_loss: 1.2881199 | avg_token_loss: 1.3331522 | learning_rate: 0.0002202
+sequence_per_sec: 26.4470828
+2021-03-17 19:04:51,676 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40296 | Iter 27280:
+per_token_loss: 1.3188459 | avg_token_loss: 1.3331259 | learning_rate: 0.0002202
+sequence_per_sec: 26.4455638
+2021-03-17 19:07:01,498 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40301 | Iter 27320:
+per_token_loss: 1.3557572 | avg_token_loss: 1.3331085 | learning_rate: 0.0002201
+sequence_per_sec: 26.4459160
+2021-03-17 19:09:12,118 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40306 | Iter 27360:
+per_token_loss: 1.3156939 | avg_token_loss: 1.3330967 | learning_rate: 0.0002201
+sequence_per_sec: 26.4467054
+2021-03-17 19:11:20,130 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40311 | Iter 27400:
+per_token_loss: 1.2849852 | avg_token_loss: 1.3330640 | learning_rate: 0.0002201
+sequence_per_sec: 26.4464165
+2021-03-17 19:13:29,616 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40316 | Iter 27440:
+per_token_loss: 1.3313059 | avg_token_loss: 1.3330351 | learning_rate: 0.0002201
+sequence_per_sec: 26.4456006
+2021-03-17 19:15:38,907 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40321 | Iter 27480:
+per_token_loss: 1.3281626 | avg_token_loss: 1.3330168 | learning_rate: 0.0002201
+sequence_per_sec: 26.4452100
+2021-03-17 19:17:47,769 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40326 | Iter 27520:
+per_token_loss: 1.3447938 | avg_token_loss: 1.3330003 | learning_rate: 0.0002201
+sequence_per_sec: 26.4428226
+2021-03-17 19:19:57,061 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40331 | Iter 27560:
+per_token_loss: 1.3692110 | avg_token_loss: 1.3329860 | learning_rate: 0.0002201
+sequence_per_sec: 26.4420320
+2021-03-17 19:22:05,232 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40336 | Iter 27600:
+per_token_loss: 1.3355347 | avg_token_loss: 1.3329633 | learning_rate: 0.0002201
+sequence_per_sec: 26.4418846
+
+Epoch 10 | Step 40341 | Iter 27640:
+per_token_loss: 1.2867002 | avg_token_loss: 1.3329484 | learning_rate: 0.0002200
+sequence_per_sec: 26.4415003
+2021-03-17 19:26:26,167 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40346 | Iter 27680:
+per_token_loss: 1.2791911 | avg_token_loss: 1.3329403 | learning_rate: 0.0002200
+sequence_per_sec: 26.4421052
+2021-03-17 19:28:35,542 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40351 | Iter 27720:
+per_token_loss: 1.3149933 | avg_token_loss: 1.3329216 | learning_rate: 0.0002200
+sequence_per_sec: 26.4414778
+2021-03-17 19:30:45,005 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40356 | Iter 27760:
+per_token_loss: 1.3107454 | avg_token_loss: 1.3329020 | learning_rate: 0.0002200
+sequence_per_sec: 26.4425465
+2021-03-17 19:32:54,995 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40361 | Iter 27800:
+per_token_loss: 1.3241380 | avg_token_loss: 1.3328834 | learning_rate: 0.0002200
+sequence_per_sec: 26.4423187
+2021-03-17 19:35:03,551 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40366 | Iter 27840:
+per_token_loss: 1.3269261 | avg_token_loss: 1.3328614 | learning_rate: 0.0002200
+sequence_per_sec: 26.4424559
+2021-03-17 19:37:12,041 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40371 | Iter 27880:
+per_token_loss: 1.3914298 | avg_token_loss: 1.3328413 | learning_rate: 0.0002200
+sequence_per_sec: 26.4441724
+2021-03-17 19:39:21,638 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40376 | Iter 27920:
+per_token_loss: 1.3113106 | avg_token_loss: 1.3328229 | learning_rate: 0.0002199
+sequence_per_sec: 26.4437295
+2021-03-17 19:41:30,973 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40381 | Iter 27960:
+per_token_loss: 1.3676782 | avg_token_loss: 1.3328158 | learning_rate: 0.0002199
+sequence_per_sec: 26.4428867
+2021-03-17 19:43:41,071 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40386 | Iter 28000:
+per_token_loss: 1.3048346 | avg_token_loss: 1.3327931 | learning_rate: 0.0002199
+sequence_per_sec: 26.4417075
+2021-03-17 19:45:51,525 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40391 | Iter 28040:
+per_token_loss: 1.3128082 | avg_token_loss: 1.3327662 | learning_rate: 0.0002199
+sequence_per_sec: 26.4406774
+2021-03-17 19:48:01,017 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40396 | Iter 28080:
+per_token_loss: 1.3094188 | avg_token_loss: 1.3327502 | learning_rate: 0.0002199
+sequence_per_sec: 26.4405864
+2021-03-17 19:50:10,819 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40401 | Iter 28120:
+per_token_loss: 1.3139843 | avg_token_loss: 1.3327290 | learning_rate: 0.0002199
+sequence_per_sec: 26.4388180
+2021-03-17 19:52:20,255 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40406 | Iter 28160:
+per_token_loss: 1.3447797 | avg_token_loss: 1.3327107 | learning_rate: 0.0002199
+sequence_per_sec: 26.4378757
+2021-03-17 19:54:29,850 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40411 | Iter 28200:
+per_token_loss: 1.3149674 | avg_token_loss: 1.3326943 | learning_rate: 0.0002198
+sequence_per_sec: 26.4386495
+2021-03-17 19:56:38,857 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40416 | Iter 28240:
+per_token_loss: 1.3109069 | avg_token_loss: 1.3326724 | learning_rate: 0.0002198
+sequence_per_sec: 26.4401416
+2021-03-17 19:58:46,881 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40421 | Iter 28280:
+per_token_loss: 1.4335231 | avg_token_loss: 1.3326553 | learning_rate: 0.0002198
+sequence_per_sec: 26.4408319
+2021-03-17 20:00:56,831 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40426 | Iter 28320:
+per_token_loss: 1.3000644 | avg_token_loss: 1.3326306 | learning_rate: 0.0002198
+sequence_per_sec: 26.4402711
+2021-03-17 20:03:06,771 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40431 | Iter 28360:
+per_token_loss: 1.2919394 | avg_token_loss: 1.3326277 | learning_rate: 0.0002198
+sequence_per_sec: 26.4426770
+2021-03-17 20:05:15,349 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40436 | Iter 28400:
+per_token_loss: 1.3033073 | avg_token_loss: 1.3326051 | learning_rate: 0.0002198
+sequence_per_sec: 26.4429695
+2021-03-17 20:07:26,180 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40441 | Iter 28440:
+per_token_loss: 1.3113561 | avg_token_loss: 1.3325800 | learning_rate: 0.0002198
+sequence_per_sec: 26.4422000
+2021-03-17 20:09:36,302 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40446 | Iter 28480:
+per_token_loss: 1.3181601 | avg_token_loss: 1.3325495 | learning_rate: 0.0002198
+sequence_per_sec: 26.4401919
+2021-03-17 20:11:45,540 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40451 | Iter 28520:
+per_token_loss: 1.3122320 | avg_token_loss: 1.3325284 | learning_rate: 0.0002197
+sequence_per_sec: 26.4396198
+2021-03-17 20:13:55,760 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40456 | Iter 28560:
+per_token_loss: 1.3454380 | avg_token_loss: 1.3325058 | learning_rate: 0.0002197
+sequence_per_sec: 26.4417025
+2021-03-17 20:16:04,847 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40461 | Iter 28600:
+per_token_loss: 1.2838446 | avg_token_loss: 1.3324885 | learning_rate: 0.0002197
+sequence_per_sec: 26.4410907
+2021-03-17 20:18:13,918 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40466 | Iter 28640:
+per_token_loss: 1.3624187 | avg_token_loss: 1.3324646 | learning_rate: 0.0002197
+sequence_per_sec: 26.4396927
+2021-03-17 20:20:23,587 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40471 | Iter 28680:
+per_token_loss: 1.2818300 | avg_token_loss: 1.3324411 | learning_rate: 0.0002197
+sequence_per_sec: 26.4399518
+2021-03-17 20:22:32,749 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40476 | Iter 28720:
+per_token_loss: 1.2884004 | avg_token_loss: 1.3324182 | learning_rate: 0.0002197
+sequence_per_sec: 26.4416830
+2021-03-17 20:24:42,384 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40481 | Iter 28760:
+per_token_loss: 1.2972800 | avg_token_loss: 1.3323904 | learning_rate: 0.0002197
+sequence_per_sec: 26.4426381
+2021-03-17 20:26:51,139 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40486 | Iter 28800:
+per_token_loss: 1.4324033 | avg_token_loss: 1.3323630 | learning_rate: 0.0002196
+sequence_per_sec: 26.4410375
+2021-03-17 20:28:59,090 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40491 | Iter 28840:
+per_token_loss: 1.3185025 | avg_token_loss: 1.3323487 | learning_rate: 0.0002196
+sequence_per_sec: 26.4418576
+2021-03-17 20:31:09,064 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40496 | Iter 28880:
+per_token_loss: 1.3598343 | avg_token_loss: 1.3323309 | learning_rate: 0.0002196
+sequence_per_sec: 26.4427547
+2021-03-17 20:33:19,122 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40501 | Iter 28920:
+per_token_loss: 1.3151289 | avg_token_loss: 1.3323183 | learning_rate: 0.0002196
+sequence_per_sec: 26.4413566
+2021-03-17 20:35:28,585 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40506 | Iter 28960:
+per_token_loss: 1.3472829 | avg_token_loss: 1.3322986 | learning_rate: 0.0002196
+sequence_per_sec: 26.4420457
+2021-03-17 20:37:38,565 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40511 | Iter 29000:
+per_token_loss: 1.2796252 | avg_token_loss: 1.3322736 | learning_rate: 0.0002196
+sequence_per_sec: 26.4423684
+2021-03-17 20:39:48,020 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40516 | Iter 29040:
+per_token_loss: 1.3355436 | avg_token_loss: 1.3322601 | learning_rate: 0.0002196
+sequence_per_sec: 26.4428582
+2021-03-17 20:41:55,757 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40521 | Iter 29080:
+per_token_loss: 1.3069524 | avg_token_loss: 1.3322377 | learning_rate: 0.0002195
+sequence_per_sec: 26.4434684
+2021-03-17 20:44:04,564 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40526 | Iter 29120:
+per_token_loss: 1.3204030 | avg_token_loss: 1.3322221 | learning_rate: 0.0002195
+sequence_per_sec: 26.4453579
+2021-03-17 20:46:15,051 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40531 | Iter 29160:
+per_token_loss: 1.3920792 | avg_token_loss: 1.3322157 | learning_rate: 0.0002195
+sequence_per_sec: 26.4439735
+2021-03-17 20:48:24,987 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40536 | Iter 29200:
+per_token_loss: 1.2956609 | avg_token_loss: 1.3321962 | learning_rate: 0.0002195
+sequence_per_sec: 26.4448141
+2021-03-17 20:50:33,332 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40541 | Iter 29240:
+per_token_loss: 1.3189415 | avg_token_loss: 1.3321722 | learning_rate: 0.0002195
+sequence_per_sec: 26.4469990
+2021-03-17 20:52:42,637 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40546 | Iter 29280:
+per_token_loss: 1.3306249 | avg_token_loss: 1.3321700 | learning_rate: 0.0002195
+sequence_per_sec: 26.4500878
+2021-03-17 20:54:52,458 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40551 | Iter 29320:
+per_token_loss: 1.3066607 | avg_token_loss: 1.3321582 | learning_rate: 0.0002195
+sequence_per_sec: 26.4493834
+2021-03-17 20:57:00,812 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40556 | Iter 29360:
+per_token_loss: 1.3544158 | avg_token_loss: 1.3321415 | learning_rate: 0.0002195
+sequence_per_sec: 26.4506231
+2021-03-17 20:59:10,569 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40561 | Iter 29400:
+per_token_loss: 1.3102640 | avg_token_loss: 1.3321146 | learning_rate: 0.0002194
+sequence_per_sec: 26.4500240
+2021-03-17 21:01:19,407 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40566 | Iter 29440:
+per_token_loss: 1.3482169 | avg_token_loss: 1.3320917 | learning_rate: 0.0002194
+sequence_per_sec: 26.4512974
+2021-03-17 21:03:29,526 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40571 | Iter 29480:
+per_token_loss: 1.3085386 | avg_token_loss: 1.3320785 | learning_rate: 0.0002194
+sequence_per_sec: 26.4495893
+2021-03-17 21:05:38,556 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40576 | Iter 29520:
+per_token_loss: 1.4365005 | avg_token_loss: 1.3320751 | learning_rate: 0.0002194
+sequence_per_sec: 26.4487546
+2021-03-17 21:07:47,843 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40581 | Iter 29560:
+per_token_loss: 1.3069267 | avg_token_loss: 1.3320540 | learning_rate: 0.0002194
+sequence_per_sec: 26.4493363
+2021-03-17 21:09:56,923 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40586 | Iter 29600:
+per_token_loss: 1.3014013 | avg_token_loss: 1.3320533 | learning_rate: 0.0002194
+sequence_per_sec: 26.4522826
+2021-03-17 21:12:05,889 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40591 | Iter 29640:
+per_token_loss: 1.3330477 | avg_token_loss: 1.3320312 | learning_rate: 0.0002194
+sequence_per_sec: 26.4507931
+2021-03-17 21:14:15,008 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40596 | Iter 29680:
+per_token_loss: 1.3257865 | avg_token_loss: 1.3320197 | learning_rate: 0.0002193
+sequence_per_sec: 26.4516276
+2021-03-17 21:16:26,485 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40601 | Iter 29720:
+per_token_loss: 1.2714348 | avg_token_loss: 1.3319943 | learning_rate: 0.0002193
+sequence_per_sec: 26.4504517
+2021-03-17 21:18:36,231 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40606 | Iter 29760:
+per_token_loss: 1.3256650 | avg_token_loss: 1.3319722 | learning_rate: 0.0002193
+sequence_per_sec: 26.4505680
+2021-03-17 21:20:44,862 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40611 | Iter 29800:
+per_token_loss: 1.2870560 | avg_token_loss: 1.3319604 | learning_rate: 0.0002193
+sequence_per_sec: 26.4522527
+2021-03-17 21:22:54,359 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40616 | Iter 29840:
+per_token_loss: 1.3394375 | avg_token_loss: 1.3319492 | learning_rate: 0.0002193
+sequence_per_sec: 26.4533476
+2021-03-17 21:25:05,325 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40621 | Iter 29880:
+per_token_loss: 1.3672683 | avg_token_loss: 1.3319353 | learning_rate: 0.0002193
+sequence_per_sec: 26.4514448
+2021-03-17 21:27:14,968 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40626 | Iter 29920:
+per_token_loss: 1.3298341 | avg_token_loss: 1.3319137 | learning_rate: 0.0002193
+sequence_per_sec: 26.4527911
+2021-03-17 21:29:24,860 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40631 | Iter 29960:
+per_token_loss: 1.3311360 | avg_token_loss: 1.3318896 | learning_rate: 0.0002193
+sequence_per_sec: 26.4513961
+2021-03-17 21:31:33,878 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40636 | Iter 30000:
+per_token_loss: 1.2981894 | avg_token_loss: 1.3318940 | learning_rate: 0.0002192
+sequence_per_sec: 26.4502730
+2021-03-17 21:33:42,672 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40641 | Iter 30040:
+per_token_loss: 1.3295130 | avg_token_loss: 1.3318866 | learning_rate: 0.0002192
+sequence_per_sec: 26.4508637
+2021-03-17 21:35:51,767 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40646 | Iter 30080:
+per_token_loss: 1.2604738 | avg_token_loss: 1.3318759 | learning_rate: 0.0002192
+sequence_per_sec: 26.4493610
+2021-03-17 21:38:01,320 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40651 | Iter 30120:
+per_token_loss: 1.3251621 | avg_token_loss: 1.3318630 | learning_rate: 0.0002192
+sequence_per_sec: 26.4512926
+2021-03-17 21:40:11,402 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40656 | Iter 30160:
+per_token_loss: 1.3214880 | avg_token_loss: 1.3318537 | learning_rate: 0.0002192
+sequence_per_sec: 26.4505524
+2021-03-17 21:42:20,794 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40661 | Iter 30200:
+per_token_loss: 1.2854376 | avg_token_loss: 1.3318467 | learning_rate: 0.0002192
+sequence_per_sec: 26.4514719
+2021-03-17 21:44:28,743 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40666 | Iter 30240:
+per_token_loss: 1.3339996 | avg_token_loss: 1.3318352 | learning_rate: 0.0002192
+sequence_per_sec: 26.4522346
+2021-03-17 21:46:37,340 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40671 | Iter 30280:
+per_token_loss: 1.2956934 | avg_token_loss: 1.3318230 | learning_rate: 0.0002191
+sequence_per_sec: 26.4523086
+2021-03-17 21:48:46,720 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40676 | Iter 30320:
+per_token_loss: 1.3623896 | avg_token_loss: 1.3318154 | learning_rate: 0.0002191
+sequence_per_sec: 26.4525194
+2021-03-17 21:50:56,333 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40681 | Iter 30360:
+per_token_loss: 1.4557121 | avg_token_loss: 1.3318025 | learning_rate: 0.0002191
+sequence_per_sec: 26.4535011
+2021-03-17 21:53:06,455 - /root/multiASR/src/trainer.py[line:299] - INFO: Progress:
+Epoch 10 | Step 40686 | Iter 30400:
+per_token_loss: 1.3417494 | avg_token_loss: 1.3317900 | learning_rate: 0.0002191
+sequence_per_sec: 26.4520501
+terminate called after throwing an instance of 'c10::Error'
+  what():  cuFFT error: CUFFT_INVALID_PLAN (CUFFT_CHECK at /pytorch/aten/src/ATen/native/cuda/CuFFTUtils.h:70)
+frame #0: c10::Error::Error(c10::SourceLocation, std::string const&) + 0x46 (0x7f585fed4536 in /root/.local/lib/python3.7/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x299e1e0 (0x7f5862cce1e0 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x29a3c0d (0x7f5862cd3c0d in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: at::native::_fft_cufft(at::Tensor const&, long, bool, bool, bool, c10::ArrayRef<long>, bool, bool, c10::ArrayRef<long>) + 0x752 (0x7f5862cd1af2 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xfa2408 (0x7f58612d2408 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: <unknown function> + 0xfe27a4 (0x7f58613127a4 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0x2c2221c (0x7f589227a21c in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: <unknown function> + 0x10c3f44 (0x7f589071bf44 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0xde1d5f (0x7f5890439d5f in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::native::rfft(at::Tensor const&, long, bool, bool) + 0x22 (0x7f589043b0f2 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x1152ef4 (0x7f58907aaef4 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: <unknown function> + 0x2cf1434 (0x7f5892349434 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: <unknown function> + 0x1189308 (0x7f58907e1308 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_cpu.so)
+frame #13: <unknown function> + 0x298603 (0x7f589e8a0603 in /root/.local/lib/python3.7/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #59: <unknown function> + 0x76ba (0x7f58a1dcb6ba in /lib/x86_64-linux-gnu/libpthread.so.0)
+frame #60: clone + 0x6d (0x7f58a1b0141d in /lib/x86_64-linux-gnu/libc.so.6)
+

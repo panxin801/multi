@@ -3,7 +3,7 @@ data:
   devset: /root/multiASR/egs/micArray/s5/exp/test.json
   vocab_path: /root/multiASR/egs/micArray/s5/exp/aishell1_train_chars.txt
   maxlen: 60
-  fetchworker_num: 6
+  fetchworker_num: 0
   channels: 16
 model:
   signal:
@@ -39,11 +39,11 @@ model:
     activation: "glu"
     dropout_rate: 0.1
 training:
-    batch_time: 150
+    batch_time: 100
     multi_gpu: True
     exp_dir: exp/multiASR
-    print_inteval: 10
-    num_epoch: 20
+    print_inteval: 50
+    num_epoch: 60
     accumulate_grad_batch: 8
     init_lr: 1.0
     optimtype: adam

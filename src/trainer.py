@@ -234,6 +234,7 @@ class Trainer(object):
                                            wave_lengths.cuda(), ids.cuda(),
                                            labels.cuda(), paddings.cuda())
             else:
+                #print(utts)
                 this_loss = self.model(padded_waveforms.cuda(),
                                        wave_lengths.cuda(),
                                        ids.cuda(),
@@ -242,7 +243,6 @@ class Trainer(object):
                                        label_smooth=self.label_smooth,
                                        lst_w=self.lst_w,
                                        lst_t=self.lst_t)
-
             batch_loss = torch.sum(this_loss)
             n_token = torch.sum(1 - paddings).float()
             n_sequence = len(utts)
@@ -305,7 +305,7 @@ class Trainer(object):
         self.metric_summarizer.reset_metrics()
         torch.cuda.empty_cache()
         time.sleep(2)
-        return tot_loss / tot_token
+        return (tot_loss / tot_token).item()
 
     def visualize_figure(self):
         with torch.no_grad():
