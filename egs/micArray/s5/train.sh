@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source path.sh
-export CUDA_VISIBLE_DEVICES="4,5"
+export CUDA_VISIBLE_DEVICES="0"
 
 sys_tag="base"
 if [ $# != 0 ]; then
