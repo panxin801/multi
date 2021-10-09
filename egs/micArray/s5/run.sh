@@ -2,6 +2,7 @@
 
 start_stage=0
 end_stage=1
+
 if [ ${start_stage} -le 0 ]  && [ ${end_stage} -ge 0 ]; then
     bash prep_data.sh
 fi
@@ -21,6 +22,3 @@ fi
 if [ ${start_stage} -le 4 ]  && [ ${end_stage} -ge 4 ]; then
     bash score.sh data/test/text exp/exp1/decode_test_avg-last10
 fi
-
-
-

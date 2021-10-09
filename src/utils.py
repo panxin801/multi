@@ -1,3 +1,4 @@
+import argparse
 import os
 import io
 import logging
@@ -7,7 +8,8 @@ import math
 import numpy as np
 import torch
 import torch.nn as nn
-from third_party import wavfile
+# from third_party import wavfile
+from scipy.io import wavfile
 from third_party import kaldi_io as kio
 
 TENSORBOARD_LOGGING = 0
@@ -16,7 +18,7 @@ TENSORBOARD_LOGGING = 0
 def cleanup_ckpt(expdir, num_last_ckpt_keep):
     ckptlist = [
         t for t in os.listdir(expdir)
-        if t.endswith('.pt') and t != 'last-ckpt.pt'
+        if t.endswith(".pt") and t != "last-ckpt.pt"
     ]
     ckptlist = sorted(ckptlist)
     ckptlist_rm = ckptlist[:-num_last_ckpt_keep]
@@ -28,26 +30,26 @@ def cleanup_ckpt(expdir, num_last_ckpt_keep):
 
 
 def get_command_stdout(command, require_zero_status=True):
-    """ Executes a command and returns its stdout output as a string.  The
-        command is executed with shell=True, so it may contain pipes and
-        other shell constructs.
+    """Executes a command and returns its stdout output as a string.  The
+    command is executed with shell=True, so it may contain pipes and
+    other shell constructs.
 
-        If require_zero_stats is True, this function will raise an exception if
-        the command has nonzero exit status.  If False, it just prints a warning
-        if the exit status is nonzero.
+    If require_zero_stats is True, this function will raise an exception if
+    the command has nonzero exit status.  If False, it just prints a warning
+    if the exit status is nonzero.
 
-        See also: execute_command, background_command
+    See also: execute_command, background_command
     """
     p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 
     stdout = p.communicate()[0]
-    if p.returncode is not 0:
+    if p.returncode != 0:
         output = "Command exited with status {0}: {1}".format(
             p.returncode, command)
         if require_zero_status:
             raise Exception(output)
         else:
-            logger.warning(output)
+            logging.warning(output)
     return stdout
 
 
@@ -102,14 +104,14 @@ def load_feat(path):
 
 def parse_scp(fn):
     dic = {}
-    with open(fn, 'r') as f:
+    with open(fn, "r") as f:
         cnt = 0
         for line in f:
             cnt += 1
-            items = line.strip().split(' ', 1)
+            items = line.strip().split(" ", 1)
             if len(items) != 2:
                 logging.warning(
-                    'Wrong formated line {} in scp {}, skip it.'.format(
+                    "Wrong formated line {} in scp {}, skip it.".format(
                         cnt, fn))
                 continue
             dic[items[0]] = items[1]
@@ -117,17 +119,17 @@ def parse_scp(fn):
 
 
 def str2bool(v):
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+    if v.lower() in ("yes", "true", "t", "y", "1"):
         return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+    elif v.lower() in ("no", "false", "f", "n", "0"):
         return False
     else:
-        raise argparse.ArgumentTypeError('Unsupported value encountered.')
+        raise argparse.ArgumentTypeError("Unsupported value encountered.")
 
 
 class Timer(object):
     def __init__(self):
-        self.start = 0.
+        self.start = 0.0
 
     def tic(self):
         self.start = time.time()
@@ -177,11 +179,13 @@ def get_transformer_casual_masks(T):
 # ==========================================
 if TENSORBOARD_LOGGING == 1:
     import logging
+
     mpl_logger = logging.getLogger("matplotlib")
     mpl_logger.setLevel(logging.WARNING)
 
     import matplotlib as mpl
-    mpl.use('Agg')
+
+    mpl.use("Agg")
     import matplotlib.pyplot as plt
     from tensorboardX import SummaryWriter
 
@@ -196,8 +200,9 @@ if TENSORBOARD_LOGGING == 1:
             self.writer = SummaryWriter(log_dir)
 
         def add_scalar(self, tag, value, step):
-            self.writer.add_scalar(
-                tag=tag, scalar_value=value, global_step=step)
+            self.writer.add_scalar(tag=tag,
+                                   scalar_value=value,
+                                   global_step=step)
 
         def add_graph(self, model):
             self.writer.add_graph(model)

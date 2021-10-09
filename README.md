@@ -16,7 +16,7 @@ A pytorch based end2end speech recognition system. The main architecture is [Spe
 ## Dependency
 
 * python >= 3.5
-* librosa >= 0.7.2
+* scipy >= 1.7
 * pytorch >= 1.7
 * torchaudio >= 0.7
 * pyyaml >= 5.1

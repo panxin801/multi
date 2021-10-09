@@ -3,13 +3,6 @@
 source path.sh
 
 corpusdir=/e/multiASR/egs/aishell1/s5
-#url=www.openslr.org/resources/33 
-
-echo "============================================================================"
-echo "Step 1: Download AISHELL1 dataset, and prepare KALDI style data directories."
-echo "============================================================================"
-#bash local/download_and_untar.sh $corpusdir $url data_aishell
-#bash local/aishell_data_prep.sh $corpusdir/data_aishell/wav $corpusdir/data_aishell/transcript
 
 echo "============================================================================"
 echo "Step 2: Format data to json file for training Seq2Seq models."

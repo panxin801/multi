@@ -21,7 +21,9 @@ import utils
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+    format=
+    "%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s",
+)
 
 
 def get_args():
@@ -29,14 +31,18 @@ def get_args():
      Usage: prepare_data.py <data_dir> <dest_path>""")
     parser.add_argument("data_dir", help="data directory")
     parser.add_argument("dest_path", help="path to dest")
-    parser.add_argument("--tag",
-                        type=str,
-                        default="file",
-                        help="tag of path. It should be file, pipe, or ark.")
-    parser.add_argument("--maxdur",
-                        type=float,
-                        default=9e9,
-                        help="if the duration is longer than maxdur, drop it.")
+    parser.add_argument(
+        "--tag",
+        type=str,
+        default="file",
+        help="tag of path. It should be file, pipe, or ark.",
+    )
+    parser.add_argument(
+        "--maxdur",
+        type=float,
+        default=9e9,
+        help="if the duration is longer than maxdur, drop it.",
+    )
     args = parser.parse_args()
     return args
 
@@ -99,9 +105,9 @@ if __name__ == "__main__":
                 "duration": float(dur_dic[utt]),
             })
             n_success += 1
-    with open(fw, 'w', encoding="utf8") as f:
+    with open(fw, "w", encoding="utf8") as f:
         json.dump(towrite, f, ensure_ascii=False, indent=2)
     logging.info(
         "\nProcessed {} utterances successfully. "
         "The total number is {}. ({:2%}) {} utterances are too long.".format(
-            n_success, n_tot, 1. * n_success / n_tot, n_durskip))
+            n_success, n_tot, 1.0 * n_success / n_tot, n_durskip))
