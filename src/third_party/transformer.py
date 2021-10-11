@@ -9,6 +9,7 @@ from torch.nn.modules.dropout import Dropout
 from torch.nn.modules.linear import Linear
 from torch.nn.modules.normalization import LayerNorm
 
+
 class Transformer(Module):
     r"""A transformer model. User is able to modify the attributes as needed. The architecture
     is based on the paper "Attention Is All You Need". Ashish Vaswani, Noam Shazeer,
@@ -37,34 +38,52 @@ class Transformer(Module):
     Note: A full example to apply nn.Transformer module for the word language model is available in
     https://github.com/pytorch/examples/tree/master/word_language_model
     """
-
-    def __init__(self, d_model=512, nhead=8, num_encoder_layers=6,
-                 num_decoder_layers=6, dim_feedforward=2048, dropout=0.1,
-                 activation="relu", custom_encoder=None, custom_decoder=None):
+    def __init__(self,
+                 d_model=512,
+                 nhead=8,
+                 num_encoder_layers=6,
+                 num_decoder_layers=6,
+                 dim_feedforward=2048,
+                 dropout=0.1,
+                 activation="relu",
+                 custom_encoder=None,
+                 custom_decoder=None):
         super(Transformer, self).__init__()
 
         if custom_encoder is not None:
             self.encoder = custom_encoder
         else:
-            encoder_layer = TransformerEncoderLayer(d_model, nhead, dim_feedforward, dropout, activation)
+            encoder_layer = TransformerEncoderLayer(d_model, nhead,
+                                                    dim_feedforward, dropout,
+                                                    activation)
             encoder_norm = LayerNorm(d_model)
-            self.encoder = TransformerEncoder(encoder_layer, num_encoder_layers, encoder_norm)
+            self.encoder = TransformerEncoder(encoder_layer,
+                                              num_encoder_layers, encoder_norm)
 
         if custom_decoder is not None:
             self.decoder = custom_decoder
         else:
-            decoder_layer = TransformerDecoderLayer(d_model, nhead, dim_feedforward, dropout, activation)
+            decoder_layer = TransformerDecoderLayer(d_model, nhead,
+                                                    dim_feedforward, dropout,
+                                                    activation)
             decoder_norm = LayerNorm(d_model)
-            self.decoder = TransformerDecoder(decoder_layer, num_decoder_layers, decoder_norm)
+            self.decoder = TransformerDecoder(decoder_layer,
+                                              num_decoder_layers, decoder_norm)
 
         self._reset_parameters()
 
         self.d_model = d_model
         self.nhead = nhead
 
-    def forward(self, src, tgt, src_mask=None, tgt_mask=None,
-                memory_mask=None, src_key_padding_mask=None,
-                tgt_key_padding_mask=None, memory_key_padding_mask=None):
+    def forward(self,
+                src,
+                tgt,
+                src_mask=None,
+                tgt_mask=None,
+                memory_mask=None,
+                src_key_padding_mask=None,
+                tgt_key_padding_mask=None,
+                memory_key_padding_mask=None):
         r"""Take in and process masked source/target sequences.
 
         Args:
@@ -113,10 +132,16 @@ class Transformer(Module):
             raise RuntimeError("the batch number of src and tgt must be equal")
 
         if src.size(2) != self.d_model or tgt.size(2) != self.d_model:
-            raise RuntimeError("the feature number of src and tgt must be equal to d_model")
+            raise RuntimeError(
+                "the feature number of src and tgt must be equal to d_model")
 
-        memory = self.encoder(src, mask=src_mask, src_key_padding_mask=src_key_padding_mask)
-        output = self.decoder(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
+        memory = self.encoder(src,
+                              mask=src_mask,
+                              src_key_padding_mask=src_key_padding_mask)
+        output = self.decoder(tgt,
+                              memory,
+                              tgt_mask=tgt_mask,
+                              memory_mask=memory_mask,
                               tgt_key_padding_mask=tgt_key_padding_mask,
                               memory_key_padding_mask=memory_key_padding_mask)
         return output
@@ -126,7 +151,8 @@ class Transformer(Module):
             Unmasked positions are filled with float(0.0).
         """
         mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
-        mask = mask.float().masked_fill(mask == 0, float('-inf')).masked_fill(mask == 1, float(0.0))
+        mask = mask.float().masked_fill(mask == 0, float('-inf')).masked_fill(
+            mask == 1, float(0.0))
         return mask
 
     def _reset_parameters(self):
@@ -151,14 +177,17 @@ class TransformerEncoder(Module):
         >>> src = torch.rand(10, 32, 512)
         >>> out = transformer_encoder(src)
     """
-
     def __init__(self, encoder_layer, num_layers, norm=None):
         super(TransformerEncoder, self).__init__()
         self.layers = _get_clones(encoder_layer, num_layers)
         self.num_layers = num_layers
         self.norm = norm
 
-    def forward(self, src, mask=None, src_key_padding_mask=None, return_atten=False):
+    def forward(self,
+                src,
+                mask=None,
+                src_key_padding_mask=None,
+                return_atten=False):
         r"""Pass the input through the encoder layers in turn.
 
         Args:
@@ -172,19 +201,23 @@ class TransformerEncoder(Module):
         output = src
         atten_probs_list = []
         for i in range(self.num_layers):
-            if  return_atten:
-                output, self_atten_probs = self.layers[i](output, src_mask=mask,
-                                        src_key_padding_mask=src_key_padding_mask,
-                                        return_atten=True)
+            if return_atten:
+                output, self_atten_probs = self.layers[i](
+                    output,
+                    src_mask=mask,
+                    src_key_padding_mask=src_key_padding_mask,
+                    return_atten=True)
                 atten_probs_list.append(self_atten_probs)
             else:
-                output = self.layers[i](output, src_mask=mask,
-                                        src_key_padding_mask=src_key_padding_mask,
-                                        return_atten=False)
+                output = self.layers[i](
+                    output,
+                    src_mask=mask,
+                    src_key_padding_mask=src_key_padding_mask,
+                    return_atten=False)
 
         if self.norm:
             output = self.norm(output)
-        if  return_atten:
+        if return_atten:
             return output, atten_probs_list
         return output
 
@@ -204,16 +237,20 @@ class TransformerDecoder(Module):
         >>> tgt = torch.rand(20, 32, 512)
         >>> out = transformer_decoder(tgt, memory)
     """
-
     def __init__(self, decoder_layer, num_layers, norm=None):
         super(TransformerDecoder, self).__init__()
         self.layers = _get_clones(decoder_layer, num_layers)
         self.num_layers = num_layers
         self.norm = norm
 
-    def forward(self, tgt, memory, tgt_mask=None,
-                memory_mask=None, tgt_key_padding_mask=None,
-                memory_key_padding_mask=None, return_atten=False):
+    def forward(self,
+                tgt,
+                memory,
+                tgt_mask=None,
+                memory_mask=None,
+                tgt_key_padding_mask=None,
+                memory_key_padding_mask=None,
+                return_atten=False):
         r"""Pass the inputs (and mask) through the decoder layer in turn.
 
         Args:
@@ -231,18 +268,24 @@ class TransformerDecoder(Module):
         atten_probs_list = []
         for i in range(self.num_layers):
             if return_atten:
-                output, atten_probs_tuple = self.layers[i](output, memory, tgt_mask=tgt_mask,
-                                        memory_mask=memory_mask,
-                                        tgt_key_padding_mask=tgt_key_padding_mask,
-                                        memory_key_padding_mask=memory_key_padding_mask,
-                                        return_atten=True)      
-                atten_probs_list.append(atten_probs_tuple)            
+                output, atten_probs_tuple = self.layers[i](
+                    output,
+                    memory,
+                    tgt_mask=tgt_mask,
+                    memory_mask=memory_mask,
+                    tgt_key_padding_mask=tgt_key_padding_mask,
+                    memory_key_padding_mask=memory_key_padding_mask,
+                    return_atten=True)
+                atten_probs_list.append(atten_probs_tuple)
             else:
-                output = self.layers[i](output, memory, tgt_mask=tgt_mask,
-                                        memory_mask=memory_mask,
-                                        tgt_key_padding_mask=tgt_key_padding_mask,
-                                        memory_key_padding_mask=memory_key_padding_mask,
-                                        return_atten=False)
+                output = self.layers[i](
+                    output,
+                    memory,
+                    tgt_mask=tgt_mask,
+                    memory_mask=memory_mask,
+                    tgt_key_padding_mask=tgt_key_padding_mask,
+                    memory_key_padding_mask=memory_key_padding_mask,
+                    return_atten=False)
 
         if self.norm:
             output = self.norm(output)
@@ -250,6 +293,7 @@ class TransformerDecoder(Module):
         if return_atten:
             return output, atten_probs_list
         return output
+
 
 class TransformerEncoderLayer(Module):
     r"""TransformerEncoderLayer is made up of self-attn and feedforward network.
@@ -271,13 +315,17 @@ class TransformerEncoderLayer(Module):
         >>> src = torch.rand(10, 32, 512)
         >>> out = encoder_layer(src)
     """
-
-    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1, activation="relu"):
+    def __init__(self,
+                 d_model,
+                 nhead,
+                 dim_feedforward=2048,
+                 dropout=0.1,
+                 activation="relu"):
         super(TransformerEncoderLayer, self).__init__()
         self.self_attn = MultiheadAttention(d_model, nhead, dropout=dropout)
         # Implementation of Feedforward model
         if activation == "glu":
-            self.linear1 = Linear(d_model, 2*dim_feedforward)
+            self.linear1 = Linear(d_model, 2 * dim_feedforward)
         else:
             self.linear1 = Linear(d_model, dim_feedforward)
         self.dropout = Dropout(dropout)
@@ -290,7 +338,11 @@ class TransformerEncoderLayer(Module):
 
         self.activation = _get_activation_fn(activation)
 
-    def forward(self, src, src_mask=None, src_key_padding_mask=None, return_atten=False):
+    def forward(self,
+                src,
+                src_mask=None,
+                src_key_padding_mask=None,
+                return_atten=False):
         r"""Pass the input through the encoder layer.
 
         Args:
@@ -301,12 +353,17 @@ class TransformerEncoderLayer(Module):
         Shape:
             see the docs in Transformer class.
         """
-        src2, self_atten_probs = self.self_attn(src, src, src, attn_mask=src_mask,
-                              key_padding_mask=src_key_padding_mask)
+        src2, self_atten_probs = self.self_attn(
+            src,
+            src,
+            src,
+            attn_mask=src_mask,
+            key_padding_mask=src_key_padding_mask)
         src = src + self.dropout1(src2)
         src = self.norm1(src)
         if hasattr(self, "activation"):
-            src2 = self.linear2(self.dropout(self.activation(self.linear1(src))))
+            src2 = self.linear2(
+                self.dropout(self.activation(self.linear1(src))))
         else:  # for backward compatibility
             src2 = self.linear2(self.dropout(F.relu(self.linear1(src))))
         src = src + self.dropout2(src2)
@@ -337,14 +394,20 @@ class TransformerDecoderLayer(Module):
         >>> tgt = torch.rand(20, 32, 512)
         >>> out = decoder_layer(tgt, memory)
     """
-
-    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1, activation="relu"):
+    def __init__(self,
+                 d_model,
+                 nhead,
+                 dim_feedforward=2048,
+                 dropout=0.1,
+                 activation="relu"):
         super(TransformerDecoderLayer, self).__init__()
         self.self_attn = MultiheadAttention(d_model, nhead, dropout=dropout)
-        self.multihead_attn = MultiheadAttention(d_model, nhead, dropout=dropout)
+        self.multihead_attn = MultiheadAttention(d_model,
+                                                 nhead,
+                                                 dropout=dropout)
         # Implementation of Feedforward model
         if activation == "glu":
-            self.linear1 = Linear(d_model, 2*dim_feedforward)
+            self.linear1 = Linear(d_model, 2 * dim_feedforward)
         else:
             self.linear1 = Linear(d_model, dim_feedforward)
         self.dropout = Dropout(dropout)
@@ -359,8 +422,14 @@ class TransformerDecoderLayer(Module):
 
         self.activation = _get_activation_fn(activation)
 
-    def forward(self, tgt, memory, tgt_mask=None, memory_mask=None,
-                tgt_key_padding_mask=None, memory_key_padding_mask=None, return_atten=False):
+    def forward(self,
+                tgt,
+                memory,
+                tgt_mask=None,
+                memory_mask=None,
+                tgt_key_padding_mask=None,
+                memory_key_padding_mask=None,
+                return_atten=False):
         r"""Pass the inputs (and mask) through the decoder layer.
 
         Args:
@@ -374,16 +443,25 @@ class TransformerDecoderLayer(Module):
         Shape:
             see the docs in Transformer class.
         """
-        tgt2, self_atten_probs = self.self_attn(tgt, tgt, tgt, attn_mask=tgt_mask,
-                              key_padding_mask=tgt_key_padding_mask)
+        tgt2, self_atten_probs = self.self_attn(
+            tgt,
+            tgt,
+            tgt,
+            attn_mask=tgt_mask,
+            key_padding_mask=tgt_key_padding_mask)
         tgt = tgt + self.dropout1(tgt2)
         tgt = self.norm1(tgt)
-        tgt2, enc_dec_atten_probs = self.multihead_attn(tgt, memory, memory, attn_mask=memory_mask,
-                                   key_padding_mask=memory_key_padding_mask)
+        tgt2, enc_dec_atten_probs = self.multihead_attn(
+            tgt,
+            memory,
+            memory,
+            attn_mask=memory_mask,
+            key_padding_mask=memory_key_padding_mask)
         tgt = tgt + self.dropout2(tgt2)
         tgt = self.norm2(tgt)
         if hasattr(self, "activation"):
-            tgt2 = self.linear2(self.dropout(self.activation(self.linear1(tgt))))
+            tgt2 = self.linear2(
+                self.dropout(self.activation(self.linear1(tgt))))
         else:  # for backward compatibility
             tgt2 = self.linear2(self.dropout(F.relu(self.linear1(tgt))))
         tgt = tgt + self.dropout3(tgt2)
@@ -405,4 +483,5 @@ def _get_activation_fn(activation):
     elif activation == "glu":
         return F.glu
     else:
-        raise RuntimeError("activation should be relu/gelu, not %s." % activation)
+        raise RuntimeError("activation should be relu/gelu, not %s." %
+                           activation)

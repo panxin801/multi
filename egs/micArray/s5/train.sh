@@ -8,16 +8,14 @@ if [ $# != 0 ]; then
     sys_tag=$1
 fi
 
-
 if [ "$sys_tag" == "base" ]; then
-
-echo "Training a baseline transformer ASR system..."
-python $MAIN_ROOT/src/train.py --config config/config_base_server.yaml --continue-training False 2>&1 | tee logs/base.log 
+    echo "Training a baseline transformer ASR system..."
+    python $MAIN_ROOT/src/train.py --config config/config_base_server.yaml --continue-training False 2>&1 | tee logs/base.log
 
 elif [ "$sys_tag" == "lm" ]; then
-    cat data/train/text | cut -d" " -f2- > exp/train_text
-    cat data/dev/text | cut -d" " -f2- > exp/dev_text
-    python $MAIN_ROOT/src/lm_train.py --config config_lm_lstm.yaml 2>&1 | tee base.log 
+    cat data/train/text | cut -d" " -f2- >exp/train_text
+    cat data/dev/text | cut -d" " -f2- >exp/dev_text
+    python $MAIN_ROOT/src/lm_train.py --config config_lm_lstm.yaml 2>&1 | tee base.log
 
 elif [ "$sys_tag" == "lst" ]; then
     echo "TODO"

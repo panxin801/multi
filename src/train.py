@@ -13,12 +13,14 @@ else:
 if LOG_LEVEL == "DEBUG":
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format=
+        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 else:
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format=
+        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 
 import utils
@@ -78,7 +80,7 @@ if __name__ == "__main__":
                                             trainingconfig["batch_time"] *
                                             ngpu,
                                             ngpu,
-                                            shuffle=False) # True
+                                            shuffle=False)  # True
     validsampler = data.TimeBasedSampler(
         valid_set, trainingconfig["batch_time"] * ngpu, ngpu,
         shuffle=False)  # for plot longer utterance

@@ -19,9 +19,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchaudio.compliance.kaldi as kaldi
 from third_party import kaldi_signal as ksp
 import utils
 from complexCNN import ComplexConv as CConv
+
 
 class SPLayer(nn.Module):
     def __init__(self, config, channels):
@@ -53,26 +55,51 @@ class SPLayer(nn.Module):
         elif self.feature_type == "fbank":
 
             def feature_func(waveform):
-                return ksp.fbank(waveform,
-                                 sample_frequency=self.sample_rate,
-                                 use_energy=self.use_energy,
-                                 num_mel_bins=self.num_mel_bins)
-        elif self.feature_type == "mfcc":
-
-            def feature_func(waveform):
-                return ksp.mfcc(waveform,
-                                sample_frequency=self.sample_rate,
-                                use_energy=self.use_energy,
-                                num_mel_bins=self.num_mel_bins)
-        elif self.feature_type == "complex":
-
-            def feature_func(waveform):
-                return ksp.complex(waveform,
+                return kaldi.fbank(waveform,
                                    sample_frequency=self.sample_rate,
                                    use_energy=self.use_energy,
                                    num_mel_bins=self.num_mel_bins)
+        elif self.feature_type == "mfcc":
+
+            def feature_func(waveform):
+                return kaldi.mfcc(waveform,
+                                  sample_frequency=self.sample_rate,
+                                  use_energy=self.use_energy,
+                                  num_mel_bins=self.num_mel_bins)
+        elif self.feature_type == "complex":
+
+            def feature_func(waveform):
+                return utils.complex(waveform,
+                                     sample_frequency=self.sample_rate,
+                                     use_energy=self.use_energy,
+                                     num_mel_bins=self.num_mel_bins)
         else:
-            raise ValueError("Unknown feature type.")
+            raise ValueError("unknown feature type.")
+
+        # the following lines are based on kaldi_signal
+        # elif self.feature_type == "fbank":
+
+        #     def feature_func(waveform):
+        #         return ksp.fbank(waveform,
+        #                          sample_frequency=self.sample_rate,
+        #                          use_energy=self.use_energy,
+        #                          num_mel_bins=self.num_mel_bins)
+        # elif self.feature_type == "mfcc":
+
+        #     def feature_func(waveform):
+        #         return ksp.mfcc(waveform,
+        #                         sample_frequency=self.sample_rate,
+        #                         use_energy=self.use_energy,
+        #                         num_mel_bins=self.num_mel_bins)
+        # elif self.feature_type == "complex":
+
+        #     def feature_func(waveform):
+        #         return ksp.complex(waveform,
+        #                            sample_frequency=self.sample_rate,
+        #                            use_energy=self.use_energy,
+        #                            num_mel_bins=self.num_mel_bins)
+        # else:
+        #     raise ValueError("Unknown feature type.")
         self.func = feature_func
         self.CConv = CConv(self.channels,
                            self.channels, (3, 5),
@@ -143,7 +170,7 @@ class SPLayer(nn.Module):
         retCC = self.CConv(padded_features)
         retCC = self.CConv(retCC)
         padded_features = self.LastCConv(retCC)
-        # New added line seems dim mismatch. 
+        # New added line seems dim mismatch.
         # Bug: Expected 4-dimensional input for 4-dimensional weight [1, 2, 1, 1], but got 3-dimensional input of size [2, 2818, 257] instead
         padded_features = padded_features.squeeze(2)
         #if 3 == padded_features.dim():
