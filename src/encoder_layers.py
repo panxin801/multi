@@ -30,13 +30,14 @@ class Conv1dSubsample(torch.nn.Module):
     def __init__(self, input_dim, d_model, context_width, subsample):
         super(Conv1dSubsample, self).__init__()
 
+        self.subsample = subsample
+        self.context_width = context_width
+
         self.conv = nn.Conv1d(input_dim,
                               d_model,
                               context_width,
                               stride=self.subsample)
         self.conv_norm = LayerNorm(self.d_model)
-        self.subsample = subsample
-        self.context_width = context_width
 
     def forward(self, feats, feat_lengths):
         outputs = self.conv(feats.permute(0, 2, 1))

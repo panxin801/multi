@@ -15,11 +15,9 @@ limitations under the License.
 """
 
 import logging
-import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn import init
 from torch.nn.modules.normalization import LayerNorm
 
 from third_party import transformer
@@ -28,6 +26,9 @@ import modules
 
 
 class TransformerDecoder(nn.Module):
+    r"""
+    Top class of TransformerDecoder
+    """
     def __init__(self, config):
         super(TransformerDecoder, self).__init__()
         self.config = config
@@ -65,6 +66,11 @@ class TransformerDecoder(nn.Module):
                 decoder_inputs,
                 decoder_input_lengths,
                 return_atten=False):
+        r"""
+        Forward function of transformer decoder layer. 
+        encoder_outputs is from last encoder layer and will be used as K,V as in multihead attention
+        decoder_inputs now is seems as target id or A.K.A labels which are texts, and will be used as Q.
+        """
 
         B, T_e, D_e = encoder_outputs.shape
         encoder_outputs = encoder_outputs.permute(1, 0, 2)  # [S, B, D_e]

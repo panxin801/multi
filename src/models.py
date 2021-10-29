@@ -90,15 +90,11 @@ class Model(torch.nn.Module):
     def _compute_wers(self, hyps, labels):
         raise NotImplementedError()
 
-    def _sample_nbest(
-        self,
-        encoder_output,
-        encoder_output_lengths,
-        nbest_keep=4,
-    ):
+    def _sample_nbest(self, encoder_output, encoder_output_lengths, nbest_keep,
+                      sosid, maxlen):
+        raise NotImplementedError()
         self._beam_search(encoder_outputs, encoder_output_lengths, nbest_keep,
                           sosid, maxlen)
-        raise NotImplementedError()
 
     def _compute_mwer_loss(self):
         raise NotImplementedError()

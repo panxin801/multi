@@ -17,8 +17,10 @@ limitations under the License.
 import logging
 import torch
 import torch.nn as nn
-from third_party import kaldi_signal as ksp
+import torchaudio.compliance.kaldi as kaldi
+
 from complexCNN import ComplexConv as CConv
+import utils
 
 
 class SPLayer(nn.Module):
@@ -51,26 +53,27 @@ class SPLayer(nn.Module):
         elif self.feature_type == "fbank":
 
             def feature_func(waveform):
-                return ksp.fbank(waveform,
-                                 sample_frequency=self.sample_rate,
-                                 use_energy=self.use_energy,
-                                 num_mel_bins=self.num_mel_bins)
-        elif self.feature_type == "mfcc":
-
-            def feature_func(waveform):
-                return ksp.mfcc(waveform,
-                                sample_frequency=self.sample_rate,
-                                use_energy=self.use_energy,
-                                num_mel_bins=self.num_mel_bins)
-        elif self.feature_type == "complex":
-
-            def feature_func(waveform):
-                return ksp.complex(waveform,
+                return kaldi.fbank(waveform,
                                    sample_frequency=self.sample_rate,
                                    use_energy=self.use_energy,
                                    num_mel_bins=self.num_mel_bins)
+        elif self.feature_type == "mfcc":
+
+            def feature_func(waveform):
+                return kaldi.mfcc(waveform,
+                                  sample_frequency=self.sample_rate,
+                                  use_energy=self.use_energy,
+                                  num_mel_bins=self.num_mel_bins)
+        elif self.feature_type == "complex":
+
+            def feature_func(waveform):
+                return utils.complex(waveform,
+                                     sample_frequency=self.sample_rate,
+                                     use_energy=self.use_energy,
+                                     num_mel_bins=self.num_mel_bins)
         else:
-            raise ValueError("Unknown feature type.")
+            raise ValueError("unknown feature type.")
+
         self.func = feature_func
         self.CConv = CConv(self.channels,
                            self.channels, (3, 5),

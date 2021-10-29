@@ -107,7 +107,8 @@ class SpeechDataset(data.Dataset):
             data = json.load(f)
         self.data = sorted(data, key=lambda x: float(x["duration"]))
         if reverse:
-            self.data.reverse() # data is a list and reverse() will directly change value in data and not return a new value, so if you type self.data.reverse() it will print "None"
+            self.data.reverse(
+            )  # data is a list and reverse() will directly change value in data and not return a new value, so if you type self.data.reverse() it will print "None"
 
     def __getitem__(self, index):
         return self.data[index]
@@ -191,7 +192,7 @@ def load_wave_batch(paths, channels):
     # The following needs some changing
     padded_waveforms = torch.zeros(len(lengths), channels, max_length)
     for i in range(len(lengths)):
-        padded_waveforms[i,:,:lengths[i]] += waveforms[i]
+        padded_waveforms[i, :, :lengths[i]] += waveforms[i]
     return padded_waveforms, torch.LongTensor(lengths)
 
 
@@ -279,7 +280,7 @@ class FeatureCollate(object):
 def kaldi_wav_collate(batch):
     utts = [d[0] for d in batch]
     paths = [d[1] for d in batch]
-    padded_data, lengths = load_wave_batch(paths,16)
+    padded_data, lengths = load_wave_batch(paths, 16)
     return utts, padded_data, lengths
 
 

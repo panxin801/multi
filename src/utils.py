@@ -1,14 +1,20 @@
+'''
+Author: Copyright @ Xin Pan
+
+'''
+
 import argparse
 import os
 import io
 import logging
 import subprocess
 import time
-import math
 import numpy as np
 import torch
 import torch.nn as nn
+import torchaudio.compliance.kaldi as kaldi
 from scipy.io import wavfile
+
 from third_party import kaldi_io as kio
 
 TENSORBOARD_LOGGING = 0
@@ -177,8 +183,6 @@ def get_transformer_casual_masks(T):
 # visualization
 # ==========================================
 if TENSORBOARD_LOGGING == 1:
-    import logging
-
     mpl_logger = logging.getLogger("matplotlib")
     mpl_logger.setLevel(logging.WARNING)
 
@@ -218,3 +222,53 @@ if TENSORBOARD_LOGGING == 1:
             self.writer.close()
 
     visualizer = Visualizer()
+
+
+# ==========================================
+# extract complex-fft feature
+# ==========================================
+def complex(waveform,
+            blackman_coeff=0.42,
+            channel=-1,
+            dither=1.0,
+            energy_floor=0.0,
+            frame_length=25.0,
+            frame_shift=10.0,
+            high_freq=0.0,
+            htk_compat=False,
+            low_freq=20.0,
+            min_duration=0.0,
+            num_mel_bins=23,
+            preemphasis_coefficient=0.97,
+            raw_energy=True,
+            remove_dc_offset=True,
+            round_to_power_of_two=True,
+            sample_frequency=16000.0,
+            snip_edges=True,
+            subtract_mean=False,
+            use_energy=False,
+            use_log_fbank=True,
+            use_power=True,
+            vtln_high=-500.0,
+            vtln_low=100.0,
+            vtln_warp=1.0,
+            window_type=kaldi.POVEY):
+    waveform, window_shift, window_size, padded_window_size = kaldi._get_waveform_and_window_properties(
+        waveform, channel, sample_frequency, frame_shift, frame_length,
+        round_to_power_of_two, preemphasis_coefficient)
+
+    if len(waveform) < min_duration * sample_frequency:
+        # signal is too short
+        return torch.empty(0)
+
+    # strided_input, size (m, padded_window_size) and signal_log_energy, size (m)
+    strided_input, signal_log_energy = kaldi._get_window(
+        waveform, padded_window_size, window_size, window_shift, window_type,
+        blackman_coeff, snip_edges, raw_energy, energy_floor, dither,
+        remove_dc_offset, preemphasis_coefficient)
+
+    # size (m, padded_window_size // 2 + 1, 2)
+    fft = torch.rfft(strided_input, 1, normalized=False, onesided=True)
+    # fft = fft.permute(2, 0, 1)
+
+    return fft
