@@ -8,7 +8,6 @@ import math
 import numpy as np
 import torch
 import torch.nn as nn
-# from third_party import wavfile
 from scipy.io import wavfile
 from third_party import kaldi_io as kio
 
@@ -72,7 +71,7 @@ def load_wave(path, channels):
         datas = []
         for id in range(channels):
             readName = "%s_%02d%s" % (basename, id, ext)
-            sample_rate, data = wavfile.read(path)
+            sample_rate, data = wavfile.read(readName)
             datas.append(data)
     # elif tag == "pipe":
     #     path = path[:-1]
@@ -104,7 +103,7 @@ def load_feat(path):
 
 def parse_scp(fn):
     dic = {}
-    with open(fn, "r") as f:
+    with open(fn, "r", encoding="utf8") as f:
         cnt = 0
         for line in f:
             cnt += 1

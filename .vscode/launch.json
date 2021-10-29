@@ -11,8 +11,10 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                "--tag",
-                "file",
+                "--config",
+                "D:\\multiASR\\egs\\micArray\\s5\\config\\config_base_laptop.yaml",
+                "--continue-training",
+                "False"
             ]
         }
     ]

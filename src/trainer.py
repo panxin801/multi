@@ -14,14 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import os
-import sys
 import time
 import logging
 import numpy as np
 import torch
 from torch import nn
 from torch.nn.utils import clip_grad_norm_
-import torch.nn.init as init
 import utils
 import schedule
 import metric
@@ -33,9 +31,9 @@ class Trainer(object):
         self.config = config
         self.tr_loader = tr_loader
         self.cv_loader = cv_loader
-        
+
         self.model = model
-        if config["multi_gpu"] == True:
+        if config["multi_gpu"]:
             self.model_to_pack = self.model.module
         else:
             self.model_to_pack = self.model

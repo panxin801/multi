@@ -1,10 +1,8 @@
-import sys
 import os
 import argparse
 import logging
 import yaml
 import torch
-import pdb
 
 if "LAS_LOG_LEVEL" in os.environ:
     LOG_LEVEL = os.environ["LAS_LOG_LEVEL"]
@@ -13,12 +11,14 @@ else:
 if LOG_LEVEL == "DEBUG":
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format=
+        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 else:
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format=
+        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 
 import utils
@@ -72,13 +72,13 @@ if __name__ == "__main__":
                                    dataconfig["channels"])
 
     ngpu = 1
-    if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
+    if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"]:
         ngpu = torch.cuda.device_count()
     trainingsampler = data.TimeBasedSampler(training_set,
                                             trainingconfig["batch_time"] *
                                             ngpu,
                                             ngpu,
-                                            shuffle=False) # True
+                                            shuffle=False)  # True
     validsampler = data.TimeBasedSampler(
         valid_set, trainingconfig["batch_time"] * ngpu, ngpu,
         shuffle=False)  # for plot longer utterance
@@ -127,7 +127,6 @@ if __name__ == "__main__":
         pkg = torch.load(
             os.path.join(trainingconfig["exp_dir"], "last-ckpt.pt"))
         model.restore(pkg["model"])
-    #pdb.set_trace()
     if "multi_gpu" in trainingconfig and trainingconfig["multi_gpu"] == True:
         logging.info("Let's use {} GPUs!".format(ngpu))
         gpu_ids = [int(i) for i in range(ngpu)]

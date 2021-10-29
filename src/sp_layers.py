@@ -15,13 +15,11 @@ limitations under the License.
 """
 
 import logging
-import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from third_party import kaldi_signal as ksp
-import utils
 from complexCNN import ComplexConv as CConv
+
 
 class SPLayer(nn.Module):
     def __init__(self, config, channels):
@@ -143,7 +141,7 @@ class SPLayer(nn.Module):
         retCC = self.CConv(padded_features)
         retCC = self.CConv(retCC)
         padded_features = self.LastCConv(retCC)
-        # New added line seems dim mismatch. 
+        # New added line seems dim mismatch.
         # Bug: Expected 4-dimensional input for 4-dimensional weight [1, 2, 1, 1], but got 3-dimensional input of size [2, 2818, 257] instead
         padded_features = padded_features.squeeze(2)
         #if 3 == padded_features.dim():
