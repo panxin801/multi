@@ -222,6 +222,7 @@ class Trainer(object):
             try:
                 data = next(loader_iter)
                 niter += 1
+                print("iter={}/{} ".format(niter,tot_iter_num))
             except StopIteration:
                 break
             (utts, padded_waveforms, wave_lengths, ids, labels,
@@ -232,7 +233,6 @@ class Trainer(object):
                                            wave_lengths.cuda(), ids.cuda(),
                                            labels.cuda(), paddings.cuda())
             else:
-                #print(utts)
                 this_loss = self.model(padded_waveforms.cuda(),
                                        wave_lengths.cuda(),
                                        ids.cuda(),

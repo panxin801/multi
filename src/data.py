@@ -186,6 +186,9 @@ def load_wave_batch(paths, channels):
         waveform = torch.from_numpy(waveform)
         waveforms.append(waveform)
         lengths.append(waveform.shape[1])
+    print(paths)
+    print(len(waveforms))
+    print(len(lengths))
     # following parts need some changing
     # waveforms = np.array(waveforms, dtype=np.float32)
     max_length = max(lengths)

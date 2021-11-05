@@ -121,7 +121,7 @@ class SPLayer(nn.Module):
             for i in range(batch_size):
                 featureLi = []
                 for chn in range(self.channels):
-                    feature = self.func(wav_batch[i, chn])
+                    feature = self.func(wav_batch[i, chn].view(1,-1))
                     feature = feature.unsqueeze(0).permute(3, 0, 1, 2)
                     featureLi.append(feature)
                 feature_lengths.append(feature.shape[2])
@@ -131,9 +131,9 @@ class SPLayer(nn.Module):
             max_length = max(feature_lengths)
             padded_features = torch.zeros(batch_size, 2, self.channels,
                                           max_length,
-                                          feature.shape[-1]).to(feature.device)
+                                          feature.shape[-1]).cuda()
             for i in range(batch_size):
-                padded_features[i, :] += features[i]
+                padded_features[i, :] += features[i].cuda()
         else:
             padded_features = torch.tensor(wav_batch)
             feature_lengths = lengths
