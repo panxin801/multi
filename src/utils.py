@@ -75,7 +75,7 @@ def load_wave(path, channels):
     if tag == "file":
         basename, ext = os.path.splitext(path)
         datas = []
-        if channels>1:
+        if channels > 1:
             basename = basename.rsplit("_", 1)[0]
             for id in range(channels):
                 readName = "%s_%02d%s" % (basename, id, ext)
@@ -235,7 +235,7 @@ if TENSORBOARD_LOGGING == 1:
 # ==========================================
 def complex(waveform: torch.Tensor,
             blackman_coeff=0.42,
-            channel: int =-1,
+            channel: int = -1,
             dither=1.0,
             energy_floor=0.0,
             frame_length=25.0,
@@ -266,7 +266,7 @@ def complex(waveform: torch.Tensor,
     if len(waveform) < min_duration * sample_frequency:
         # signal is too short
         return torch.empty(0)
-    
+
     # strided_input, size (m, padded_window_size) and signal_log_energy, size (m)
     strided_input, signal_log_energy = kaldi._get_window(
         waveform, padded_window_size, window_size, window_shift, window_type,
@@ -274,7 +274,8 @@ def complex(waveform: torch.Tensor,
         remove_dc_offset, preemphasis_coefficient)
 
     # size (m, padded_window_size // 2 + 1, 2)
-    fft = torch.rfft(strided_input, 1, normalized=False, onesided=True).to(waveform.device)
+    fft = torch.rfft(strided_input, 1, normalized=False,
+                     onesided=True).to(waveform.device)
     # fft = fft.permute(2, 0, 1)
 
     return fft

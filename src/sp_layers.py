@@ -121,7 +121,7 @@ class SPLayer(nn.Module):
             for i in range(batch_size):
                 featureLi = []
                 for chn in range(self.channels):
-                    feature = self.func(wav_batch[i, chn].view(1,-1))
+                    feature = self.func(wav_batch[i, chn].view(1, -1))
                     feature = feature.unsqueeze(0).permute(3, 0, 1, 2)
                     featureLi.append(feature)
                 feature_lengths.append(feature.shape[2])

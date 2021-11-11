@@ -222,7 +222,6 @@ class Trainer(object):
             try:
                 data = next(loader_iter)
                 niter += 1
-                print("iter={}/{} ".format(niter,tot_iter_num))
             except StopIteration:
                 break
             (utts, padded_waveforms, wave_lengths, ids, labels,

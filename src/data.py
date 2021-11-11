@@ -32,7 +32,7 @@ UNK_SYM = "<unk>"
 SPECIAL_SYM_SET = {SOS_SYM, EOS_SYM, UNK_SYM}
 
 
-class CharTokenizer(object):
+class CharTokenizer():
     def __init__(self, fn_vocab):
         with open(fn_vocab, 'r', encoding="utf-8") as f:
             units = f.read().strip().split('\n')
@@ -186,9 +186,6 @@ def load_wave_batch(paths, channels):
         waveform = torch.from_numpy(waveform)
         waveforms.append(waveform)
         lengths.append(waveform.shape[1])
-    print(paths)
-    print(len(waveforms))
-    print(len(lengths))
     # following parts need some changing
     # waveforms = np.array(waveforms, dtype=np.float32)
     max_length = max(lengths)
