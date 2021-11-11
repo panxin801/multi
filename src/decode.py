@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     logging.info("Load package from {}.".format(args.model_pkg))
     pkg = torch.load(args.model_pkg, map_location=lambda storage, loc: storage)
-    splayer = sp_layers.SPLayer(pkg["model"]["splayer_config"], 16)
+    splayer = sp_layers.SPLayer(pkg["model"]["splayer_config"], 1)
     encoder = encoder_layers.Transformer(pkg["model"]["encoder_config"])
     decoder = decoder_layers.TransformerDecoder(pkg["model"]["decoder_config"])
 
