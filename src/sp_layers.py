@@ -21,7 +21,7 @@ import torchaudio.compliance.kaldi as kaldi
 
 from complexCNN import ComplexConv as CConv
 import utils
-
+import pdb
 
 class SPLayer(nn.Module):
     def __init__(self, config, channels):
@@ -118,6 +118,7 @@ class SPLayer(nn.Module):
         if self.func is not None:
             features = []
             feature_lengths = []
+            pdb.set_trace()
             for i in range(batch_size):
                 featureLi = []
                 for chn in range(self.channels):

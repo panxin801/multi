@@ -278,7 +278,7 @@ class FeatureCollate(object):
 def kaldi_wav_collate(batch):
     utts = [d[0] for d in batch]
     paths = [d[1] for d in batch]
-    padded_data, lengths = load_wave_batch(paths, 16)
+    padded_data, lengths = load_wave_batch(paths, 1)
     return utts, padded_data, lengths
 
 
