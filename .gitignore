@@ -1,4 +1,6 @@
 # ignore dirs
 exp/
 data/
+data_aishell1/
+data_multi/
 logs/
