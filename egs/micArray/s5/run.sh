@@ -1,6 +1,6 @@
 #!/bin/bash
 
-start_stage=0
+start_stage=1
 end_stage=1
 
 if [ ${start_stage} -le 0 ]  && [ ${end_stage} -ge 0 ]; then

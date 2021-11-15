@@ -114,46 +114,76 @@ class SPLayer(nn.Module):
         return padded_features, feature_lengths
 
     def forward(self, wav_batch, lengths):
-        batch_size, batch_length = wav_batch.shape[0], wav_batch.shape[2]
-        if self.func is not None:
-            features = []
-            feature_lengths = []
-            for i in range(batch_size):
-                featureLi = []
-                for chn in range(self.channels):
-                    feature = self.func(wav_batch[i, chn].view(1, -1))
-                    feature = feature.unsqueeze(0).permute(3, 0, 1, 2)
-                    featureLi.append(feature)
-                feature_lengths.append(feature.shape[2])
-                features.append(torch.cat([ch for ch in featureLi], 1))
+        if self.feature_type == "complex":
+            batch_size, batch_length = wav_batch.shape[0], wav_batch.shape[2]
+            if self.func is not None:
+                features = []
+                feature_lengths = []
+                for i in range(batch_size):
+                    featureLi = []
+                    for chn in range(self.channels):
+                        feature = self.func(wav_batch[i, chn].view(1, -1))
+                        feature = feature.unsqueeze(0).permute(3, 0, 1, 2)
+                        featureLi.append(feature)
+                    feature_lengths.append(feature.shape[2])
+                    features.append(torch.cat([ch for ch in featureLi], 1))
 
-            # pad to max_length
-            max_length = max(feature_lengths)
-            padded_features = torch.zeros(batch_size, 2, self.channels,
-                                          max_length,
-                                          feature.shape[-1]).cuda()
-            for i in range(batch_size):
-                padded_features[i, :] += features[i].cuda()
-        else:
-            padded_features = torch.tensor(wav_batch)
-            feature_lengths = lengths
+                # pad to max_length
+                max_length = max(feature_lengths)
+                padded_features = torch.zeros(batch_size, 2, self.channels,
+                                              max_length,
+                                              feature.shape[-1]).cuda()
+                for i in range(batch_size):
+                    padded_features[i, :] += features[i].cuda()
+            else:
+                padded_features = torch.tensor(wav_batch)
+                feature_lengths = lengths
 
-        feature_lengths = torch.tensor(feature_lengths).long().to(
-            padded_features.device)
+            feature_lengths = torch.tensor(feature_lengths).long().to(
+                padded_features.device)
 
-        retCC = self.CConv(padded_features)
-        retCC = self.CConv(retCC)
-        padded_features = self.LastCConv(retCC)
-        # New added line seems dim mismatch.
-        # Bug: Expected 4-dimensional input for 4-dimensional weight [1, 2, 1, 1], but got 3-dimensional input of size [2, 2818, 257] instead
-        padded_features = padded_features.squeeze(2)
-        #if 3 == padded_features.dim():
-        #    padded_features = padded_features.unsqueeze(0)
-        padded_features = self.LastConv(padded_features).squeeze(1)
-        # seems like [25,736,257]
+            retCC = self.CConv(padded_features)
+            retCC = self.CConv(retCC)
+            padded_features = self.LastCConv(retCC)
+            # New added line seems dim mismatch.
+            # Bug: Expected 4-dimensional input for 4-dimensional weight [1, 2, 1, 1], but got 3-dimensional input of size [2, 2818, 257] instead
+            padded_features = padded_features.squeeze(2)
+            #if 3 == padded_features.dim():
+            #    padded_features = padded_features.unsqueeze(0)
+            padded_features = self.LastConv(padded_features).squeeze(1)
+            # seems like [25,736,257]
 
-        # if self.training and self.spec_aug_conf is not None:
-        #     padded_features, feature_lengths = self.spec_aug(
-        #         padded_features, feature_lengths)
+            # if self.training and self.spec_aug_conf is not None:
+            #     padded_features, feature_lengths = self.spec_aug(
+            #         padded_features, feature_lengths)
+
+        else:  # feature is fbank or mfcc
+            batch_size, batch_length = wav_batch.shape[0], wav_batch.shape[1]
+            if self.func is not None:
+                features = []
+                feature_lengths = []
+                for i in range(batch_size):
+                    feature = self.func(wav_batch[i, :lengths[i]].view(1, -1))
+                    features.append(feature)
+                    feature_lengths.append(feature.shape[0])
+
+                # pad to max_length
+                max_length = max(feature_lengths)
+                padded_features = torch.zeros(batch_size, max_length,
+                                              feature.shape[-1]).to(
+                                                  feature.device)
+                for i in range(batch_size):
+                    l = feature_lengths[i]
+                    padded_features[i, :l, :] += features[i]
+            else:
+                padded_features = torch.tensor(wav_batch)
+                feature_lengths = lengths
+
+            feature_lengths = torch.tensor(feature_lengths).long().to(
+                padded_features.device)
+
+            if self.training and self.spec_aug_conf is not None:
+                padded_features, feature_lengths = self.spec_aug(
+                    padded_features, feature_lengths)
 
         return padded_features, feature_lengths

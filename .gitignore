@@ -1,5 +1,7 @@
 # ignore dirs
 exp/
+exp_aishell1/
+exp_multi/
 data/
 data_aishell1/
 data_multi/

@@ -12,7 +12,7 @@ fi
 if [ "$sys_tag" == "base" ]; then
 
 echo "Training a baseline transformer ASR system..."
-python $MAIN_ROOT/src/train.py --config config/config_base_server.yaml --continue-training False 2>&1 | tee logs/base.log 
+python $MAIN_ROOT/src/train.py --config config/config_base_msi.yaml --continue-training False 2>&1 | tee logs/base.log 
 
 elif [ "$sys_tag" == "lm" ]; then
     cat data/train/text | cut -d" " -f2- > exp/train_text
