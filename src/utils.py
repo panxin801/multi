@@ -82,7 +82,7 @@ def load_wave(path, channels):
                 sample_rate, data = wavfile.read(readName)
                 datas.append(data)
         else:
-            readName = "%s%s" % (basename, ext)
+            readName = path
             sample_rate, data = wavfile.read(readName)
             datas.append(data)
     # elif tag == "pipe":

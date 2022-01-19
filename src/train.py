@@ -11,14 +11,12 @@ else:
 if LOG_LEVEL == "DEBUG":
     logging.basicConfig(
         level=logging.DEBUG,
-        format=
-        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 else:
     logging.basicConfig(
         level=logging.INFO,
-        format=
-        '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+        format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
     )
 
 import utils

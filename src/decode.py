@@ -24,22 +24,17 @@ import sys
 import os
 import argparse
 import logging
-import yaml
 import numpy as np
 import torch
 
-# import pdb
-# pdb.set_trace()
-
 logging.basicConfig(
     level=logging.DEBUG,
-    format=
-    '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 
 def get_args():
     parser = argparse.ArgumentParser(description="""
-     Usage: feedforward.py <model_pkg> <wav_scp> <output_path>""")
+     Usage: decode.py <model_pkg> <wav_scp> <output_path>""")
     parser.add_argument("model_pkg", help="path to model package.")
     parser.add_argument("vocab_file", help="path to vocabulary file.")
     parser.add_argument("data_dir", help="data directory")
@@ -137,6 +132,7 @@ if __name__ == "__main__":
         logging.info("Prossesed {} utterances in {:.3f} s".format(
             tot_utt, tot_timer.toc()))
     tot_time = tot_timer.toc()
+    fd.close()
     logging.info("Decoded {} utterances. The time cost is {:.2f} min."
                  " Avg time cost is {:.2f} per utt.".format(
                      tot_utt, tot_time / 60., tot_time / tot_utt))

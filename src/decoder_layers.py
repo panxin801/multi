@@ -29,6 +29,7 @@ class TransformerDecoder(nn.Module):
     r"""
     Top class of TransformerDecoder
     """
+
     def __init__(self, config):
         super(TransformerDecoder, self).__init__()
         self.config = config

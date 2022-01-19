@@ -158,9 +158,9 @@ class TimeBasedSampler(Sampler):
                 batchs.append(batch)
                 batch = []
                 batch_dur = 0.
-        if batch: # Last batch 
+        if batch:  # Last batch
             b = len(batch)
-            if b // ngpu != 0: # batch data can arrange into gpus
+            if b // ngpu != 0:  # batch data can arrange into gpus
                 batchs.append(batch[:b//ngpu * ngpu])
         self.batchs = batchs
 

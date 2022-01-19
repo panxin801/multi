@@ -32,7 +32,7 @@ class MetricSummarizer(object):
             "display": display,
             "visual": visual,
             "optim": optim,
-        })
+        })metric_names
 
     def reset_metrics(self):
         del self.metrics

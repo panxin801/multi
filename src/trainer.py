@@ -234,9 +234,6 @@ class Trainer(object):
             else:
                 this_loss = self.model(padded_waveforms.cuda(),
                                        wave_lengths.cuda(),
-                                       ids.cuda(),
-                                       labels.cuda(),
-                                       paddings.cuda(),
                                        label_smooth=self.label_smooth,
                                        lst_w=self.lst_w,
                                        lst_t=self.lst_t)
@@ -271,7 +268,7 @@ class Trainer(object):
                 loss.backward()
                 n_accu_batch -= 1
                 if n_accu_batch == 0 or niter == tot_iter_num:
-                    self.step += 1  # to be consistant with metric
+                    self.step += 1  # to be consistant with metricdevice
                     grad_norm = clip_grad_norm_(self.model.parameters(),
                                                 self.grad_max_norm)
                     self.lr_scheduler.step()  # then, update learning rate
@@ -534,7 +531,7 @@ class LmTrainer(object):
             loader = self.tr_loader
             self.model.train()
 
-        timer = utils.Timer()
+        timer = utils.Timer()time
         timer.tic()
         tot_loss = 0.
         tot_token = 0
