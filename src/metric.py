@@ -13,14 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
+import logging
 import torch
-import torch.nn as nn
 
 import utils
 
 
-class MetricSummarizer(object):
+class MetricSummarizer():
     def __init__(self):
         self.metrics = {}  # name: (loss, weight)
         self.metric_names = []
@@ -32,7 +31,7 @@ class MetricSummarizer(object):
             "display": display,
             "visual": visual,
             "optim": optim,
-        })metric_names
+        })
 
     def reset_metrics(self):
         del self.metrics
@@ -74,11 +73,10 @@ class MetricSummarizer(object):
         for item in self.metric_names:
             if item[use] == True:
                 if item["name"] not in self.summarized:
-                    logging.warn(
-                        "{} is not summarized. Skip it.".format(item["name"]))
+                    logging.warn("{} is not summarized. Skip it.".format(
+                        item["name"]))
                     continue
-                fetched.append(
-                    (item["name"], self.summarized[item["name"]]))
+                fetched.append((item["name"], self.summarized[item["name"]]))
         return fetched
 
     def display_msg(self, fetched, max_item_one_line=3):
